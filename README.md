@@ -1,62 +1,104 @@
 # ReportLint
 
-ReportLint checks a Word report against a teacher-reviewed format template. It identifies formatting and section issues; it does not grade writing, detect plagiarism, or automatically rewrite a report.
+ReportLint compares a Word report with formatting rules from a teacher's Word template. The project contains a Python/FastAPI checking engine, a responsive mobile web app, and a native Android client. The Android client calls the Python server; it does not perform document analysis on the phone.
 
-## Use it
+## What you need
 
-1. Open **Templates**, upload a teacher's `.docx` format, and review the proposed rules.
-2. Correct values, choose severity, and remove incorrect required sections. Publish the template.
-3. Open **Check**, choose the published template, and upload the student's `.docx` report.
-4. Read the score and specific issues. **Not checked** means no applicable checks ran in that category.
+- Git and Python **3.10 or newer**. Check with `git --version` and `python --version` (or `python3 --version`).
+- Internet access for the first installation of Python packages.
+- A browser for the web app. For the native app, use an Android 8.0+ device or emulator and keep the Python server running.
 
-## Run the backend and web app
+The GitHub repository is private, so Git may ask you to sign in to your GitHub account during `git clone`.
 
-Python 3.10+ is required. From the project directory:
+The demo DOCX files are already in `demo/`. LibreOffice is **not required** for the normal upload and check workflow. It is needed only for the optional pagination tests; pagination is not part of the app's check screen.
+
+## Clone and run on Windows PowerShell
+
+Open PowerShell in a directory where you want the project, then run:
 
 ```powershell
+git clone https://github.com/Shushant-Kharate/reportlint.git
+cd reportlint
 python -m venv .venv
-.venv\Scripts\python -m pip install -e ".[test]"
-.venv\Scripts\python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-On macOS/Linux, use `.venv/bin/python` instead. Open http://localhost:8000/app/.
+Open **http://127.0.0.1:8000/app/** in your browser. Keep that terminal running while using the app; press **Ctrl+C** to stop it. These commands call the virtual environment's Python directly, so PowerShell script activation is unnecessary. If your computer uses the Windows Python launcher, replace the first `python` with `py -3`.
 
-The web app has a responsive mobile layout and a home-screen install manifest. Installation requires HTTPS (or localhost on the development computer). A phone on the same Wi-Fi can use `http://YOUR-COMPUTER-IP:8000/app/` in its browser; use HTTPS for an installable hosted version. The app shell can load offline, but templates, uploads, and checks require the server.
-
-## Native Android app
-
-See [android/README.md](android/README.md). GitHub Actions builds a debug APK and runs Android lint. Download `ReportLint-debug-apk` from a successful Actions run. The native app also requires a running backend; the APK does not contain the Python engine.
-
-## Data and deployment
-
-- Templates persist in `storage/templates/`, configurable with `REPORTLINT_STORAGE_DIR`.
-- Incoming files are limited to 20 MB. Temporary document files are removed after parsing, including error paths. Original report files and results are not retained.
-- JSON writes are atomic, filenames are validated, XML external entities are disabled, and ZIP expansion is bounded.
-- This remains a single-user/trusted-network tool with no accounts or authorization. Do not expose it as a public multi-user service without adding authentication, per-user storage and appropriate upload/request limits at the reverse proxy.
-- Draft templates can be checked through the API for teacher previews. Student-facing screens only list published templates. Saving changed rules returns a template to draft; publishing from the UI saves edits first.
-
-## Engine coverage
-
-Implemented: font family/size, bold/italic, paragraph alignment, multiple/exact line spacing, before/after spacing, first-line indentation, page size and margins across document sections, required section presence and ordering. Body rules include short non-heading paragraphs.
-
-The score averages only categories with actual checks, renormalizing their weights. Errors carry a full penalty; warnings carry 0.4. No applicable checks gives a numeric API score of zero and **Not scored** in the UI. Unknown formatting is not counted as passed. Typography occurrence counts represent text runs, not unique paragraphs.
-
-Still limited: theme-font resolution, complete OOXML toggle semantics, table-cell typography, table-based contents extraction, complex numbering, nested structure requirements, and figures/captions/header/footer checks. Heuristic heading recognition is conservative; use real Word heading styles for custom section names. The teacher must review inferred rules. Pagination is optional, requires LibreOffice and PyMuPDF, and is not integrated into the checking API; page numbers are not claimed.
-
-## Tests
+On later starts, you only need:
 
 ```powershell
-.venv\Scripts\python -m pytest tests -q
+cd reportlint
+.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Optional renderer tests skip when `soffice` is unavailable. See [docs/REVIEW.md](docs/REVIEW.md) for the changes and verification record.
+## Clone and run on macOS or Linux
 
-## Layout
+```bash
+git clone https://github.com/Shushant-Kharate/reportlint.git
+cd reportlint
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
 
-- `app/ooxml`: DOCX parsing and inherited styles
-- `app/rules`: template rule inference and section matching
-- `app/compliance`: validators and scoring
-- `app/api_routes.py`: template/review/check endpoints
-- `static`: mobile web app and install manifest
-- `android`: Kotlin / Jetpack Compose client
-- `tests`: original fixtures and regression tests
+Open **http://127.0.0.1:8000/app/**. On later starts, run the final command again from the `reportlint` directory. If the `venv` module is missing on a Linux distribution, install its matching Python `venv` package using that distribution's package manager, then rerun `python3 -m venv .venv`.
+
+`requirements.txt` lists the API packages, demo generator, tests and optional pagination Python library, and installs this project in editable mode. The runtime bounds are also declared in `pyproject.toml` for package installation. `pip install -r requirements.txt` is the single installation command for a fresh clone.
+
+## Try the three demo documents
+
+| File | Purpose |
+| --- | --- |
+| `demo/format_template.docx` | Upload this first as the teacher's format. It calls for Times New Roman 12 pt, 1.5 line spacing, 72 pt margins, and four sections. |
+| `demo/correct_report.docx` | Uses the required formatting and all four sections. |
+| `demo/formatting_errors_report.docx` | Deliberately uses Arial 14 pt, single spacing, 50 pt margins, and omits Methods. |
+
+1. In the web app, open **Templates** and select **Add template**. Choose `demo/format_template.docx`, then **Upload & review**.
+2. Review the extracted rules. The demo template should show body font, size, spacing, page layout, and the Introduction, Methods, Results and Conclusion sections. Select **Publish template**.
+3. Open **Check**, choose the published template, select `demo/correct_report.docx`, then **Check report**. Expect **100%**, zero errors, and no violations.
+4. Select `demo/formatting_errors_report.docx` and check again. Expect a lower score (currently **33.8%**) and issues for font, size, line spacing, margins and the missing Methods section.
+
+The sample documents contain fictional text and can be regenerated with:
+
+```powershell
+.venv\Scripts\python.exe scripts/create_demo_files.py
+```
+
+Use `.venv/bin/python scripts/create_demo_files.py` on macOS/Linux. Regeneration overwrites only the three files in `demo/`.
+
+## Run tests
+
+Windows:
+
+```powershell
+.venv\Scripts\python.exe -m pytest tests -q
+```
+
+macOS/Linux:
+
+```bash
+.venv/bin/python -m pytest tests -q
+```
+
+The tests include the full demo upload and comparison through the API. Four pagination tests skip when LibreOffice's `soffice` command is unavailable. Check `http://127.0.0.1:8000/debug/health` if the app does not connect. If port 8000 is busy, change `--port 8000` to another port and use that same port in the browser or Android server settings.
+
+## Use it from a phone
+
+For the **mobile web app**, run the server on your computer with `--host 0.0.0.0 --port 8000`. Put the phone and computer on the same trusted Wi-Fi network and open `http://YOUR-COMPUTER-LAN-IP:8000/app/` on the phone. Allow inbound port 8000 in the computer's firewall if prompted. The phone's `localhost` refers to the phone, so use the computer's LAN address. The web app can be added to the home screen when served over HTTPS, or on localhost on the same device; plain LAN HTTP may not offer installation in every browser. The app shell may open offline, but checking files requires the server.
+
+For the **native Android app**, see [android/README.md](android/README.md). A successful GitHub Actions run publishes a debug APK artifact named `ReportLint-debug-apk`. In **Templates → Server settings**, use `http://10.0.2.2:8000/` for an emulator on the same computer or `http://YOUR-COMPUTER-LAN-IP:8000/` for a real phone. The backend must still be running. The APK is a test build, not a signed Play Store release.
+
+## Where data goes
+
+- The server stores reviewed template rules in `storage/templates/` under the directory where you start it. Set `REPORTLINT_STORAGE_DIR` if you want a different storage location.
+- Uploaded documents are limited to 20 MB and removed after parsing. Reports and check results are not saved.
+- This project is designed for a trusted, single-user environment. It has no login or user separation. Add authentication and HTTPS before exposing it as a public service.
+- A saved edit to a published template returns it to Draft; publish again to make the new rules available. The web app's **Publish template** button saves edited values first.
+
+## What is checked
+
+The engine checks known font properties, paragraph spacing and alignment, page size and margins, required sections and their order. It reports a category as **Not checked** when there was no applicable rule or resolvable data, and only checked categories contribute to the overall score. It checks formatting rather than the quality or originality of the writing.
+
+Some Word documents still need manual rule review: theme fonts, complex style toggle inheritance, table-cell formatting, contents inside tables, captions, headers/footers, and page number estimation are not fully checked. Use real Word heading styles and confirm the proposed rules before publishing. More details are in [docs/REVIEW.md](docs/REVIEW.md) and [docs/VERIFICATION.md](docs/VERIFICATION.md).

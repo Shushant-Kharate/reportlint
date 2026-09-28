@@ -2,7 +2,8 @@
 
 Date: 28 September 2026
 
-- Python: 48 passed, 4 skipped. The skips are optional LibreOffice rendering tests; LibreOffice is not installed on this computer.
+- Python: 49 passed, 4 skipped. The skips are optional LibreOffice rendering tests; LibreOffice is not installed on this computer.
+- Reproducible demo: `demo/format_template.docx` infers the intended font, size, spacing, page layout and four required sections. Through both the API and mobile web UI, `correct_report.docx` scores 100% with zero errors; `formatting_errors_report.docx` scores 33.8% with 14 errors, including the missing Methods section.
 - JavaScript syntax: passed (`node --check static/app.js`).
 - Browser: complete upload → review → edit → publish → report check passed in headless Chrome with Playwright. Saved rule values were fetched from the real backend to verify persistence. Untrusted template names remained literal text. No JavaScript exceptions occurred.
 - Responsive: checked 320, 390, 768 and 1280 CSS pixel widths; no horizontal overflow in the report-results state. Mobile check, template list and review screenshots were also inspected.
