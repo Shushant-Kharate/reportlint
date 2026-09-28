@@ -45,9 +45,10 @@ def get_template(template_id: str) -> Template | None:
         path = _path(template_id)
     except ValueError:
         return None
-    if not path.exists():
+    try:
+        return Template.model_validate_json(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
         return None
-    return Template.model_validate_json(path.read_text(encoding="utf-8"))
 
 
 def list_templates() -> list[TemplateSummary]:

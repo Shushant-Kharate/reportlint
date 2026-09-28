@@ -1,11 +1,8 @@
-import tempfile
 import json
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
 
-from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
-from app.ooxml.structure_extractor import build_document_model
 from app.rules.rule_extractor import extract_ruleset
 from app.models.rule_model import RuleSet
 from app.compliance.engine import ComplianceEngine

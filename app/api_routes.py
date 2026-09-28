@@ -1,11 +1,8 @@
 import json
-import tempfile
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, UploadFile, File, HTTPException, Body
 
-from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
-from app.ooxml.structure_extractor import build_document_model
 from app.rules.rule_extractor import extract_ruleset
 from app.models.rule_model import RuleSet
 from app.models.template_model import Template, TemplateStatus
@@ -21,11 +18,11 @@ async def upload_template(file: UploadFile = File(...), name: str | None = None)
     """Teacher uploads a format .docx. Extracts a proposed RuleSet and saves
     it as a DRAFT template — never auto-published (Section 5.5 / 17)."""
     doc = await parse_upload(file)
-    ruleset = extract_ruleset(doc, file.filename)
+    ruleset = await run_in_threadpool(extract_ruleset, doc, doc.source_filename)
 
     template = Template(
-        name=name or file.filename.rsplit(".", 1)[0],
-        source_filename=file.filename,
+        name=(name or "").strip()[:120] or doc.source_filename.rsplit(".", 1)[0],
+        source_filename=doc.source_filename,
         status=TemplateStatus.DRAFT,
         ruleset=ruleset,
     )
