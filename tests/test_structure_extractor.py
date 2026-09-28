@@ -48,17 +48,9 @@ def test_required_sections_present_via_alias_or_exact():
     print("Missing (expected, per known limitation):", missing)
 
 
-def test_known_heuristic_over_and_under_firing():
-    """Documented limitations: the bold+size/centered heuristic over-fires
-    on title-page lines (many short centered bold lines become spurious
-    'headings') and under-fires on size-only, non-bold headings like
-    'Declaration'. Both are asserted explicitly as known behavior."""
+def test_heading_heuristic_ignores_cover_labels_and_finds_declaration():
     doc = _doc()
-    heading_texts = [p.text.strip() for p in doc.paragraphs if p.is_heading]
-
-    # Over-firing: title page produces many heuristic headings
-    heuristic_count = sum(1 for p in doc.paragraphs if p.heading_source == "HEURISTIC")
-    assert heuristic_count > 10  # confirms over-firing is real, not fixed silently
-
-    # Under-firing: "Declaration" (size 22, NOT bold) is not detected
-    assert "Declaration" not in heading_texts
+    heading_texts = [p.text.strip().lower() for p in doc.paragraphs if p.is_heading]
+    assert "by" not in heading_texts
+    assert "guided by" not in heading_texts
+    assert "declaration" in heading_texts

@@ -60,12 +60,7 @@ fun CheckScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Check a Report") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
+                title = { Text("ReportLint") }
             )
         }
     ) { padding ->
@@ -121,11 +116,14 @@ private fun PickTemplateAndReport(
         is UiState.Success -> {
             if (s.data.isEmpty()) {
                 Box(Modifier.fillMaxSize(), Alignment.Center) {
-                    Text("No published templates yet. Publish one from the Templates screen first.")
+                    Text("No published templates yet. Add and publish a template from the Templates tab.", modifier = Modifier.padding(24.dp))
                 }
                 return
             }
             Column(Modifier.padding(24.dp).verticalScroll(rememberScrollState())) {
+                Text("Check your report", style = MaterialTheme.typography.headlineMedium)
+                Text("Find formatting issues before you submit.")
+                Spacer(Modifier.height(24.dp))
                 Text("Choose a published template", style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(8.dp))
                 s.data.forEach { t ->
@@ -143,7 +141,8 @@ private fun PickTemplateAndReport(
                 Spacer(Modifier.height(16.dp))
                 Button(
                     onClick = onPickFile,
-                    enabled = selectedTemplateId != null
+                    enabled = selectedTemplateId != null,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                 ) { Text("Pick report .docx and check") }
             }
         }

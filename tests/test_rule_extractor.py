@@ -30,11 +30,9 @@ def test_ruleset_extraction_produces_page_and_typography_rules():
     assert "PAGE_MARGINS" in page_ids
 
 
-def test_structure_rule_over_firing_is_real_and_documented():
-    """Raw (uncurated) extraction over-fires on title-page lines — this test
-    documents that fact so a future change to the heuristic is a deliberate,
-    visible decision rather than a silent regression."""
-    doc = _doc()
-    rs = extract_ruleset(doc, FIXTURE)
+def test_cover_page_labels_are_not_required_sections():
+    rs = extract_ruleset(_doc(), FIXTURE)
     names = {r.canonical_name for r in rs.structure_rules}
-    assert "by" in names or "guided by" in names  # known over-firing artifact
+    assert "by" not in names
+    assert "guided by" not in names
+    assert "declaration" in names

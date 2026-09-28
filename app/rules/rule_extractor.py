@@ -158,7 +158,13 @@ def extract_structure_rules(doc: DocumentModel) -> list[RequiredSectionRule]:
     tree = extract_sections(doc)
     rules = []
     order = 0
-    for sec in tree:
+    def flatten(sections):
+        for section in sections:
+            yield section
+            yield from flatten(section.subsections)
+
+    seen = set()
+    for sec in flatten(tree):
         heading_para = next(
             (p for p in doc.paragraphs if p.index == sec.start_paragraph_index), None)
         if heading_para is None:
@@ -166,8 +172,11 @@ def extract_structure_rules(doc: DocumentModel) -> list[RequiredSectionRule]:
         reliable = (heading_para.heading_source in ("STYLE", "OUTLINE")
                     or heading_para.heading_level <= 2 and heading_para.heading_source == "HEURISTIC"
                     and len(heading_para.text.strip()) < 40)
-        if not reliable:
+        if not reliable or not sec.heading_text_normalized or sec.heading_text_normalized in seen:
             continue
+        if (heading_para.style_name or "").lower() == "title":
+            continue
+        seen.add(sec.heading_text_normalized)
         rules.append(RequiredSectionRule(
             canonical_name=sec.heading_text_normalized,
             required=True, order_index=order,

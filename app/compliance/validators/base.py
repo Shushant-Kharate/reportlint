@@ -25,7 +25,7 @@ def paragraphs_in_scope(doc: DocumentModel, scope: RuleScope, section_ref: str |
     if scope == RuleScope.DOCUMENT:
         return doc.paragraphs
     if scope == RuleScope.BODY:
-        return [p for p in doc.paragraphs if not p.is_heading and len(p.text.strip()) > 40]
+        return [p for p in doc.paragraphs if not p.is_heading and bool(p.text.strip())]
     if scope in (RuleScope.HEADING_1, RuleScope.HEADING_2, RuleScope.HEADING_3):
         level = int(scope.value[-1])
         return [p for p in doc.paragraphs if p.is_heading and p.heading_level == level]

@@ -35,15 +35,15 @@ def _detect_heading(style_name: str | None, outline_level: int | None,
     if outline_level is not None and 0 <= outline_level <= 8:
         return True, outline_level + 1, "OUTLINE"
 
-    # Heuristic fallback: bold AND (notably larger than body OR centered)
-    # AND short AND not empty.
+    # Heuristics must not promote names and cover-page labels to chapters.
+    # Unstyled headings are recognized only from the section vocabulary.
     from app.models.document_model import Alignment
-    if bold and text.strip() and len(text.strip()) < 80:
-        size_bigger = (body_font_size is not None and font_size_pt is not None
-                        and font_size_pt >= body_font_size + 1)
-        centered = alignment == Alignment.CENTER
-        if size_bigger or centered:
-            return True, 2, "HEURISTIC"
+    from app.rules.section_catalog import DEFAULT_ALIASES, normalize_heading
+    known = set(DEFAULT_ALIASES) | {"index", "contents", "table of contents", "list of figures", "list of tables"}
+    known.update(alias for aliases in DEFAULT_ALIASES.values() for alias in aliases)
+    size_bigger = body_font_size is not None and font_size_pt is not None and font_size_pt >= body_font_size + 1
+    if normalize_heading(text) in known and (size_bigger or bold or alignment == Alignment.CENTER):
+        return True, 2, "HEURISTIC"
 
     return False, None, None
 

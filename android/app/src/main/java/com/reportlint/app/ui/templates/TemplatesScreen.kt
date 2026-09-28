@@ -81,20 +81,17 @@ fun TemplatesScreen(
                 }
             )
         },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { if (uploadState !is UiState.Loading) filePicker.launch(DOCX_MIME) },
-                icon = { Icon(Icons.Filled.Add, contentDescription = null) },
-                text = { Text("Upload format") }
-            )
-        }
+
     ) { padding ->
         Column(modifier = Modifier.padding(padding).fillMaxSize()) {
 
-            OutlinedButton(
-                onClick = onCheckReports,
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
-            ) { Text("Check a report against a published template") }
+            Column(Modifier.padding(24.dp)) {
+                Text("Your templates", style = MaterialTheme.typography.headlineMedium)
+                Text("Upload a format, review the rules, then publish.", style = MaterialTheme.typography.bodyMedium)
+                Spacer(Modifier.height(20.dp))
+                Button(onClick = { filePicker.launch(DOCX_MIME) }, enabled = uploadState !is UiState.Loading,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("Add template") }
+            }
 
             if (uploadState is UiState.Loading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
@@ -155,7 +152,7 @@ private fun TemplateList(
 ) {
     if (templates.isEmpty()) {
         Box(Modifier.fillMaxSize(), Alignment.Center) {
-            Text("No templates yet. Tap \"Upload format\" to analyze one.")
+            Text("No templates yet. Add a format document to get started.")
         }
         return
     }
