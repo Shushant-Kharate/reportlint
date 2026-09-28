@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#087f72"><meta name="apple-mobile-web-app-capable" content="yes">
+<title>ReportLint</title><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg"><link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="shell">
+<header><a href="#check" class="brand">ReportLint<span class="brand-dot">.</span></a><span class="header-note">A little clarity before you submit.</span></header>
+<main id="main">
+<div id="notice" role="status" aria-live="polite" hidden></div>
+<section id="checkView">
+<h1>Check your report</h1><p class="intro">Find formatting issues before you submit.</p>
+<form id="checkForm">
+<label for="templateSelect">Template</label><select id="templateSelect" required><option value="">Loading templates…</option></select>
+<p id="noTemplates" class="hint" hidden>No published templates yet. <a href="#templates">Add and publish a template</a> to get started.</p>
+<label for="reportFile">Report file</label>
+<div class="file-zone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6"/></svg><strong id="reportName">Choose a .docx file</strong><span>Up to 20 MB</span><input id="reportFile" type="file" accept=".docx" required aria-label="Choose report .docx file"></div>
+<button class="primary full" id="checkButton">Check report</button><p class="privacy">Your document is processed, then removed.</p>
+</form>
+<div id="results" hidden></div>
+</section>
+<section id="templatesView" hidden>
+<h1>Your templates</h1><p class="intro">Upload a format, review the rules, then publish.</p>
+<button class="primary full" id="addTemplate">Add template</button>
+<form id="uploadForm" class="upload-form" hidden><h2>New template</h2><label for="templateName">Template name <span class="optional">(optional)</span></label><input id="templateName" maxlength="120" placeholder="e.g. Project report"><label for="templateFile">Format document</label><input id="templateFile" type="file" accept=".docx" required><p class="hint">Word .docx · up to 20 MB</p><div class="actions"><button class="primary" id="uploadButton">Upload & review</button><button type="button" class="secondary" id="cancelUpload">Cancel</button></div></form>
+<div id="templateList" class="template-list" aria-live="polite"></div><button class="text-button" id="refreshTemplates">Refresh templates</button>
+</section>
+<section id="reviewView" hidden>
+<button class="text-button back" id="backButton">← Back to templates</button><h1>Review template</h1><h2 id="reviewName"></h2><p class="intro">Confirm the rules before publishing.</p><p id="reviewStatus" class="hint"></p>
+<form id="reviewForm"><div id="ruleGroups"></div><div class="review-actions"><button class="secondary" id="saveDraft" type="button">Save draft</button><button class="primary" id="publishButton">Publish template</button></div></form>
+<button class="text-button danger" id="deleteTemplate">Delete template</button>
+</section>
+</main>
+<nav aria-label="Main navigation"><a href="#check" id="checkNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6"/></svg>Check</a><a href="#templates" id="templatesNav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Templates</a></nav>
+</div><script src="app.js" defer></script>
+</body></html>

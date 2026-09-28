@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".ReportLintApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.ReportLint"
+        android:usesCleartextTraffic="true">
+        <!--
+          usesCleartextTraffic=true is deliberate for Stage 3: the backend is
+          a local/LAN dev server (http://10.0.2.2:8000 from the emulator, or
+          a LAN IP on a real device), not a public HTTPS API yet. Tighten
+          this (network_security_config restricted to specific dev hosts,
+          or just switch to https) before this ever ships past a lab demo.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ReportLint">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
