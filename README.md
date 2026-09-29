@@ -8,7 +8,7 @@ ReportLint compares a Word report with formatting rules from a teacher's Word te
 - Internet access for the first installation of Python packages.
 - A browser for the web app. For the native app, use an Android 8.0+ device or emulator and keep the Python server running.
 
-The GitHub repository is private, so Git may ask you to sign in to your GitHub account during `git clone`.
+The GitHub repository is public, so you can clone it without signing in to GitHub.
 
 The demo DOCX files are already in `demo/`. LibreOffice is **not required** for the normal upload and check workflow. It is needed only for the optional pagination tests; pagination is not part of the app's check screen.
 
