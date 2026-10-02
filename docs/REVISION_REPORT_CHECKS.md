@@ -1,6 +1,6 @@
 # Revision-pinned report checks
 
-The first checker checkpoint (0.1.0) compared explicit page dimensions and simple margin settings in every recognized DOCX section. Current checker **0.2.0** additionally supports [scoped Body Text formatting and outline-based chapters](SCOPED_BODY_AND_CHAPTER_CHECKS.md); the page-setting behavior below remains unchanged. Captions, page numbering and rendered pages remain unsupported. The web and Android interfaces still use the existing v1 checker.
+The first checker checkpoint (0.1.0) compared explicit page dimensions and simple margin settings in every recognized DOCX section. Current checker **0.3.0** additionally supports [scoped body/chapter checks](SCOPED_BODY_AND_CHAPTER_CHECKS.md) and [reviewed roles for manually formatted reports](MANUAL_REPORT_ROLE_REVIEW.md); the page-setting behavior below remains unchanged. Captions, page numbering and rendered pages remain unsupported. The web and Android interfaces still use the existing v1 checker.
 
 ## Run a check
 

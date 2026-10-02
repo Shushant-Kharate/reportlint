@@ -8,6 +8,7 @@ from tempfile import TemporaryDirectory
 from app.checking.models import CheckItem, RevisionCheck
 from app.checking.roles import inventory
 from app.checking.semantic import body_checks, chapter_checks
+from app.checking.role_review import apply_roles
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.review.service import ReviewError, snapshot_hash
@@ -30,7 +31,7 @@ def enabled(element):
     return element is not None and element.get(qn("w:val"), "true").lower() not in {"false", "0", "off"}
 
 
-def check_package(revision, package, report_hash):
+def check_package(revision, package, report_hash, role_review=None):
     if revision.status != "PUBLISHED" or revision.publication is None:
         raise ReviewError("PUBLISHED_REVISION_REQUIRED", "Publish a reviewed revision before checking a report.", status=409)
     if revision.snapshot_sha256 != snapshot_hash(revision):
@@ -49,6 +50,13 @@ def check_package(revision, package, report_hash):
     mirrored = settings is not None and any(enabled(settings.find(qn(tag))) for tag in ("w:mirrorMargins", "w:gutterAtTop", "w:bookFoldPrinting", "w:bookFoldRevPrinting"))
     items = []
     paragraphs, registry, uncertain = inventory(package)
+    review_hash = apply_roles(revision, paragraphs, report_hash, role_review)
+    if role_review:
+        for decision in role_review.decisions:
+            if decision.role == "EXCLUDE":
+                items.append(CheckItem(item_id=f"role-exclusion:{decision.paragraph_index}", status="OUT_OF_SCOPE",
+                    code="REVIEWED_ROLE_EXCLUSION", message=decision.reason, paragraph_index=decision.paragraph_index,
+                    source_path=decision.source_path))
     for rule in revision.publication.rules:
         common = dict(rule_id=rule.rule_id, evidence_ids=rule.evidence_ids, expected=rule.value.model_dump())
         if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind in {"font_family", "font_size", "line_spacing_multiple"}:
@@ -93,18 +101,19 @@ def check_package(revision, package, report_hash):
     outcome = "FAIL" if counts["FAIL"] else "INDETERMINATE" if counts["NOT_CHECKED"] or not counts["PASS"] else "PASS_SUPPORTED_CHECKS"
     return RevisionCheck(template_id=revision.template_id, revision_id=revision.revision_id,
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
+                         role_review_sha256=review_hash, role_decisions=[d.model_dump() for d in role_review.decisions] if role_review else [],
                          outcome=outcome, counts=counts, items=items, limitations=[
-                             "Supports simple section page settings, explicit Body Text scalar formatting, and exact outline-level-1 chapter matching only.",
+                             "Supports page settings, Body Text or reviewed body roles, and outline-based or explicitly assigned chapters. Manual assignments are reviewer assertions, not automatic role-detection evidence.",
                              "No overall compliance score: item counts mix section checks and unresolved requirements and are not a coverage percentage.",
                              "A match does not establish rendered geometry, headers/footers, unstyled body roles, semantic chapter equivalence, or complete template coverage.",
                              "Report files and check results are not retained. Results identify an immutable template revision and the uploaded report's SHA-256.",
                          ])
 
 
-def check_bytes(revision, data):
+def check_bytes(revision, data, role_review=None):
     if not data or len(data) > MAX_UPLOAD_BYTES:
         raise InvalidDocxError("Report is empty or exceeds the upload limit")
     with TemporaryDirectory(prefix="reportlint_check_") as directory:
         path = Path(directory) / "report.docx"
         path.write_bytes(data)
-        return check_package(revision, DocxPackage.load(str(path)), sha256(data).hexdigest())
+        return check_package(revision, DocxPackage.load(str(path)), sha256(data).hexdigest(), role_review)

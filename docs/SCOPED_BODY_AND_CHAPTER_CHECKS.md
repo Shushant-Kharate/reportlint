@@ -2,6 +2,8 @@
 
 Checker **0.2.0** extends the existing revision-pinned report endpoint with conservative body formatting and chapter checks. New publications use compiler **0.3.0** metadata. Previously published specifications keep their original contents and hashes and can still be checked. No dependency or installation command changes are required.
 
+This document describes the style-based checkpoint. Current checker **0.3.0** also accepts [explicit report-specific role reviews](MANUAL_REPORT_ROLE_REVIEW.md) for supported unstyled paragraphs. Without a review, the conservative behavior below remains unchanged.
+
 ## Use the feature
 
 Follow the [review workflow](TEMPLATE_REVISION_REVIEW.md), then upload a report using the [revision check endpoint](REVISION_REPORT_CHECKS.md). The web/Android UI has not yet been connected to this v2 flow; use the API's `/docs` interface.

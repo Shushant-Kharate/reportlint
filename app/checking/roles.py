@@ -16,6 +16,8 @@ class Paragraph:
     role: str
     level: int | None
     styles: list
+    reviewable: bool = False
+    chapter_index: int | None = None
 
 
 def style_chain(registry, style_id, kind):
@@ -59,14 +61,22 @@ def inventory(package):
     if len(style_elements) > 5000:
         raise InvalidDocxError("Report exceeds the 5000-style role limit")
     ids = [s.get(qn("w:styleId")) for s in style_elements]
-    broken_registry = len(ids) != len(set(ids))
+    defaults = [s.get(qn("w:styleId")) for s in style_elements
+                if s.get(qn("w:type")) == "paragraph" and s.get(qn("w:default"), "").lower() in {"1", "true", "on"}]
+    if len(defaults) == 1:
+        registry.default_paragraph_style_id = defaults[0]
+    broken_registry = len(ids) != len(set(ids)) or len(defaults) > 1
     uncertain_structure = uncertain_structure or broken_registry
     for index, p in enumerate(elements):
-        text = "".join(p.xpath("./w:r/w:t/text() | ./w:hyperlink/w:r/w:t/text()", namespaces=NS))
+        text = "".join((node.text or "") if node.tag == qn("w:t") else "\t" if node.tag == qn("w:tab") else "\n"
+                       for node in p.xpath("./w:r/* | ./w:hyperlink/w:r/*", namespaces=NS)
+                       if node.tag in {qn("w:t"), qn("w:tab"), qn("w:br"), qn("w:cr")})
         ppr = p.find(qn("w:pPr"))
         styles = nodes([ppr], "w:pStyle")
         style_id = styles[0].get(qn("w:val")) if len(styles) == 1 else registry.default_paragraph_style_id
         chain = style_chain(registry, style_id, "paragraph") if len(styles) <= 1 else None
+        if styles and not style_id:
+            chain = None
         if broken_registry:
             chain = None
         role, level = "UNKNOWN", None
@@ -96,14 +106,16 @@ def inventory(package):
             elif any(n in {"title", "subtitle", "caption"} for n in names):
                 role = "OTHER"
         allowed = {qn("w:" + name) for name in ("pPr", "r", "hyperlink", "bookmarkStart", "bookmarkEnd", "proofErr", "permStart", "permEnd")}
-        if p.getparent() is body and role not in {"FIELD", "FIELD_OR_CONTENTS", "EMPTY"} and (
+        unsafe = (
             any(child.tag not in allowed for child in p)
             or len(p.findall(qn("w:pPr"))) > 1
             or any(len(el.findall(qn("w:outlineLvl"))) > 1 for el in [ppr] + [s.ppr for s in chain or []] if el is not None)
             or p.xpath(".//w:pPrChange | .//w:rPrChange | .//w:ins | .//w:del | .//w:drawing | .//w:pict | .//w:object", namespaces=NS)
-        ):
+        )
+        if p.getparent() is body and role not in {"FIELD", "FIELD_OR_CONTENTS", "EMPTY"} and unsafe:
             role, level = "UNKNOWN", None
-        result.append(Paragraph(index, package.document_tree.getpath(p), p, text, role, level, chain or []))
+        reviewable = role == "UNKNOWN" and chain is not None and p.getparent() is body and not unsafe and bool(text.strip())
+        result.append(Paragraph(index, package.document_tree.getpath(p), p, text, role, level, chain or [], reviewable))
     return result, registry, uncertain_structure
 
 

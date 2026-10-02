@@ -23,8 +23,9 @@ def capabilities():
         "v2_publication_scope": "REVIEWED_SPECIFICATION_SNAPSHOTS",
         "v2_report_checking": True,
         "v2_report_checking_scope": "EXPLICIT_PAGE_SETTINGS_BODY_TEXT_AND_OUTLINE_CHAPTERS",
-        "body_scope": "BODY_TEXT_STYLE_CHAIN_ONLY",
-        "chapter_matching": "OUTLINE_LEVEL_1_EXACT_REVIEWED_NAMES_AND_ALIASES",
+        "body_scope": "BODY_TEXT_STYLE_OR_REVIEWED_REPORT_ASSIGNMENT",
+        "report_role_review": "HASH_BOUND_MANUAL_ASSIGNMENTS",
+        "chapter_matching": "OUTLINE_LEVEL_1_EXACT_NAMES_OR_REVIEWED_REPORT_ASSIGNMENT",
         "max_upload_bytes": MAX_UPLOAD_BYTES,
     }
 

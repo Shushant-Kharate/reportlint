@@ -10,7 +10,7 @@ def body_checks(rule, package, paragraphs, registry, uncertain):
     items = []
     unresolved = [p for p in paragraphs if p.role in {"UNKNOWN", "UNSUPPORTED_CONTAINER", "FIELD"} and p.text.strip()]
     if unresolved or uncertain or not targets:
-        items.append(CheckItem(item_id=rule.rule_id + ":scope", status="NOT_CHECKED", code="INCOMPLETE_BODY_SCOPE", message="Only explicitly styled Body Text paragraphs are selected. Other potential body content remains unresolved.", actual={"selected_paragraphs": len(targets), "unresolved_paragraphs": len(unresolved)}, **common))
+        items.append(CheckItem(item_id=rule.rule_id + ":scope", status="NOT_CHECKED", code="INCOMPLETE_BODY_SCOPE", message="Only explicit Body Text styles or reviewed report-specific assignments are selected. Other potential body content remains unresolved.", actual={"selected_paragraphs": len(targets), "unresolved_paragraphs": len(unresolved)}, **common))
     for paragraph in targets:
         ppr = paragraph.element.find(qn("w:pPr"))
         base = dict(common, paragraph_index=paragraph.index, source_path=paragraph.path)
@@ -20,7 +20,7 @@ def body_checks(rule, package, paragraphs, registry, uncertain):
         if rule.value.kind == "line_spacing_multiple":
             actual = paragraph_spacing(package, paragraph)
             status = "NOT_CHECKED" if actual is None else "PASS" if actual["rule"] == "auto" and abs(actual["multiplier"] - rule.value.multiplier) <= 1 / 240 + 1e-9 else "FAIL"
-            items.append(CheckItem(item_id=f"{rule.rule_id}:p:{paragraph.index}", status=status, code="BODY_SPACING_" + status, message="Compared stored spacing on an explicitly styled body paragraph; unresolved properties are not defaulted.", actual=actual, **base))
+            items.append(CheckItem(item_id=f"{rule.rule_id}:p:{paragraph.index}", status=status, code="BODY_SPACING_" + status, message="Compared stored spacing on a resolved body paragraph; unresolved properties are not defaulted.", actual=actual, **base))
         else:
             runs = paragraph.element.xpath("./w:r | ./w:hyperlink/w:r", namespaces=NS)
             for index, run in enumerate(runs):
@@ -48,8 +48,8 @@ def chapter_checks(revision, paragraphs, uncertain):
     items, locations = [], []
     for chapter in sorted(profile.chapters, key=lambda c: c.index):
         keys = {title_key(t) for t in [chapter.name, *chapter.aliases]}
-        found = [p for p in top if title_key(p.text) in keys]
-        questionable = [p for p in paragraphs if title_key(p.text) in keys and p.role not in {"TABLE", "FIELD", "FIELD_OR_CONTENTS", "EMPTY"} and p not in found]
+        found = [p for p in top if p.chapter_index == chapter.index or (p.chapter_index is None and title_key(p.text) in keys)]
+        questionable = [p for p in paragraphs if p.chapter_index is None and title_key(p.text) in keys and p.role not in {"TABLE", "FIELD", "FIELD_OR_CONTENTS", "EMPTY", "REVIEWED_EXCLUSION"} and p not in found]
         common = dict(item_id=f"profile:{profile.profile_id}:chapter:{chapter.index}", evidence_ids=source.chapters[chapter.index].evidence_ids, expected={"name": chapter.name, "required": chapter.required}, actual={"matches": len(found), "paragraph_indices": [p.index for p in found]})
         if uncertain or questionable:
             status, code = "NOT_CHECKED", "AMBIGUOUS_CHAPTER"
@@ -65,7 +65,7 @@ def chapter_checks(revision, paragraphs, uncertain):
             status, code = "FAIL", "MISSING_CHAPTER"
         else:
             status, code = "OUT_OF_SCOPE", "OPTIONAL_CHAPTER_ABSENT"
-        items.append(CheckItem(status=status, code=code, message="Exact reviewed name/alias matching against outline-level-1 main-story headings; contents/table mentions do not count.", **common))
+        items.append(CheckItem(status=status, code=code, message="Matched outline-level-1 exact names/aliases or explicit report-specific chapter assignments; contents/table mentions do not count.", **common))
     complete = all(i.status in {"PASS", "OUT_OF_SCOPE"} for i in items)
     if len(locations) > 1:
         ordered = [p for _, p in locations] == sorted(p for _, p in locations)
