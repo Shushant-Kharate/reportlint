@@ -2,7 +2,7 @@
 
 Created 2026-10-02. Authoritative specification: [COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md](COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md).
 
-Status: implementation in progress. The first read-only extraction preview is implemented; see [checkpoint details and usage](TEMPLATE_ANALYSIS_PREVIEW.md). The original MVP baseline was `83991c1`, and the planning commit was `0586af7`. Unchecked tasks remain incomplete even where this preview supplies part of their infrastructure.
+Status: implementation in progress. The extraction preview and a backend [review/immutable publication slice](TEMPLATE_REVISION_REVIEW.md) are implemented; see [extraction checkpoint](TEMPLATE_ANALYSIS_PREVIEW.md). The original MVP baseline was `83991c1`, and the planning commit was `0586af7`. Unchecked tasks remain incomplete even where these slices supply part of their infrastructure.
 
 ## How to use this tracker
 
@@ -214,8 +214,11 @@ Append the newest implementation session at the end. Use exact commits and comma
 | --- | --- | --- | --- | --- |
 | 2026-10-02 | Master plan, source manifest, MP catalog and implementation tracker authored | Documentation consistency checks; no new runtime functionality | Completed student report not yet supplied; DEC interpretations not yet resolved | M0-01 through M0-05, then the first extraction slice |
 | 2026-10-02 | First extraction preview: M0-01 complete; partial M1-02/04, M2-02/03, M3-02/04/06/07/10 | Full backend regression suite and actual-template API/CLI comparison; see checkpoint document and tests in the commit containing this row | No v2 publication/checking or client integration yet; MP dispositions and DEC interpretations remain unapproved | Continue M0-02/03 and v2 source/role contracts, then review/publication integration |
+| 2026-10-02 | Review/publication backend: partial M1-06, M3-08/09, M7-01/03 | 99 tests passed, 4 optional renderer tests skipped; original format uploaded and reopened from temporary SQLite: 17 candidates, 8 conflicts, 2 profiles, 52 publication blockers | Specification snapshots only; no v2 report execution, client integration, auth, retention, v1 migration or complete dependency/scope compiler; real interpretations remain unapproved | Continue document/role contracts and reviewed-rule execution with coverage; then integrate client review |
 
 Current partial-work details: typed candidates/evidence/conflicts and a preview capability endpoint exist, but they do not complete the full v2 contracts. The lightweight source walker preserves table-cell text and paths, but does not complete the ordered document IR. Prose extraction covers five property families, not all requirements. Chapter tables yield unapproved profile candidates. These tasks stay unchecked until their full gates pass.
+
+Review checkpoint: candidate decisions and source dispositions require reasons; profile chapters/aliases receive explicit review. SQLite persists audit patches and immutable publications, with atomic pointer updates, optimistic versions, forked revisions and integrity checks. Unsupported conditions and unresolved body scope remain explicit in compiled contracts. Tests cover concurrent updates and mutation rollback. The 52 initial real-template blockers comprise 17 candidates, 33 ledger entries, one profile decision and an empty approved specification. This does not close any full milestone or approve the original template automatically.
 
 Suggested handoff detail for each future session:
 

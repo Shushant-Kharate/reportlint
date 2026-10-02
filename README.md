@@ -93,9 +93,9 @@ For the **native Android app**, see [android/README.md](android/README.md). A su
 ## Where data goes
 
 - The server stores reviewed template rules in `storage/templates/` under the directory where you start it. Set `REPORTLINT_STORAGE_DIR` if you want a different storage location.
-- Uploaded documents are limited to 20 MB and removed after parsing. Reports and check results are not saved.
+- Uploaded documents are limited to 20 MB and removed after parsing. Reports and check results are not saved. The v2 review API retains extracted template excerpts, review decisions, and revision history in `storage/review.sqlite3` (or your configured storage directory).
 - This project is designed for a trusted, single-user environment. It has no login or user separation. Add authentication and HTTPS before exposing it as a public service.
-- A saved edit to a published template returns it to Draft; publish again to make the new rules available. The web app's **Publish template** button saves edited values first.
+- In the existing v1 clients, a saved edit to a published template returns it to Draft; publish again to make the new rules available. The web app's **Publish template** button saves edited values first. V2 API publications are immutable and require a new draft revision to change them.
 
 ## What is checked
 
@@ -108,3 +108,5 @@ Some Word documents still need manual rule review: theme fonts, complex style to
 The next development phase is specified in the [technical implementation plan](docs/COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md), with a linked [execution checklist and handoff log](docs/COMPLEX_TEMPLATE_BACKLOG.md). It covers interpreting written guidelines, resolving conflicting template evidence, validating complex report structures, pagination, coverage, mobile clients, and release tests. These documents describe planned work; they do not expand the current engine's supported checks.
 
 The first implementation slice is available as an [experimental template analysis preview](docs/TEMPLATE_ANALYSIS_PREVIEW.md). It extracts written property proposals and table-based chapter lists, and shows conflicts with observed formatting. Use `POST /api/v2/template-analysis` from the API docs or the documented inspection CLI. Its candidates are not yet used by the existing report checker.
+
+The next backend slice adds [reviewed revisions and immutable publication](docs/TEMPLATE_REVISION_REVIEW.md). Use the **V2 template review** endpoints in `/docs` to save a draft, record decisions with reasons, inspect blockers, and publish a specification snapshot. V2 report checking and mobile review screens are still pending.

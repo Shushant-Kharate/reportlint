@@ -219,7 +219,7 @@ def test_api_is_read_only_and_capabilities_are_honest(monkeypatch):
         assert result["publication_ready"] is False
         assert result["conflicts"]
         capabilities = client.get("/api/v2/capabilities").json()
-        assert capabilities["v2_publication"] is False
+        assert capabilities["v2_publication"] is True
         assert capabilities["v2_report_checking"] is False
 
 

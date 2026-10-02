@@ -21,7 +21,7 @@ Start the server using the main README. Open `http://127.0.0.1:8000/docs`, find 
 
 The JSON response contains `candidates`, `evidence`, `conflicts`, `profiles`, `requirement_ledger`, and `notices`. A candidate's evidence IDs resolve to source paths and excerpts. A suggested conflict resolution is only a proposal and does not approve anything.
 
-`GET /api/v2/capabilities` lists the preview's actual capabilities and explicitly reports that v2 publication and report checking are not implemented. The preview endpoint is synchronous and read-only; the later asynchronous template/job API in the plan remains future work.
+`GET /api/v2/capabilities` lists actual capabilities. The subsequent [revision review API](TEMPLATE_REVISION_REVIEW.md) supports publication of reviewed specification snapshots; v2 report checking remains unavailable. The preview endpoint stays synchronous and read-only; the later asynchronous template/job API in the plan remains future work.
 
 ## Repeatable CLI inspection
 
@@ -64,4 +64,4 @@ The real-file run caught an extraction regression where an unrelated `or above` 
 
 The source inventory is not yet the full v2 document IR. It does not implement semantic formatting for all stories, complete style inheritance, source-region segmentation, generated numbering, rendered page locations or automatic approval. Generic negation/alternatives and merged index tables are intentionally left for review. No NLP model, deep-learning model or OCR dependency was added in this slice.
 
-Next implementation work: reviewed source dispositions and profile decisions, fuller document/role contracts, and the review/publication path that can turn evidence-backed candidates into immutable executable rules. Keep the unchecked tasks in the execution tracker visible until their complete acceptance criteria are met.
+The subsequent revision-review checkpoint adds source dispositions, profile decisions and immutable specification publication. Fuller document/role contracts and rule execution remain pending. The benchmark snapshot above records the original extraction checkpoint, including its historical notices. Keep unchecked tasks in the execution tracker visible until their complete acceptance criteria are met.

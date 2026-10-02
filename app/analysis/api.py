@@ -19,7 +19,8 @@ def capabilities():
         "guideline_languages": ["en"],
         "candidate_properties": ["font_family", "font_size", "line_spacing_multiple", "page_size", "margin"],
         "chapter_profiles": "TABLE_CANDIDATES_REQUIRING_REVIEW",
-        "v2_publication": False,
+        "v2_publication": True,
+        "v2_publication_scope": "REVIEWED_SPECIFICATION_SNAPSHOTS",
         "v2_report_checking": False,
         "max_upload_bytes": MAX_UPLOAD_BYTES,
     }
