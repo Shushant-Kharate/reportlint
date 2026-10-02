@@ -102,3 +102,7 @@ For the **native Android app**, see [android/README.md](android/README.md). A su
 The engine checks known font properties, paragraph spacing and alignment, page size and margins, required sections and their order. It reports a category as **Not checked** when there was no applicable rule or resolvable data, and only checked categories contribute to the overall score. It checks formatting rather than the quality or originality of the writing.
 
 Some Word documents still need manual rule review: theme fonts, complex style toggle inheritance, table-cell formatting, contents inside tables, captions, headers/footers, and page number estimation are not fully checked. Use real Word heading styles and confirm the proposed rules before publishing. More details are in [docs/REVIEW.md](docs/REVIEW.md) and [docs/VERIFICATION.md](docs/VERIFICATION.md).
+
+## Complex template development plan
+
+The next development phase is specified in the [technical implementation plan](docs/COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md), with a linked [execution checklist and handoff log](docs/COMPLEX_TEMPLATE_BACKLOG.md). It covers interpreting written guidelines, resolving conflicting template evidence, validating complex report structures, pagination, coverage, mobile clients, and release tests. These documents describe planned work; they do not expand the current engine's supported checks.
