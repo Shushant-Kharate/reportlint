@@ -221,7 +221,7 @@ def test_api_is_read_only_and_capabilities_are_honest(monkeypatch):
         capabilities = client.get("/api/v2/capabilities").json()
         assert capabilities["v2_publication"] is True
         assert capabilities["v2_report_checking"] is True
-        assert capabilities["v2_report_checking_scope"] == "EXPLICIT_SECTION_PAGE_SETTINGS_ONLY"
+        assert capabilities["v2_report_checking_scope"] == "EXPLICIT_PAGE_SETTINGS_BODY_TEXT_AND_OUTLINE_CHAPTERS"
 
 
 @pytest.mark.parametrize("filename,data,status", [("bad.pdf", b"bad", 415), ("empty.docx", b"", 422), ("bad.docx", b"bad", 422)])

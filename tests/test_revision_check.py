@@ -131,7 +131,7 @@ def test_complex_rules_keep_all_unchecked_dispositions(repository):
     revision = repository.change(draft.template_id, draft.revision_id, publish, reviewed.version)
     result = check_bytes(revision, encoded(Document()))
     codes = {i.code for i in result.items}
-    assert {"UNSUPPORTED_RULE", "UNSUPPORTED_CHAPTER_PROFILE", "DEFERRED_CANDIDATE", "REQUIREMENT_OUT_OF_SCOPE"} <= codes
+    assert {"UNSUPPORTED_RULE", "NO_TRUSTED_CHAPTER_HEADINGS", "INCOMPLETE_BODY_SCOPE", "DEFERRED_CANDIDATE", "REQUIREMENT_OUT_OF_SCOPE"} <= codes
     assert result.counts["OUT_OF_SCOPE"] == 1
     for rule in revision.publication.rules:
         assert any(i.rule_id == rule.rule_id for i in result.items)

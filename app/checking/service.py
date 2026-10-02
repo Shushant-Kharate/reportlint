@@ -6,6 +6,8 @@ import re
 from tempfile import TemporaryDirectory
 
 from app.checking.models import CheckItem, RevisionCheck
+from app.checking.roles import inventory
+from app.checking.semantic import body_checks, chapter_checks
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.review.service import ReviewError, snapshot_hash
@@ -46,8 +48,12 @@ def check_package(revision, package, report_hash):
     settings = package.settings_tree.getroot() if package.settings_tree is not None else None
     mirrored = settings is not None and any(enabled(settings.find(qn(tag))) for tag in ("w:mirrorMargins", "w:gutterAtTop", "w:bookFoldPrinting", "w:bookFoldRevPrinting"))
     items = []
+    paragraphs, registry, uncertain = inventory(package)
     for rule in revision.publication.rules:
         common = dict(rule_id=rule.rule_id, evidence_ids=rule.evidence_ids, expected=rule.value.model_dump())
+        if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind in {"font_family", "font_size", "line_spacing_multiple"}:
+            items.extend(body_checks(rule, package, paragraphs, registry, uncertain))
+            continue
         if rule.condition != "ALWAYS" or rule.scope != "document" or rule.value.kind not in {"page_size", "margin"}:
             items.append(CheckItem(item_id=rule.rule_id, status="NOT_CHECKED", code="UNSUPPORTED_RULE", message="This checker cannot resolve the rule's scope, property, or condition.", **common))
             continue
@@ -76,9 +82,7 @@ def check_package(revision, package, report_hash):
                 continue
             matches = all(abs(actual[key] - expected[key]) <= TOLERANCE_PT + 1e-9 for key in expected)
             items.append(CheckItem(status="PASS" if matches else "FAIL", code="STORED_SETTING_MATCH" if matches else "STORED_SETTING_MISMATCH", message="Compared stored section settings in points (0.1 pt tolerance); this is not a rendered-page measurement.", actual=actual, **item))
-    profile = revision.publication.profile
-    if profile and profile.chapters:
-        items.append(CheckItem(item_id="profile:" + profile.profile_id, status="NOT_CHECKED", code="UNSUPPORTED_CHAPTER_PROFILE", message="Reviewed chapter structure requires heading/role detection, which this checker does not yet provide."))
+    items.extend(chapter_checks(revision, paragraphs, uncertain))
     candidates = {c.candidate_id: c for c in revision.analysis.candidates}
     for candidate_id in revision.publication.deferred_candidate_ids:
         items.append(CheckItem(item_id="deferred:" + candidate_id, evidence_ids=candidates[candidate_id].evidence_ids, status="NOT_CHECKED", code="DEFERRED_CANDIDATE", message="The reviewer deferred this candidate; it was not executed."))
@@ -90,9 +94,9 @@ def check_package(revision, package, report_hash):
     return RevisionCheck(template_id=revision.template_id, revision_id=revision.revision_id,
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
                          outcome=outcome, counts=counts, items=items, limitations=[
-                             "Only unconditional document page-size and simple margin settings are checked, for each recognized section.",
+                             "Supports simple section page settings, explicit Body Text scalar formatting, and exact outline-level-1 chapter matching only.",
                              "No overall compliance score: item counts mix section checks and unresolved requirements and are not a coverage percentage.",
-                             "A match does not establish rendered geometry, headers/footers, body formatting, chapter structure, or complete template coverage.",
+                             "A match does not establish rendered geometry, headers/footers, unstyled body roles, semantic chapter equivalence, or complete template coverage.",
                              "Report files and check results are not retained. Results identify an immutable template revision and the uploaded report's SHA-256.",
                          ])
 

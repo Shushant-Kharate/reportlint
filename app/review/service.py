@@ -132,16 +132,16 @@ def compile_publication(revision):
             readiness=readiness,
         ))
     return Publication(
-        compiler_version="0.2.0", report_checking_available=True,
+        compiler_version="0.3.0", report_checking_available=True,
         rules=rules, profile=revision.profile_review,
         deferred_candidate_ids=[d.candidate_id for d in revision.candidate_decisions if d.action == "DEFER"],
         requirement_dispositions=revision.ledger_decisions,
         limitations=[
-            "This is a reviewed specification snapshot, not a compliance result. V2 checking supports explicit section page settings only; consult live capabilities.",
+            "This is a reviewed specification snapshot, not a compliance result. V2 checking supports explicit page settings, Body Text styles and exact outline chapters; consult live capabilities.",
             "PROPERTY_CONTRACT indicates compiled values only, not a completed validator or verified physical geometry.",
-            "Body scopes and conditional rules retain their missing execution capabilities; no condition was flattened.",
+            "Full body-role inference and conditional rules remain unsupported; only explicit Body Text scopes can execute. No condition was flattened.",
             "Extracted requirement coverage is incomplete. Acknowledging partial evidence does not approve every instruction in that source paragraph.",
-            "Chapter topics and aliases require further semantic validation; choosing a profile does not prove its report structure can be checked yet.",
+            "Chapter matching uses exact reviewed names/aliases and outline level 1. Semantic equivalence, generated numbering and chapter subtopics remain unsupported.",
         ],
     )
 

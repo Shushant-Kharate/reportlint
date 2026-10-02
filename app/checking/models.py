@@ -13,6 +13,8 @@ class CheckItem(AnalysisModel):
     code: str
     message: str
     section_index: int | None = None
+    paragraph_index: int | None = None
+    run_index: int | None = None
     source_path: str | None = None
     expected: dict | None = None
     actual: dict | None = None
@@ -20,7 +22,7 @@ class CheckItem(AnalysisModel):
 
 class RevisionCheck(AnalysisModel):
     schema_version: Literal[2] = 2
-    checker_version: Literal["0.1.0"] = "0.1.0"
+    checker_version: Literal["0.2.0"] = "0.2.0"
     template_id: str
     revision_id: str
     snapshot_sha256: str

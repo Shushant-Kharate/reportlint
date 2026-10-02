@@ -208,6 +208,8 @@ No unresolved interpretation has been approved by this planning document. The pr
 
 ## Session handoff log
 
+Latest checkpoint: [scoped body and chapter checks](SCOPED_BODY_AND_CHAPTER_CHECKS.md) (checker 0.2, new compiler metadata 0.3). Added ordered main-story paragraph inventory, explicit Body Text/outline roles, scalar font/size/spacing inheritance, exact reviewed chapter aliases/requiredness/order, and paragraph/run source locations. Full suite: 140 passed, four optional LibreOffice skips. This is partial M2-02/04/07 and M4-01/02/03/08; no complete gate is newly marked done. Normal/manual headings, theme/script resolution, full IR/numbering, rich role inference and mobile v2 integration remain pending. The actual format still has no trusted body/heading roles (124 unknown, 192 empty, 180 table paragraphs). Next session should retain conservative abstention while extending manual role coverage and the client workflow.
+
 Append the newest implementation session at the end. Use exact commits and commands where available. Do not record private document content here.
 
 | Date | Completed | Validation | Outstanding/blockers | Next action |

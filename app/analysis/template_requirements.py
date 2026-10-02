@@ -249,7 +249,7 @@ def analyze_template(package, source_sha256):
     result.conflicts = find_conflicts(result.candidates)
     result.evidence = list(evidence.values())
     result.notices.extend([
-            "Extraction preview only: candidates are not approved. Use the revision-review API to publish a specification; v2 checking supports explicit section page settings only.",
+            "Extraction preview only: candidates are not approved. Publish a reviewed revision before checking; consult live capabilities for supported page settings, Body Text and outline-chapter checks.",
         "English patterns cover a limited property set. The requirement ledger is an extraction aid, not proof of complete template coverage.",
         "Candidate-bearing paragraphs can contain additional unsupported requirements. Review the full source excerpt.",
         "Table topics are suggestions, not mandatory sections or aliases. Select and review report/synopsis profiles separately.",
