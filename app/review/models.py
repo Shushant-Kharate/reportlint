@@ -58,13 +58,13 @@ class CompiledRule(AnalysisModel):
 
 
 class Publication(AnalysisModel):
-    compiler_version: Literal["0.1.0"] = "0.1.0"
+    compiler_version: Literal["0.1.0", "0.2.0"] = "0.1.0"
     rules: list[CompiledRule]
     profile: ProfileReview | None = None
     deferred_candidate_ids: list[str]
     requirement_dispositions: list[LedgerDecision]
     limitations: list[str]
-    report_checking_available: Literal[False] = False
+    report_checking_available: bool = False
 
 
 class AuditEvent(AnalysisModel):

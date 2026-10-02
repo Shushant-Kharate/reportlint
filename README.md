@@ -109,4 +109,6 @@ The next development phase is specified in the [technical implementation plan](d
 
 The first implementation slice is available as an [experimental template analysis preview](docs/TEMPLATE_ANALYSIS_PREVIEW.md). It extracts written property proposals and table-based chapter lists, and shows conflicts with observed formatting. Use `POST /api/v2/template-analysis` from the API docs or the documented inspection CLI. Its candidates are not yet used by the existing report checker.
 
-The next backend slice adds [reviewed revisions and immutable publication](docs/TEMPLATE_REVISION_REVIEW.md). Use the **V2 template review** endpoints in `/docs` to save a draft, record decisions with reasons, inspect blockers, and publish a specification snapshot. V2 report checking and mobile review screens are still pending.
+The next backend slice adds [reviewed revisions and immutable publication](docs/TEMPLATE_REVISION_REVIEW.md). Use the **V2 template review** endpoints in `/docs` to save a draft, record decisions with reasons, inspect blockers, and publish a specification snapshot.
+
+[Revision-pinned report checks](docs/REVISION_REPORT_CHECKS.md) now compare explicit page-size and simple margin settings in every recognized report section. Use **V2 report checks** in `/docs`; unsupported body, chapter, and conditional rules remain visibly unchecked. This is limited backend support, not full complex-template validation. Mobile v2 review/checking screens remain pending.

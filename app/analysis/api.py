@@ -21,7 +21,8 @@ def capabilities():
         "chapter_profiles": "TABLE_CANDIDATES_REQUIRING_REVIEW",
         "v2_publication": True,
         "v2_publication_scope": "REVIEWED_SPECIFICATION_SNAPSHOTS",
-        "v2_report_checking": False,
+        "v2_report_checking": True,
+        "v2_report_checking_scope": "EXPLICIT_SECTION_PAGE_SETTINGS_ONLY",
         "max_upload_bytes": MAX_UPLOAD_BYTES,
     }
 

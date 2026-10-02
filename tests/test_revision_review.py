@@ -77,7 +77,7 @@ def test_review_and_publish_preserves_reasons_evidence_and_hash(repository, draf
     assert result.status == "PUBLISHED"
     assert result.version == 2
     assert result.snapshot_sha256 == snapshot_hash(result)
-    assert result.publication.report_checking_available is False
+    assert result.publication.report_checking_available is True
     assert result.publication.deferred_candidate_ids
     assert result.publication.requirement_dispositions
     assert [e.action for e in result.audit] == ["CREATE", "REVIEW", "PUBLISH"]

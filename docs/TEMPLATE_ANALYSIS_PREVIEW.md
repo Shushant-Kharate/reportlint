@@ -21,7 +21,7 @@ Start the server using the main README. Open `http://127.0.0.1:8000/docs`, find 
 
 The JSON response contains `candidates`, `evidence`, `conflicts`, `profiles`, `requirement_ledger`, and `notices`. A candidate's evidence IDs resolve to source paths and excerpts. A suggested conflict resolution is only a proposal and does not approve anything.
 
-`GET /api/v2/capabilities` lists actual capabilities. The subsequent [revision review API](TEMPLATE_REVISION_REVIEW.md) supports publication of reviewed specification snapshots; v2 report checking remains unavailable. The preview endpoint stays synchronous and read-only; the later asynchronous template/job API in the plan remains future work.
+`GET /api/v2/capabilities` lists actual capabilities. The subsequent [revision review API](TEMPLATE_REVISION_REVIEW.md) supports publication of reviewed specification snapshots, and [revision-pinned checks](REVISION_REPORT_CHECKS.md) evaluate explicit section page settings only. The preview endpoint stays synchronous and read-only; the later asynchronous template/job API in the plan remains future work.
 
 ## Repeatable CLI inspection
 

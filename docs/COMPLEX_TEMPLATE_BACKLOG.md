@@ -2,7 +2,7 @@
 
 Created 2026-10-02. Authoritative specification: [COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md](COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md).
 
-Status: implementation in progress. The extraction preview and a backend [review/immutable publication slice](TEMPLATE_REVISION_REVIEW.md) are implemented; see [extraction checkpoint](TEMPLATE_ANALYSIS_PREVIEW.md). The original MVP baseline was `83991c1`, and the planning commit was `0586af7`. Unchecked tasks remain incomplete even where these slices supply part of their infrastructure.
+Status: implementation in progress. The extraction preview, backend [review/immutable publication slice](TEMPLATE_REVISION_REVIEW.md), and limited [revision-pinned page-setting checks](REVISION_REPORT_CHECKS.md) are implemented; see [extraction checkpoint](TEMPLATE_ANALYSIS_PREVIEW.md). The original MVP baseline was `83991c1`, and the planning commit was `0586af7`. Unchecked tasks remain incomplete even where these slices supply part of their infrastructure.
 
 ## How to use this tracker
 
@@ -219,6 +219,8 @@ Append the newest implementation session at the end. Use exact commits and comma
 Current partial-work details: typed candidates/evidence/conflicts and a preview capability endpoint exist, but they do not complete the full v2 contracts. The lightweight source walker preserves table-cell text and paths, but does not complete the ordered document IR. Prose extraction covers five property families, not all requirements. Chapter tables yield unapproved profile candidates. These tasks stay unchecked until their full gates pass.
 
 Review checkpoint: candidate decisions and source dispositions require reasons; profile chapters/aliases receive explicit review. SQLite persists audit patches and immutable publications, with atomic pointer updates, optimistic versions, forked revisions and integrity checks. Unsupported conditions and unresolved body scope remain explicit in compiled contracts. Tests cover concurrent updates and mutation rollback. The 52 initial real-template blockers comprise 17 candidates, 33 ledger entries, one profile decision and an empty approved specification. This does not close any full milestone or approve the original template automatically.
+
+Revision-check checkpoint: a synchronous endpoint checks unconditional page-size and simple margin settings in each recognized section against the exact requested published snapshot. Results preserve rule/evidence IDs, section locations, source/revision hashes, unresolved rules and ledger dispositions. No global score, physical-page claims, role inference or client integration was added. Compiler 0.1 snapshots remain compatible; new publications use 0.2 capability metadata. Validation: 120 backend tests passed, four optional LibreOffice tests skipped; OpenAPI generation checked. This is partial execution/coverage infrastructure, not completion of an M1/M2/M5/M7 gate. Next: ordered document representation and body/heading role contracts, then scoped validators and client integration.
 
 Suggested handoff detail for each future session:
 

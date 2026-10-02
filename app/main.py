@@ -9,6 +9,7 @@ from app.compliance.engine import ComplianceEngine
 from app.api_routes import router as api_router
 from app.analysis.api import router as analysis_router
 from app.review.api import router as review_router
+from app.checking.api import router as checking_router
 from app.uploads import parse_upload, read_limited
 from starlette.concurrency import run_in_threadpool
 
@@ -16,6 +17,7 @@ app = FastAPI(title="ReportLint Engine")
 app.include_router(api_router)
 app.include_router(analysis_router)
 app.include_router(review_router)
+app.include_router(checking_router)
 
 _STATIC_DIR = Path(__file__).parent.parent / "static"
 if _STATIC_DIR.exists():

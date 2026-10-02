@@ -132,11 +132,12 @@ def compile_publication(revision):
             readiness=readiness,
         ))
     return Publication(
+        compiler_version="0.2.0", report_checking_available=True,
         rules=rules, profile=revision.profile_review,
         deferred_candidate_ids=[d.candidate_id for d in revision.candidate_decisions if d.action == "DEFER"],
         requirement_dispositions=revision.ledger_decisions,
         limitations=[
-            "This is a reviewed specification snapshot, not a report compliance result. V2 report checking is not implemented.",
+            "This is a reviewed specification snapshot, not a compliance result. V2 checking supports explicit section page settings only; consult live capabilities.",
             "PROPERTY_CONTRACT indicates compiled values only, not a completed validator or verified physical geometry.",
             "Body scopes and conditional rules retain their missing execution capabilities; no condition was flattened.",
             "Extracted requirement coverage is incomplete. Acknowledging partial evidence does not approve every instruction in that source paragraph.",
