@@ -1,0 +1,318 @@
+{
+  "schema_version": 2,
+  "extractor_version": "0.1.0",
+  "source_sha256": "bb715c8d80fba5afbf7472974e5c503fbc5bc8ee4757f51a67bde79b11599cbc",
+  "publication_ready": false,
+  "property_proposals": [
+    {
+      "candidate_id": "candidate-d7476710474a310ab085",
+      "scope": "document",
+      "value": {
+        "kind": "page_size",
+        "width_pt": 595.2755905511812,
+        "height_pt": 841.8897637795276
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-93f8b8f917483c731868",
+      "scope": "body",
+      "value": {
+        "kind": "font_family",
+        "font": "Times New Roman"
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-cf72f54faae0d780d04c",
+      "scope": "body",
+      "value": {
+        "kind": "font_size",
+        "expected_pt": 12.0
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-47eaf5b006cc29351ae1",
+      "scope": "body",
+      "value": {
+        "kind": "line_spacing_multiple",
+        "multiplier": 1.5
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-490ffcadb840b9a9b866",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "top",
+        "expected_pt": 42.51968503937008
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-dc567f6f95f0fa2cec65",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "bottom",
+        "expected_pt": 62.36220472440945
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-fd8818eaf93c31e0a44f",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "left",
+        "expected_pt": 85.03937007874016
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-80614855b48ed204e8b0",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "right",
+        "expected_pt": 56.69291338582678
+      },
+      "condition": "ALWAYS",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-ed1945cff7d0f41e873e",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "top",
+        "expected_pt": 85.03937007874016
+      },
+      "condition": "HEADER_ABSENT",
+      "origin": "EXPLICIT_PROSE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-b7acada65f427fd949f8",
+      "scope": "body",
+      "value": {
+        "kind": "font_family",
+        "font": "Times New Roman"
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-5cf59695f11bf267e91f",
+      "scope": "body",
+      "value": {
+        "kind": "font_size",
+        "expected_pt": 11.5
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-68fedc9e83070beb38ba",
+      "scope": "body",
+      "value": {
+        "kind": "line_spacing_multiple",
+        "multiplier": 1.5
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-9d30f8258ef087d97cfb",
+      "scope": "document",
+      "value": {
+        "kind": "page_size",
+        "width_pt": 612.0,
+        "height_pt": 792.0
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-e282ac01fa91ef4de5ea",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "top",
+        "expected_pt": 72.0
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-51a8def3e9170f074679",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "bottom",
+        "expected_pt": 72.0
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-5562f1a02bcb9a7a207e",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "left",
+        "expected_pt": 72.0
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    },
+    {
+      "candidate_id": "candidate-7c9380df7c9dd42baec1",
+      "scope": "document",
+      "value": {
+        "kind": "margin",
+        "side": "right",
+        "expected_pt": 72.0
+      },
+      "condition": "ALWAYS",
+      "origin": "OBSERVED_APPEARANCE",
+      "review_status": "PROPOSED"
+    }
+  ],
+  "conflicts": [
+    {
+      "conflict_id": "conflict-3ea1f532ac1f2f81",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-d7476710474a310ab085",
+        "candidate-9d30f8258ef087d97cfb"
+      ],
+      "suggested_candidate_id": "candidate-d7476710474a310ab085",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-430623777d163cab",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-cf72f54faae0d780d04c",
+        "candidate-5cf59695f11bf267e91f"
+      ],
+      "suggested_candidate_id": "candidate-cf72f54faae0d780d04c",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-e70921c8cb39da6b",
+      "kind": "CONDITIONAL_OVERRIDE",
+      "candidate_ids": [
+        "candidate-490ffcadb840b9a9b866",
+        "candidate-ed1945cff7d0f41e873e"
+      ],
+      "suggested_candidate_id": null,
+      "explanation": "A general value and a conditional alternative overlap. Review the intended conditions and physical measurements; neither value is approved.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-616d69d5248ca9af",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-490ffcadb840b9a9b866",
+        "candidate-e282ac01fa91ef4de5ea"
+      ],
+      "suggested_candidate_id": "candidate-490ffcadb840b9a9b866",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-5a4d2cf374c2433f",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-dc567f6f95f0fa2cec65",
+        "candidate-51a8def3e9170f074679"
+      ],
+      "suggested_candidate_id": "candidate-dc567f6f95f0fa2cec65",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-a3c80a902f093f45",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-fd8818eaf93c31e0a44f",
+        "candidate-5562f1a02bcb9a7a207e"
+      ],
+      "suggested_candidate_id": "candidate-fd8818eaf93c31e0a44f",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-3b8e97b794eea2b8",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-80614855b48ed204e8b0",
+        "candidate-7c9380df7c9dd42baec1"
+      ],
+      "suggested_candidate_id": "candidate-80614855b48ed204e8b0",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "conflict_id": "conflict-82d4405cecb94867",
+      "kind": "PROSE_APPEARANCE",
+      "candidate_ids": [
+        "candidate-ed1945cff7d0f41e873e",
+        "candidate-e282ac01fa91ef4de5ea"
+      ],
+      "suggested_candidate_id": "candidate-ed1945cff7d0f41e873e",
+      "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+      "status": "UNRESOLVED"
+    }
+  ],
+  "profiles": [
+    {
+      "label": "report",
+      "chapter_count": 6
+    },
+    {
+      "label": "synopsis",
+      "chapter_count": 9
+    }
+  ],
+  "ledger_counts": {
+    "UNCLASSIFIED": 23,
+    "CANDIDATES_NEED_REVIEW": 7,
+    "MANUAL_REVIEW": 3
+  },
+  "evidence_count": 69,
+  "notices": [
+    "Experimental review preview only. No candidate is approved or used by the report checker; publication and v2 checking are not implemented.",
+    "English patterns cover a limited property set. The requirement ledger is an extraction aid, not proof of complete template coverage.",
+    "Candidate-bearing paragraphs can contain additional unsupported requirements. Review the full source excerpt.",
+    "Table topics are suggestions, not mandatory sections or aliases. Select and review report/synopsis profiles separately."
+  ]
+}

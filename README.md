@@ -106,3 +106,5 @@ Some Word documents still need manual rule review: theme fonts, complex style to
 ## Complex template development plan
 
 The next development phase is specified in the [technical implementation plan](docs/COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md), with a linked [execution checklist and handoff log](docs/COMPLEX_TEMPLATE_BACKLOG.md). It covers interpreting written guidelines, resolving conflicting template evidence, validating complex report structures, pagination, coverage, mobile clients, and release tests. These documents describe planned work; they do not expand the current engine's supported checks.
+
+The first implementation slice is available as an [experimental template analysis preview](docs/TEMPLATE_ANALYSIS_PREVIEW.md). It extracts written property proposals and table-based chapter lists, and shows conflicts with observed formatting. Use `POST /api/v2/template-analysis` from the API docs or the documented inspection CLI. Its candidates are not yet used by the existing report checker.

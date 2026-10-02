@@ -2,7 +2,7 @@
 
 Created 2026-10-02. Authoritative specification: [COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md](COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md).
 
-Status: planning complete; implementation has not started. The existing MVP remains at baseline `83991c1` before these planning documents. All unchecked items below represent proposed work, not promised or completed features.
+Status: implementation in progress. The first read-only extraction preview is implemented; see [checkpoint details and usage](TEMPLATE_ANALYSIS_PREVIEW.md). The original MVP baseline was `83991c1`, and the planning commit was `0586af7`. Unchecked tasks remain incomplete even where this preview supplies part of their infrastructure.
 
 ## How to use this tracker
 
@@ -18,7 +18,7 @@ Status: planning complete; implementation has not started. The existing MVP rema
 
 Depends on: no implementation milestone. Relevant specification: sections 1-3, 9, 15, 19-20.
 
-- [ ] **M0-01 Source manifest and baseline command.** Add a repeatable inspection command that accepts a locally supplied template path, checks its hash and emits a redacted extraction summary. Record the current Letter/11.5 pt/margin behavior without publishing private input files. Acceptance: same source/code produces the same normalized summary.
+- [x] **M0-01 Source manifest and baseline command.** Implemented `python -m scripts.inspect_template` with optional expected SHA-256 and default redacted output. The [real-template snapshot](benchmarks/mini-project-1a-extraction-0.1.json) records Letter/11.5 pt/72 pt observations and conflicting written proposals. API and repeated CLI outputs were compared; original documents were not copied into Git.
 - [ ] **M0-02 Requirement dispositions.** Convert MP-01 through MP-50 into a reviewed inventory with source anchors, modality, profile, expected measurement and checking class. Acceptance: all 50 entries accounted for; difficult requirements remain visible rather than disappearing.
 - [ ] **M0-03 Resolve first-slice decisions.** Record DEC-01, DEC-02 and body/page rule interpretations needed for the first extraction slice. Leave other DEC entries explicitly unresolved. Acceptance: no developer guess is represented as a teacher-confirmed rule.
 - [ ] **M0-04 Design the compliant complex report.** Define its front matter, chapter tree, tables/figures, captions, fields and page-label scheme using fictional identities. Acceptance: document content is a completed report, not a copy of guideline pages.
@@ -213,6 +213,9 @@ Append the newest implementation session at the end. Use exact commits and comma
 | Date | Completed | Validation | Outstanding/blockers | Next action |
 | --- | --- | --- | --- | --- |
 | 2026-10-02 | Master plan, source manifest, MP catalog and implementation tracker authored | Documentation consistency checks; no new runtime functionality | Completed student report not yet supplied; DEC interpretations not yet resolved | M0-01 through M0-05, then the first extraction slice |
+| 2026-10-02 | First extraction preview: M0-01 complete; partial M1-02/04, M2-02/03, M3-02/04/06/07/10 | Full backend regression suite and actual-template API/CLI comparison; see checkpoint document and tests in the commit containing this row | No v2 publication/checking or client integration yet; MP dispositions and DEC interpretations remain unapproved | Continue M0-02/03 and v2 source/role contracts, then review/publication integration |
+
+Current partial-work details: typed candidates/evidence/conflicts and a preview capability endpoint exist, but they do not complete the full v2 contracts. The lightweight source walker preserves table-cell text and paths, but does not complete the ordered document IR. Prose extraction covers five property families, not all requirements. Chapter tables yield unapproved profile candidates. These tasks stay unchecked until their full gates pass.
 
 Suggested handoff detail for each future session:
 

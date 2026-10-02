@@ -7,11 +7,13 @@ from app.rules.rule_extractor import extract_ruleset
 from app.models.rule_model import RuleSet
 from app.compliance.engine import ComplianceEngine
 from app.api_routes import router as api_router
+from app.analysis.api import router as analysis_router
 from app.uploads import parse_upload, read_limited
 from starlette.concurrency import run_in_threadpool
 
 app = FastAPI(title="ReportLint Engine")
 app.include_router(api_router)
+app.include_router(analysis_router)
 
 _STATIC_DIR = Path(__file__).parent.parent / "static"
 if _STATIC_DIR.exists():
