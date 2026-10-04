@@ -6,7 +6,7 @@ This document describes the style-based checkpoint. Current checker **0.3.0** al
 
 ## Use the feature
 
-Follow the [review workflow](TEMPLATE_REVISION_REVIEW.md), then upload a report using the [revision check endpoint](REVISION_REPORT_CHECKS.md). The web/Android UI has not yet been connected to this v2 flow; use the API's `/docs` interface.
+Follow the [complex mobile web workflow](COMPLEX_WEB_WORKFLOW.md), or use the [review API](TEMPLATE_REVISION_REVIEW.md) and [revision check endpoint](REVISION_REPORT_CHECKS.md) through `/docs`. The native Android app has not yet been connected to v2.
 
 In Word, use **Body Text** for actual prose and **Heading 1** for chapter titles. A custom paragraph style may inherit from either style. Review the template's body font, size and spacing proposals, select the correct report profile, and explicitly review chapter names, aliases and requiredness before publishing. Changing a report's styles is a preparation step, not an automatic repair performed by this checker.
 

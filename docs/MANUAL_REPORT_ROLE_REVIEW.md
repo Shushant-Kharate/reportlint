@@ -1,6 +1,6 @@
 # Reviewing manually formatted reports
 
-Checker **0.3.0** can use explicitly reviewed roles for supported paragraphs that use Normal or other nonsemantic styles. A report no longer has to be restyled in Word just to identify body paragraphs and chapters. This is a backend/API workflow; there is not yet a mobile role-review screen or automatic semantic understanding of arbitrary report layouts.
+Checker **0.3.0** can use explicitly reviewed roles for supported paragraphs that use Normal or other nonsemantic styles. A report no longer has to be restyled in Word just to identify body paragraphs and chapters. A [mobile web review screen](COMPLEX_WEB_WORKFLOW.md) now exposes this workflow; the API instructions below remain useful for integrations. Automatic semantic understanding of arbitrary report layouts is not implemented.
 
 ## Workflow in the API docs
 
@@ -65,4 +65,4 @@ Tests cover unstyled reports, nonautomatic proposals, mixed outcomes after revie
 
 The supplied Mini Project format has 124 supported unresolved top-level paragraphs eligible for this review mechanism, plus 192 empty and 180 table paragraphs. This was inspected locally without assigning any roles or publishing interpretations. The format file is not a completed student report, and eligibility is not proof that its instructions can all be checked.
 
-Next: a mobile-friendly interface for reviewing these paragraphs and template decisions, richer automatic role candidates, and the remaining advanced validators. This checkpoint does not complete the roadmap's semantic role milestone or full complex-template support.
+The mobile web interface is now available. Richer automatic role candidates, advanced validators, durable jobs and native Android integration remain pending. This checkpoint does not complete the roadmap's semantic role milestone or full complex-template support.

@@ -1,6 +1,6 @@
 # Reviewed template revisions (v2)
 
-This checkpoint adds persistent review and immutable specification publication to the extraction preview. A subsequent [revision-pinned checker](REVISION_REPORT_CHECKS.md) evaluates explicit section page settings and [scoped body/chapter properties](SCOPED_BODY_AND_CHAPTER_CHECKS.md). There is no mobile v2 review screen; the existing web/Android checker still uses v1 templates. No new package is required: persistence uses Python's SQLite library.
+This checkpoint adds persistent review and immutable specification publication to the extraction preview. A subsequent [revision-pinned checker](REVISION_REPORT_CHECKS.md) evaluates explicit section page settings and [scoped body/chapter properties](SCOPED_BODY_AND_CHAPTER_CHECKS.md). The [complex mobile web workflow](COMPLEX_WEB_WORKFLOW.md) now exposes these operations; the basic checker and native Android app remain on v1. No new package is required: persistence uses Python's SQLite library.
 
 ## Run the workflow
 
