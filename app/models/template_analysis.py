@@ -42,8 +42,28 @@ class MarginValue(AnalysisModel):
     expected_pt: float = Field(ge=0)
 
 
+class ChapterSizeValue(AnalysisModel):
+    kind: Literal["chapter_font_size"] = "chapter_font_size"
+    expected_pt: PositiveFloat
+
+
+class ChapterCaseValue(AnalysisModel):
+    kind: Literal["chapter_case"] = "chapter_case"
+    expected: Literal["mixed"] = "mixed"
+
+
+class AbstractWordsValue(AnalysisModel):
+    kind: Literal["abstract_word_count"] = "abstract_word_count"
+    expected_words: int = Field(gt=0, le=100000)
+
+
+class AbstractKeywordsValue(AnalysisModel):
+    kind: Literal["abstract_keywords"] = "abstract_keywords"
+    required: Literal[True] = True
+
+
 RequirementValue = Annotated[
-    FontValue | SizeValue | SpacingValue | PageValue | MarginValue,
+    FontValue | SizeValue | SpacingValue | PageValue | MarginValue | ChapterSizeValue | ChapterCaseValue | AbstractWordsValue | AbstractKeywordsValue,
     Field(discriminator="kind"),
 ]
 
@@ -92,7 +112,7 @@ class RequirementDisposition(AnalysisModel):
 
 class TemplateAnalysis(AnalysisModel):
     schema_version: Literal[2] = 2
-    extractor_version: Literal["0.1.0"] = "0.1.0"
+    extractor_version: Literal["0.1.0", "0.2.0"] = "0.1.0"
     source_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
     candidates: list[RuleCandidate] = Field(default_factory=list)
     conflicts: list[Conflict] = Field(default_factory=list)

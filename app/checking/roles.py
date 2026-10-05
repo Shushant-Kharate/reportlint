@@ -5,6 +5,7 @@ import re
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import InvalidDocxError
 from app.ooxml.style_resolver import StyleRegistry
+from app.checking.headings import BANNER, chapter_titles, title_key
 
 
 @dataclass
@@ -18,6 +19,8 @@ class Paragraph:
     styles: list
     reviewable: bool = False
     chapter_index: int | None = None
+    scope_uncertain: bool = False
+    reviewed: bool = False
 
 
 def style_chain(registry, style_id, kind):
@@ -114,8 +117,24 @@ def inventory(package):
         )
         if p.getparent() is body and role not in {"FIELD", "FIELD_OR_CONTENTS", "EMPTY"} and unsafe:
             role, level = "UNKNOWN", None
-        reviewable = role == "UNKNOWN" and chain is not None and p.getparent() is body and not unsafe and bool(text.strip())
+        reviewable = role in {"UNKNOWN", "BODY", "HEADING", "OTHER"} and chain is not None and p.getparent() is body and not unsafe and bool(text.strip())
         result.append(Paragraph(index, package.document_tree.getpath(p), p, text, role, level, chain or [], reviewable))
+    titles = chapter_titles(result)
+    banners = [p.index for p in result if p.index in titles and BANNER.match(p.text.strip())]
+    first_chapter = min(banners or list(titles), default=None)
+    region = None
+    for p in result:
+        key = title_key(p.text)
+        if p.role == "HEADING" or (p.role == "UNKNOWN" and len(p.text.split()) <= 4):
+            if key in {"abstract", "acknowledgement", "references"}:
+                region = key
+            elif key.startswith("appendix"):
+                region = "appendix"
+            elif p.index in titles:
+                region = "chapter"
+        if p.role == "BODY":
+            before_body = first_chapter is not None and p.index < first_chapter and region != "abstract"
+            p.scope_uncertain = before_body or region in {"appendix", "references"} or key in {"yours sincerely,", "yours sincerely", "sincerely,"}
     return result, registry, uncertain_structure
 
 
@@ -173,7 +192,11 @@ def paragraph_spacing(package, paragraph):
                 line = entry.get(qn("w:line"))
             if rule is None:
                 rule = entry.get(qn("w:lineRule"))
-    if line is None or not re.fullmatch(r"[0-9]{1,8}", line) or int(line) <= 0:
+    if line is None:
+        # Absence across a valid style hierarchy means default single spacing.
+        # An orphan lineRule cannot safely define a numeric spacing value.
+        return {"rule": "auto", "multiplier": 1.0, "points": None, "origin": "default"} if rule is None else None
+    if not re.fullmatch(r"[0-9]{1,8}", line) or int(line) <= 0:
         return None
     rule = rule or "auto"
     if rule not in {"auto", "exact", "atLeast"}:

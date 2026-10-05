@@ -41,7 +41,9 @@ def items(revision, doc, prefix):
 def test_body_and_chapters_with_no_false_cover_failures(revision):
     result = check_bytes(revision, encoded(report()))
     body = [i for i in result.items if i.code.startswith("BODY_")]
-    assert len(body) == 9 and all(i.status == "PASS" for i in body)
+    assert len(body) == 9
+    assert all(i.status == "PASS" for i in body if i.paragraph_index in {2, 4})
+    assert all(i.code == "BODY_SCOPE_REVIEW" for i in body if i.paragraph_index == 6)
     assert all(i.paragraph_index in {2, 4, 6} for i in body)
     assert len([i for i in result.items if i.code == "CHAPTER_PRESENT"]) == 3
     assert next(i for i in result.items if i.code.startswith("CHAPTER_ORDER")).status == "PASS"

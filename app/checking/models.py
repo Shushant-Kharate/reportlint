@@ -42,7 +42,7 @@ class CheckItem(AnalysisModel):
 
 class RevisionCheck(AnalysisModel):
     schema_version: Literal[2] = 2
-    checker_version: Literal["0.3.0"] = "0.3.0"
+    checker_version: Literal["0.4.0"] = "0.4.0"
     template_id: str
     revision_id: str
     snapshot_sha256: str

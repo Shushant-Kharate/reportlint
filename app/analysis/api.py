@@ -17,7 +17,7 @@ def capabilities():
         "template_analysis": "EXPERIMENTAL_PREVIEW",
         "accepted_inputs": ["docx"],
         "guideline_languages": ["en"],
-        "candidate_properties": ["font_family", "font_size", "line_spacing_multiple", "page_size", "margin"],
+        "candidate_properties": ["font_family", "font_size", "line_spacing_multiple", "page_size", "margin", "chapter_font_size", "chapter_case", "abstract_word_count", "abstract_keywords"],
         "chapter_profiles": "TABLE_CANDIDATES_REQUIRING_REVIEW",
         "v2_publication": True,
         "v2_publication_scope": "REVIEWED_SPECIFICATION_SNAPSHOTS",
@@ -25,7 +25,10 @@ def capabilities():
         "v2_report_checking_scope": "EXPLICIT_PAGE_SETTINGS_BODY_TEXT_AND_OUTLINE_CHAPTERS",
         "body_scope": "BODY_TEXT_STYLE_OR_REVIEWED_REPORT_ASSIGNMENT",
         "report_role_review": "HASH_BOUND_MANUAL_ASSIGNMENTS",
-        "chapter_matching": "OUTLINE_LEVEL_1_EXACT_NAMES_OR_REVIEWED_REPORT_ASSIGNMENT",
+        "chapter_matching": "NORMALIZED_OUTLINE_HEADINGS_NUMBERED_BANNERS_OR_REVIEWED_ASSIGNMENT",
+        "spacing_tolerance_lines": 1 / 240,
+        "role_corrections": "SUPPORTED_TOP_LEVEL_PARAGRAPHS_INCLUDING_EXISTING_CLASSIFICATIONS",
+        "scoped_checks": ["chapter_font_size", "chapter_case", "abstract_word_count", "abstract_keywords"],
         "max_upload_bytes": MAX_UPLOAD_BYTES,
     }
 

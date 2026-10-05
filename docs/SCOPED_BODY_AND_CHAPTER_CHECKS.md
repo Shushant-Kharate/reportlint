@@ -1,5 +1,7 @@
 # Scoped body and chapter checks
 
+**Historical checkpoint:** the details below describe initial 0.2/0.3 behavior. See [checker 0.4.0 changes](REAL_DOCUMENT_IMPROVEMENTS.md) for current heading normalization, split banners, default spacing, scope guards and role corrections.
+
 Checker **0.2.0** extends the existing revision-pinned report endpoint with conservative body formatting and chapter checks. New publications use compiler **0.3.0** metadata. Previously published specifications keep their original contents and hashes and can still be checked. No dependency or installation command changes are required.
 
 This document describes the style-based checkpoint. Current checker **0.3.0** also accepts [explicit report-specific role reviews](MANUAL_REPORT_ROLE_REVIEW.md) for supported unstyled paragraphs. Without a review, the conservative behavior below remains unchanged.

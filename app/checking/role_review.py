@@ -56,7 +56,7 @@ def preview_package(revision, package, report_hash):
     for p in paragraphs:
         role, chapter_index, reason = None, None, "No role inferred. Inspect the original report before assigning a role."
         if not p.reviewable:
-            reason = "The parser assigned a role or found unsupported content. Manual overrides are unavailable for this paragraph."
+            reason = "Unsupported content or malformed structure prevents a safe manual override."
         else:
             matches = [c for c in chapters if title_key(p.text) in {title_key(c.name), *map(title_key, c.aliases)}]
             if len(matches) == 1:
@@ -73,7 +73,7 @@ def preview_package(revision, package, report_hash):
         counts=dict(Counter(p.role for p in paragraphs)), structural_uncertainty=uncertain, paragraphs=proposals,
         limitations=[
             "Proposals never change report roles automatically. Supply explicit decisions to the check endpoint.",
-            "Only supported, unresolved top-level paragraphs can be assigned. Tables, fields, unsupported containers, and malformed style chains cannot be overridden.",
+            "Supported top-level paragraphs can be corrected, including existing body/heading classifications. Tables, fields, unsupported containers, and malformed style chains cannot be overridden.",
             "Text heuristics are proposals only, not calibrated confidence or proof of a paragraph's role.",
             "Decisions apply only to these exact report and published-snapshot hashes; document edits require another preview/review.",
             "No report, preview, or role review is stored. Excerpts may contain private report text.",
@@ -96,7 +96,7 @@ def apply_roles(revision, paragraphs, report_hash, review):
             raise ReviewError("INVALID_ROLE_TARGET", "Role assignments must reference unique paragraphs and their exact source paths.")
         seen.add(decision.paragraph_index)
         if not p.reviewable:
-            raise ReviewError("UNSUPPORTED_ROLE_OVERRIDE", "Only supported unresolved top-level paragraphs can be assigned a role.")
+            raise ReviewError("UNSUPPORTED_ROLE_OVERRIDE", "Only safely parsed top-level paragraphs can be assigned a role.")
         if decision.role == "CHAPTER" and decision.chapter_index not in chapter_ids:
             raise ReviewError("INVALID_CHAPTER_ASSIGNMENT", "Select a chapter index from the published profile.")
     for decision in review.decisions:
@@ -104,6 +104,7 @@ def apply_roles(revision, paragraphs, report_hash, review):
         p.role = {"BODY": "BODY", "CHAPTER": "HEADING", "EXCLUDE": "REVIEWED_EXCLUSION"}[decision.role]
         p.level = 1 if decision.role == "CHAPTER" else None
         p.chapter_index = decision.chapter_index
+        p.reviewed = True
     return sha256(canonical_json(review.model_dump()).encode("utf-8")).hexdigest()
 
 

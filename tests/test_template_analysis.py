@@ -78,7 +78,7 @@ def test_paragraph_gap_and_chapter_font_are_not_body_rules():
     assert [c.value.expected_pt for c in explicit(result, "font_size")] == [12]
     lookup = {e.source_id: e.excerpt for e in result.evidence}
     pending = [lookup[item.evidence_id] for item in result.requirement_ledger if item.status == "UNCLASSIFIED"]
-    assert any("Chapter number" in text for text in pending)
+    assert explicit(result, "chapter_font_size")[0].value.expected_pt == 18
     assert any("Vertical space" in text for text in pending)
 
 

@@ -1,5 +1,7 @@
 # Reviewing manually formatted reports
 
+**0.4.0 update:** safely parsed existing BODY/HEADING/OTHER classifications can now be corrected too. Unsupported fields, tables, drawings and malformed styles remain non-reviewable. See [current improvements](REAL_DOCUMENT_IMPROVEMENTS.md); the original 0.3 checkpoint below described unresolved paragraphs only.
+
 Checker **0.3.0** can use explicitly reviewed roles for supported paragraphs that use Normal or other nonsemantic styles. A report no longer has to be restyled in Word just to identify body paragraphs and chapters. A [mobile web review screen](COMPLEX_WEB_WORKFLOW.md) now exposes this workflow; the API instructions below remain useful for integrations. Automatic semantic understanding of arbitrary report layouts is not implemented.
 
 ## Workflow in the API docs

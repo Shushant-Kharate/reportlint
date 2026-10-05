@@ -92,8 +92,8 @@ def test_stale_or_invalid_role_reviews_are_rejected(revision, kind):
     assert error.value.code == ("STALE_ROLE_REVIEW" if kind in {"report", "snapshot"} else "INVALID_CHAPTER_ASSIGNMENT" if kind == "chapter" else "INVALID_ROLE_TARGET")
 
 
-@pytest.mark.parametrize("kind", ["table", "field", "style_cycle", "drawing", "already_styled"])
-def test_unsafe_or_resolved_roles_cannot_be_overridden(revision, kind):
+@pytest.mark.parametrize("kind", ["table", "field", "style_cycle", "drawing"])
+def test_unsafe_roles_cannot_be_overridden(revision, kind):
     doc = Document()
     if kind == "table":
         p = doc.add_table(rows=1, cols=1).cell(0, 0).paragraphs[0]
@@ -106,8 +106,6 @@ def test_unsafe_or_resolved_roles_cannot_be_overridden(revision, kind):
         doc.styles["Normal"].base_style = doc.styles["Normal"]
     elif kind == "drawing":
         p.runs[0]._r.append(OxmlElement("w:drawing"))
-    elif kind == "already_styled":
-        p.style = doc.styles["Heading 1"]
     data = encoded(doc)
     preview = preview_bytes(revision, data)
     target = preview.paragraphs[0]

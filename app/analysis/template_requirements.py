@@ -11,6 +11,7 @@ from app.models.template_analysis import (
     TemplateAnalysis, RuleCandidate, Conflict, RequirementDisposition,
     SourceEvidence, FontValue, SizeValue, SpacingValue, PageValue, MarginValue,
     ChapterCandidate, ProfileCandidate,
+    ChapterSizeValue, ChapterCaseValue, AbstractWordsValue, AbstractKeywordsValue,
 )
 from app.ooxml.structure_extractor import build_document_model
 from app.ooxml.constants import qn
@@ -94,7 +95,7 @@ def find_conflicts(candidates):
 
 def analyze_template(package, source_sha256):
     inventory = inventory_source(package)
-    result = TemplateAnalysis(source_sha256=source_sha256, notices=inventory.notices)
+    result = TemplateAnalysis(source_sha256=source_sha256, notices=inventory.notices, extractor_version="0.2.0")
     evidence = {}
 
     def add(value, scope, source, *, origin="EXPLICIT_PROSE", condition="ALWAYS", note=""):
@@ -140,6 +141,22 @@ def analyze_template(package, source_sha256):
             continue
         evidence[source.source_id] = source
         ids = []
+        # Dedicated scoped properties; never turn heading typography into body
+        # typography. Preserve the rest of each source span in the ledger.
+        if guidelines and re.search(r"\bchapter number.*?\btitle\b", text, re.I) and not re.search(r"\beither\b|\bor\s+\d|\b(?:shall|must|should) not (?:be printed|use)\b", text, re.I):
+            size = re.search(r"(?:font size\s*\(|printed at\s+)(\d+(?:\.\d+)?)\s*pt\b", text, re.I)
+            if size:
+                ids.append(add(ChapterSizeValue(expected_pt=float(size[1])), "document", source))
+            if re.search(r"using both upper and lower case", text, re.I):
+                ids.append(add(ChapterCaseValue(), "document", source))
+        if guidelines and re.search(r"\babstract\b", text, re.I):
+            words = re.search(r"\b(?:the\s+)?(\d+)\s*[- ]\s*word abstract\s+(?:shall|must)\b(?!\s+not\b)", text, re.I)
+            if words and 0 < int(words[1]) <= 100000:
+                ids.append(add(AbstractWordsValue(expected_words=int(words[1])), "document", source,
+                               note="Exact whitespace-delimited word count; reviewer must confirm this is an exact target, not a maximum."))
+            if re.search(r"\b(?:shall|must)\s+(?:include|have|contain)\b.*\bkey\s*words\b", text, re.I):
+                ids.append(add(AbstractKeywordsValue(), "document", source,
+                               note="Checks an explicit nonempty Keywords label within the abstract region; semantic keyword identification is not supported."))
         negative_instruction = bool(re.search(r"\b(?:shall|must|should)\s+not\b|\b(?:neither|not be)\b", text, re.I))
         body_rule = bool(re.search(r"\b(?:standard font|body (?:text|font|paragraph))\b", text, re.I)) or (guidelines and body_context)
         # Heading-specific instructions cannot inherit a nearby body context.

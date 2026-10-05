@@ -9,6 +9,7 @@ from app.checking.models import CheckItem, RevisionCheck
 from app.checking.roles import inventory
 from app.checking.semantic import body_checks, chapter_checks
 from app.checking.role_review import apply_roles
+from app.checking.scoped import KINDS, scoped_checks
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.review.service import ReviewError, snapshot_hash
@@ -59,6 +60,9 @@ def check_package(revision, package, report_hash, role_review=None):
                     source_path=decision.source_path))
     for rule in revision.publication.rules:
         common = dict(rule_id=rule.rule_id, evidence_ids=rule.evidence_ids, expected=rule.value.model_dump())
+        if rule.condition == "ALWAYS" and rule.scope == "document" and rule.value.kind in KINDS:
+            items.extend(scoped_checks(rule, package, paragraphs, registry, uncertain))
+            continue
         if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind in {"font_family", "font_size", "line_spacing_multiple"}:
             items.extend(body_checks(rule, package, paragraphs, registry, uncertain))
             continue
@@ -103,9 +107,9 @@ def check_package(revision, package, report_hash, role_review=None):
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
                          role_review_sha256=review_hash, role_decisions=[d.model_dump() for d in role_review.decisions] if role_review else [],
                          outcome=outcome, counts=counts, items=items, limitations=[
-                             "Supports page settings, Body Text or reviewed body roles, and outline-based or explicitly assigned chapters. Manual assignments are reviewer assertions, not automatic role-detection evidence.",
+                             "Supports page settings, scoped Body Text or reviewed body roles, numbered chapter banners, and reviewed chapter-size/case and abstract word-count/keyword rules. Manual assignments are reviewer assertions, not automatic role-detection evidence.",
                              "No overall compliance score: item counts mix section checks and unresolved requirements and are not a coverage percentage.",
-                             "A match does not establish rendered geometry, headers/footers, unstyled body roles, semantic chapter equivalence, or complete template coverage.",
+                             "A match does not establish rendered geometry, headers/footers, captions, contents accuracy, unstyled body roles, fuzzy chapter equivalence, or complete template coverage. Spacing tolerance is 1/240 of a line.",
                              "Report files and check results are not retained. Results identify an immutable template revision and the uploaded report's SHA-256.",
                          ])
 
