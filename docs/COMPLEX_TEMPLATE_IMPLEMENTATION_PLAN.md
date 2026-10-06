@@ -1,5 +1,7 @@
 # ReportLint complex template implementation plan
 
+> Flutter migration (2026-10-06): active UI now lives in `frontend/` for Android/web. HTML/Kotlin references and prior browser results below are historical. Follow the root README for current builds and validation.
+
 Plan version: 1.0. Date: 2026-10-02. Status: proposed implementation specification, not implemented functionality.
 
 Code baseline inspected: `83991c1` on `main`. Execution tracker: [COMPLEX_TEMPLATE_BACKLOG.md](COMPLEX_TEMPLATE_BACKLOG.md).

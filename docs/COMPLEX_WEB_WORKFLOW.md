@@ -1,5 +1,7 @@
 # Complex format workflow on mobile web
 
+> Flutter migration (2026-10-06): active UI now lives in `frontend/` for Android/web. HTML/Kotlin references and prior browser results below are historical. Follow the root README for current builds and validation.
+
 The current v2 engine now has a browser interface at **`/app/complex.html`**. Start the server using the main README and open `http://127.0.0.1:8000/app/complex.html`. The basic checker also links to this workflow. No Node.js, frontend build, or additional runtime dependency is needed to use it.
 
 For a phone, use the server's LAN address as described in the README. The native Android app still uses v1 and has not received these screens. This is a responsive mobile web interface for the existing limited v2 capabilities, not completion of the entire complex-report roadmap.

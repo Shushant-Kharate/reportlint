@@ -1,7 +1,9 @@
 import json
+import os
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.rules.rule_extractor import extract_ruleset
 from app.models.rule_model import RuleSet
@@ -14,14 +16,29 @@ from app.uploads import parse_upload, read_limited
 from starlette.concurrency import run_in_threadpool
 
 app = FastAPI(title="ReportLint Engine")
+_origins = [origin.strip() for origin in os.environ.get("REPORTLINT_CORS_ORIGINS", "").split(",") if origin.strip()]
+if _origins:
+    app.add_middleware(CORSMiddleware, allow_origins=_origins,
+                       allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
+                       allow_headers=["Content-Type", "Accept"])
 app.include_router(api_router)
 app.include_router(analysis_router)
 app.include_router(review_router)
 app.include_router(checking_router)
 
-_STATIC_DIR = Path(__file__).parent.parent / "static"
-if _STATIC_DIR.exists():
-    app.mount("/app", StaticFiles(directory=str(_STATIC_DIR), html=True), name="static")
+_STATIC_DIR = Path(os.environ.get("REPORTLINT_WEB_DIR", Path(__file__).parent.parent / "frontend" / "build" / "web"))
+
+@app.get("/app/complex.html", include_in_schema=False)
+def old_frontend_link():
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse("/app/")
+
+if (_STATIC_DIR / "index.html").is_file():
+    app.mount("/app", StaticFiles(directory=str(_STATIC_DIR), html=True), name="flutter")
+else:
+    @app.get("/app/", include_in_schema=False)
+    def frontend_not_built():
+        raise HTTPException(503, "Flutter frontend is not built. Run flutter pub get and flutter build web --base-href /app/ in frontend/, then restart the server. The API remains available at /docs.")
 
 @app.get("/")
 def root():

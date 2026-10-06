@@ -1,4 +1,4 @@
-name: Tests and Android APK
+name: Backend and Flutter
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
@@ -12,7 +12,7 @@ jobs:
           python-version: '3.11'
       - run: python -m pip install -r requirements.txt
       - run: python -m pytest tests -q
-  android:
+  flutter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,14 +21,26 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+      - uses: subosito/flutter-action@v2
         with:
-          packages: 'platform-tools platforms;android-34 build-tools;34.0.0'
-          log-accepted-android-sdk-licenses: false
-      - uses: gradle/actions/setup-gradle@v4
-      - run: chmod +x gradlew && ./gradlew assembleDebug lintDebug --no-daemon
-        working-directory: android
+          flutter-version: '3.47.6'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: frontend
+      - run: flutter analyze
+        working-directory: frontend
+      - run: flutter test
+        working-directory: frontend
+      - run: flutter build web --base-href /app/ --no-web-resources-cdn
+        working-directory: frontend
+      - run: flutter build apk --debug
+        working-directory: frontend
       - uses: actions/upload-artifact@v4
         with:
-          name: ReportLint-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-
+          name: ReportLint-Flutter-debug-apk
+          path: frontend/build/app/outputs/flutter-apk/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ReportLint-Flutter-web
+          path: frontend/build/web/

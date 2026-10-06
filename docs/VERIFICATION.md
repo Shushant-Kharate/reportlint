@@ -1,5 +1,7 @@
 # Verification record
 
+> Flutter migration (2026-10-06): active UI now lives in `frontend/` for Android/web. HTML/Kotlin references and prior browser results below are historical. Follow the root README for current builds and validation.
+
 Date: 28 September 2026
 
 - Python: 49 passed, 4 skipped. The skips are optional LibreOffice rendering tests; LibreOffice is not installed on this computer.

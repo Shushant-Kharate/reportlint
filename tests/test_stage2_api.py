@@ -31,8 +31,13 @@ def test_root_redirects_to_app(client):
 
 def test_static_frontend_served(client):
     r = client.get("/app/")
-    assert r.status_code == 200
-    assert "ReportLint" in r.text
+    from app.main import _STATIC_DIR
+    if (_STATIC_DIR / "index.html").is_file():
+        assert r.status_code == 200
+        assert "flutter_bootstrap.js" in r.text
+    else:
+        assert r.status_code == 503
+        assert "flutter build web" in r.json()["detail"]
 
 
 def test_template_upload_creates_draft(client):

@@ -1,5 +1,7 @@
 # ReportLint complex template execution tracker
 
+> Flutter migration (2026-10-06): active UI now lives in `frontend/` for Android/web. HTML/Kotlin references and prior browser results below are historical. Follow the root README for current builds and validation.
+
 Created 2026-10-02. Authoritative specification: [COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md](COMPLEX_TEMPLATE_IMPLEMENTATION_PLAN.md).
 
 Status: implementation in progress. The extraction preview, backend [review/immutable publication slice](TEMPLATE_REVISION_REVIEW.md), and limited [revision-pinned page-setting checks](REVISION_REPORT_CHECKS.md) are implemented; see [extraction checkpoint](TEMPLATE_ANALYSIS_PREVIEW.md). The original MVP baseline was `83991c1`, and the planning commit was `0586af7`. Unchecked tasks remain incomplete even where these slices supply part of their infrastructure.
