@@ -162,7 +162,7 @@ mixin AsyncPage<T extends StatefulWidget> on State<T> {
   bool busy = false;
   String? error;
   Future<void> run(Future<void> Function() action) async {
-    if (busy) return;
+    if (!mounted || busy) return;
     setState(() {
       busy = true;
       error = null;

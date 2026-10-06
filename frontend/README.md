@@ -30,3 +30,5 @@ With a built Flutter web client and an isolated running backend, install Playwri
 ## Platform limits
 
 Android APK creation and Flutter web compilation are configured in CI. A debug APK is not a store-ready signed release. iOS needs macOS/Xcode, HTTPS or an explicit local-network development configuration, provisioning and device testing. No offline document-analysis engine is bundled. Server-address preferences survive restarts; report bytes and role reviews remain session state.
+
+Detailed migration coverage and browser reproduction commands: [Flutter verification](../docs/FLUTTER_MIGRATION.md).

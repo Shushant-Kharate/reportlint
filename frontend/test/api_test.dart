@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -7,6 +8,29 @@ import 'package:http/testing.dart';
 import 'package:reportlint_flutter/api.dart';
 
 void main() {
+  test(
+    'Timeout covers waiting for response headers, not just the body',
+    () async {
+      final pending = Completer<http.Response>();
+      final api = ReportApi(
+        'http://localhost:8000',
+        requestTimeout: const Duration(milliseconds: 20),
+        client: MockClient((_) => pending.future),
+      );
+      await expectLater(
+        api.request('GET', '/stalled'),
+        throwsA(
+          isA<ApiException>().having(
+            (e) => e.message,
+            'message',
+            contains('timed out'),
+          ),
+        ),
+      );
+      pending.complete(http.Response('{}', 200));
+      api.close();
+    },
+  );
   test('Rejects empty, oversized and non-docx uploads', () {
     expect(
       () => PickedDoc('report.pdf', Uint8List(2)),

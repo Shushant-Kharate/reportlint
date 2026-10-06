@@ -36,9 +36,13 @@ class PickedDoc {
 class ReportApi {
   final http.Client client;
   final String base;
-  ReportApi(String address, {http.Client? client})
-    : base = normalizeAddress(address),
-      client = client ?? http.Client();
+  final Duration requestTimeout;
+  ReportApi(
+    String address, {
+    http.Client? client,
+    this.requestTimeout = const Duration(minutes: 3),
+  }) : base = normalizeAddress(address),
+       client = client ?? http.Client();
 
   static String normalizeAddress(String address) {
     final uri = Uri.tryParse(address.trim());
@@ -88,9 +92,10 @@ class ReportApi {
     }
     request.headers['Accept'] = 'application/json';
     try {
-      final response = await http.Response.fromStream(
-        await client.send(request),
-      ).timeout(const Duration(minutes: 3));
+      final response = await (() async {
+        final stream = await client.send(request);
+        return http.Response.fromStream(stream);
+      })().timeout(requestTimeout);
       dynamic decoded;
       try {
         decoded = jsonDecode(response.body);

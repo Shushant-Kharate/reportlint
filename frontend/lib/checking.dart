@@ -161,7 +161,7 @@ class _CheckScreenState extends State<CheckScreen> with AsyncPage {
               OutlinedButton(
                 onPressed: () => run(() async {
                   final f = await pickDoc();
-                  if (f != null) {
+                  if (f != null && mounted) {
                     setState(() {
                       file = f;
                       roleReview = null;
