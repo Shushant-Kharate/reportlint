@@ -36,6 +36,29 @@ def test_split_banner_and_subheading_do_not_make_duplicate(revision):
     assert len([i for i in result.items if i.code == 'CHAPTER_PRESENT']) == 3
 
 
+def test_one_character_banner_variant_requires_exact_same_chapter_corroboration(revision):
+    doc = report()
+    doc.paragraphs[3].style = 'Heading 2'
+    doc.paragraphs[3].text = 'Chapter 2 System Desgn'
+    result = check_bytes(revision, encoded(doc))
+    assert any(i.code == 'AMBIGUOUS_CHAPTER' for i in result.items)
+    assert not any(i.code == 'CHAPTER_TITLE_VARIANT_REVIEW' for i in result.items)
+    doc.paragraphs[4].insert_paragraph_before('System Design', style='Heading 3')
+    result = check_bytes(revision, encoded(doc))
+    assert len([i for i in result.items if i.code == 'CHAPTER_PRESENT']) == 3
+    assert next(i for i in result.items if i.code == 'CHAPTER_TITLE_VARIANT_REVIEW').status == 'NOT_CHECKED'
+    assert next(i for i in result.items if i.code.startswith('CHAPTER_ORDER_')).status == 'PASS'
+
+
+def test_title_variant_cannot_borrow_evidence_from_another_chapter(revision):
+    doc = report(); doc.paragraphs[3].style = 'Heading 2'
+    doc.paragraphs[3].text = 'Chapter 2 System Desgn'
+    doc.paragraphs[6].insert_paragraph_before('System Design', style='Heading 3')
+    result = check_bytes(revision, encoded(doc))
+    assert any(i.code == 'AMBIGUOUS_CHAPTER' for i in result.items)
+    assert not any(i.code == 'CHAPTER_TITLE_VARIANT_REVIEW' for i in result.items)
+
+
 def test_missing_spacing_is_default_single_not_unknown(revision):
     doc = report()
     doc.styles['Body Text'].paragraph_format.line_spacing = None
@@ -48,12 +71,16 @@ def test_missing_spacing_is_default_single_not_unknown(revision):
     assert all(i.actual['multiplier'] == 1 and i.actual['origin'] == 'default' for i in spacing)
 
 
-def test_spacing_tolerance_stays_explicit_not_relaxed_to_fit_report(revision):
+def test_borderline_spacing_requests_review_instead_of_unjustified_failure(revision):
     doc = report()
     doc.paragraphs[2].paragraph_format.line_spacing = 362 / 240
     result = check_bytes(revision, encoded(doc))
-    failure = next(i for i in result.items if i.code == 'BODY_SPACING_FAIL')
-    assert '1/240' in failure.message
+    finding = next(i for i in result.items if i.code == 'BODY_SPACING_TOLERANCE_REVIEW')
+    assert finding.status == 'NOT_CHECKED'
+    assert 'template does not define' in finding.message
+    doc.paragraphs[2].paragraph_format.line_spacing = 1.7
+    result = check_bytes(revision, encoded(doc))
+    assert any(i.code == 'BODY_SPACING_FAIL' for i in result.items)
 
 
 def test_cover_body_style_requires_scope_review_and_can_be_corrected(revision):

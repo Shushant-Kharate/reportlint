@@ -94,7 +94,7 @@ On macOS/Linux use `REPORTLINT_CORS_ORIGINS=http://localhost:5173 .venv/bin/pyth
 6. Optionally **Review paragraph roles**: search paragraph text and explicitly confirm body/chapter/excluded roles. Changing the report or revision clears these decisions. Suggestions are never applied automatically.
 7. Review issues, passes and unchecked findings, including expected/actual values and source evidence. Export the result and reviewed specification as JSON.
 
-Item counts are **not a compliance percentage**. The v2 engine supports stored page settings, scoped body formatting, chapter recognition and reviewed chapter-size/case and abstract-length/keyword checks. Pagination, captions, contents reconciliation and rendered geometry remain incomplete. See [current engine limits and improvements](docs/REAL_DOCUMENT_IMPROVEMENTS.md).
+Item counts are **not a compliance percentage**. The v2 engine supports stored page settings, conditional no-header top margins, scoped body formatting, chapter recognition and typography, decimal section sizes, abstract length/keywords, inherited footer PAGE settings, native contents entry formatting, separate illustration-list headings and native caption/title associations. Results group repeated findings while retaining every location. Full contents completeness, semantic abstract coverage, image-embedded captions and rendered geometry remain incomplete. See the [latest real-document comparison and limitations](docs/REAL_DOCUMENT_RETEST.md) and [previous improvements](docs/REAL_DOCUMENT_IMPROVEMENTS.md).
 
 ## Three-file demonstration
 

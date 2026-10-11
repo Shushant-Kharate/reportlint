@@ -158,4 +158,92 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+  test(
+    'Grouping repeated failures preserves every original item and scope',
+    () {
+      final items = <Json>[
+        {
+          'item_id': 'a',
+          'rule_id': 'margin',
+          'status': 'FAIL',
+          'code': 'MARGIN_FAIL',
+          'message': 'Wrong margin',
+          'expected': {'kind': 'margin'},
+          'section_index': 0,
+        },
+        {
+          'item_id': 'b',
+          'rule_id': 'margin',
+          'status': 'FAIL',
+          'code': 'MARGIN_FAIL',
+          'message': 'Wrong margin',
+          'expected': {'kind': 'margin'},
+          'section_index': 1,
+        },
+        {
+          'item_id': 'c',
+          'rule_id': 'margin',
+          'status': 'NOT_CHECKED',
+          'code': 'UNKNOWN',
+          'message': 'Unresolved',
+          'expected': {'kind': 'margin'},
+          'section_index': 2,
+        },
+      ];
+      final groups = findingGroups(items);
+      expect(groups.length, 2);
+      expect(groups.first.length, 2);
+      expect(groups.expand((g) => g).map((i) => i['item_id']), ['a', 'b', 'c']);
+      expect(findingGroups(items, enabled: false).length, 3);
+    },
+  );
+  testWidgets('Grouped mobile results expose every affected location', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final items = [
+      for (final section in [8, 9])
+        {
+          'item_id': 's$section',
+          'rule_id': 'r',
+          'status': 'FAIL',
+          'code': 'MARGIN_FAIL',
+          'expected': {'kind': 'margin', 'side': 'left', 'expected_pt': 80},
+          'actual': {'margin_pt': 72},
+          'message': 'Wrong stored margin',
+          'section_index': section,
+          'source_path': '/section/$section',
+        },
+    ];
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ResultsScreen(
+          result: {
+            'items': items,
+            'outcome': 'FAIL',
+            'counts': {'PASS': 0, 'FAIL': 2},
+            'role_decisions': [],
+            'checker_version': '0.5.0',
+            'limitations': [],
+          },
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Every affected location'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.ensureVisible(find.text('Every affected location'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Every affected location'));
+    await tester.pumpAndSettle();
+    expect(find.text('Section 9'), findsOneWidget);
+    expect(find.text('Section 10'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 }

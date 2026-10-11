@@ -10,6 +10,8 @@ from app.checking.roles import inventory
 from app.checking.semantic import body_checks, chapter_checks
 from app.checking.role_review import apply_roles
 from app.checking.scoped import KINDS, scoped_checks
+from app.checking.structural import KINDS as STRUCTURAL_KINDS, structural_checks
+from app.checking.word_structure import header_presence
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.review.service import ReviewError, snapshot_hash
@@ -58,15 +60,22 @@ def check_package(revision, package, report_hash, role_review=None):
                 items.append(CheckItem(item_id=f"role-exclusion:{decision.paragraph_index}", status="OUT_OF_SCOPE",
                     code="REVIEWED_ROLE_EXCLUSION", message=decision.reason, paragraph_index=decision.paragraph_index,
                     source_path=decision.source_path))
+    conditional_top = any(r.scope == "document" and r.condition == "HEADER_ABSENT"
+        and r.value.kind == "margin" and r.value.side == "top" for r in revision.publication.rules)
+    headers = header_presence(package, sections) if conditional_top and not ambiguous else []
     for rule in revision.publication.rules:
         common = dict(rule_id=rule.rule_id, evidence_ids=rule.evidence_ids, expected=rule.value.model_dump())
+        if rule.condition == "ALWAYS" and rule.scope == "document" and rule.value.kind in STRUCTURAL_KINDS:
+            items.extend(structural_checks(rule, revision, package, paragraphs, registry, uncertain, sections, ambiguous))
+            continue
         if rule.condition == "ALWAYS" and rule.scope == "document" and rule.value.kind in KINDS:
             items.extend(scoped_checks(rule, package, paragraphs, registry, uncertain))
             continue
         if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind in {"font_family", "font_size", "line_spacing_multiple"}:
             items.extend(body_checks(rule, package, paragraphs, registry, uncertain))
             continue
-        if rule.condition != "ALWAYS" or rule.scope != "document" or rule.value.kind not in {"page_size", "margin"}:
+        supported_condition = rule.condition == "HEADER_ABSENT" and rule.scope == "document" and rule.value.kind == "margin" and rule.value.side == "top"
+        if (rule.condition != "ALWAYS" and not supported_condition) or rule.scope != "document" or rule.value.kind not in {"page_size", "margin"}:
             items.append(CheckItem(item_id=rule.rule_id, status="NOT_CHECKED", code="UNSUPPORTED_RULE", message="This checker cannot resolve the rule's scope, property, or condition.", **common))
             continue
         if ambiguous:
@@ -75,6 +84,14 @@ def check_package(revision, package, report_hash, role_review=None):
         for index, section in enumerate(sections):
             item = dict(common, item_id=f"{rule.rule_id}:section:{index}", section_index=index, source_path=package.document_tree.getpath(section))
             value = rule.value
+            if conditional_top and value.kind == "margin" and value.side == "top":
+                present = headers[index]
+                if present is None:
+                    items.append(CheckItem(status="NOT_CHECKED", code="HEADER_CONDITION_UNRESOLVED", message="Header content differs between first/odd/even pages or cannot be resolved; no top-margin condition was guessed.", **item))
+                    continue
+                if (supported_condition and present) or (rule.condition == "ALWAYS" and not present):
+                    items.append(CheckItem(status="OUT_OF_SCOPE", code="MARGIN_CONDITION_NOT_APPLICABLE", message="No-header override is applied only when all active inherited headers are blank; the general value applies otherwise.", actual={"header_present": present}, **item))
+                    continue
             if value.kind == "page_size":
                 nodes = section.findall(qn("w:pgSz"))
                 node = nodes[0] if len(nodes) == 1 else None
@@ -107,9 +124,9 @@ def check_package(revision, package, report_hash, role_review=None):
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
                          role_review_sha256=review_hash, role_decisions=[d.model_dump() for d in role_review.decisions] if role_review else [],
                          outcome=outcome, counts=counts, items=items, limitations=[
-                             "Supports page settings, scoped Body Text or reviewed body roles, numbered chapter banners, and reviewed chapter-size/case and abstract word-count/keyword rules. Manual assignments are reviewer assertions, not automatic role-detection evidence.",
+                             "Supports reviewed page settings and no-header top-margin overrides, scoped body text, chapter/section typography, abstract word-count/keywords, inherited footer PAGE settings, native contents tables and illustration structure. Manual assignments are reviewer assertions.",
                              "No overall compliance score: item counts mix section checks and unresolved requirements and are not a coverage percentage.",
-                             "A match does not establish rendered geometry, headers/footers, captions, contents accuracy, unstyled body roles, fuzzy chapter equivalence, or complete template coverage. Spacing tolerance is 1/240 of a line.",
+                             "A match does not establish rendered geometry, evaluated page numbers, image-embedded captions, complete contents/list coverage, abstract meaning, unstyled body roles, fuzzy chapter equivalence or complete template coverage. Spacing matches allow 1/240 of a line; larger differences up to 0.01 lines require reviewer tolerance confirmation.",
                              "Report files and check results are not retained. Results identify an immutable template revision and the uploaded report's SHA-256.",
                          ])
 

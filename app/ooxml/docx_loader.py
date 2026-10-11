@@ -2,6 +2,7 @@
 no interpretation happens here (see style_resolver.py / structure_extractor.py)."""
 
 import zipfile
+import posixpath
 from lxml import etree
 
 MAX_MEMBER_SIZE = 200 * 1024 * 1024  # 200MB guard against zip bombs
@@ -28,6 +29,9 @@ class DocxPackage:
         self.settings_tree: etree._ElementTree | None = None
         self.media: dict[str, bytes] = {}
         self.rels: dict[str, str] = {}
+        self.rel_types: dict[str, str] = {}
+        self.external_rels: set[str] = set()
+        self.story_parts: dict[str, object] = {}
 
     @classmethod
     def load(cls, path: str) -> "DocxPackage":
@@ -74,6 +78,17 @@ class DocxPackage:
                     rel_ns = {"r": "http://schemas.openxmlformats.org/package/2006/relationships"}
                     for rel in rels_root.findall("r:Relationship", rel_ns):
                         pkg.rels[rel.get("Id")] = rel.get("Target")
+                        pkg.rel_types[rel.get("Id")] = rel.get("Type", "")
+                        if rel.get("TargetMode", "Internal") != "Internal":
+                            pkg.external_rels.add(rel.get("Id"))
+                    for rel_id, target in pkg.rels.items():
+                        if rel_id in pkg.external_rels or not pkg.rel_types[rel_id].endswith(("/header", "/footer")):
+                            continue
+                        if not target:
+                            continue
+                        part = posixpath.normpath(target.lstrip("/") if target.startswith("/") else "word/" + target)
+                        if part.startswith("word/") and part in names:
+                            pkg.story_parts[part] = _xml(zf.read(part)).getroottree()
         except zipfile.BadZipFile as e:
             raise InvalidDocxError(f"Corrupted zip: {e}") from e
         except etree.XMLSyntaxError as e:

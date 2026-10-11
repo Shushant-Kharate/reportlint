@@ -62,8 +62,64 @@ class AbstractKeywordsValue(AnalysisModel):
     required: Literal[True] = True
 
 
+class ChapterBoldValue(AnalysisModel):
+    kind: Literal["chapter_bold"] = "chapter_bold"
+    required: Literal[True] = True
+
+
+class SectionSizeValue(AnalysisModel):
+    kind: Literal["section_font_size"] = "section_font_size"
+    depth: Literal[2, 3]
+    expected_pt: PositiveFloat
+
+
+class PageNumberAlignmentValue(AnalysisModel):
+    kind: Literal["page_number_alignment"] = "page_number_alignment"
+    alignment: Literal["center"] = "center"
+
+
+class BodyNumberFormatValue(AnalysisModel):
+    kind: Literal["body_page_number_format"] = "body_page_number_format"
+    format: Literal["decimal"] = "decimal"
+
+
+class FrontNumberFormatValue(AnalysisModel):
+    kind: Literal["front_page_number_format"] = "front_page_number_format"
+    format: Literal["lowerRoman"] = "lowerRoman"
+
+
+class IntroductionNumberingValue(AnalysisModel):
+    kind: Literal["introduction_numbering"] = "introduction_numbering"
+    start: Literal[1] = 1
+    suppress_first: Literal[True] = True
+
+
+class ContentsStructureValue(AnalysisModel):
+    kind: Literal["contents_structure"] = "contents_structure"
+    decimal_sections: Literal[True] = True
+    individual_page_references: Literal[True] = True
+
+
+class ContentsAlignmentValue(AnalysisModel):
+    kind: Literal["contents_page_alignment"] = "contents_page_alignment"
+    alignment: Literal["right"] = "right"
+
+
+class IllustrationListsValue(AnalysisModel):
+    kind: Literal["illustration_lists"] = "illustration_lists"
+    separate: Literal[True] = True
+
+
+class CaptionsValue(AnalysisModel):
+    kind: Literal["figure_captions", "table_titles"]
+    chapter_numbering: Literal[True] = True
+
+
 RequirementValue = Annotated[
-    FontValue | SizeValue | SpacingValue | PageValue | MarginValue | ChapterSizeValue | ChapterCaseValue | AbstractWordsValue | AbstractKeywordsValue,
+    FontValue | SizeValue | SpacingValue | PageValue | MarginValue | ChapterSizeValue | ChapterCaseValue | AbstractWordsValue | AbstractKeywordsValue
+    | ChapterBoldValue | SectionSizeValue | PageNumberAlignmentValue | BodyNumberFormatValue
+    | FrontNumberFormatValue | IntroductionNumberingValue | ContentsStructureValue
+    | ContentsAlignmentValue | IllustrationListsValue | CaptionsValue,
     Field(discriminator="kind"),
 ]
 
@@ -112,7 +168,7 @@ class RequirementDisposition(AnalysisModel):
 
 class TemplateAnalysis(AnalysisModel):
     schema_version: Literal[2] = 2
-    extractor_version: Literal["0.1.0", "0.2.0"] = "0.1.0"
+    extractor_version: Literal["0.1.0", "0.2.0", "0.3.0"] = "0.1.0"
     source_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
     candidates: list[RuleCandidate] = Field(default_factory=list)
     conflicts: list[Conflict] = Field(default_factory=list)

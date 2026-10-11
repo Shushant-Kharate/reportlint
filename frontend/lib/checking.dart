@@ -384,9 +384,33 @@ class ResultsScreen extends StatefulWidget {
   State<ResultsScreen> createState() => _ResultsScreenState();
 }
 
+List<List<Json>> findingGroups(List<Json> items, {bool enabled = true}) {
+  if (!enabled) return items.map((i) => [i]).toList();
+  final grouped = <String, List<Json>>{};
+  for (final item in items) {
+    final key = jsonEncode([
+      item['rule_id'],
+      item['status'],
+      item['code'],
+      item['expected'],
+      item['message'],
+    ]);
+    grouped.putIfAbsent(key, () => []).add(item);
+  }
+  return grouped.values.toList();
+}
+
+String findingLocation(Json item) => item['paragraph_index'] != null
+    ? 'Paragraph ${item['paragraph_index'] + 1}'
+    : item['section_index'] != null
+    ? 'Section ${item['section_index'] + 1}'
+    : 'Document';
+
 class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
   String filter = 'FAIL';
   int limit = 30;
+  bool groupRepeated = true;
+  final Map<String, int> locationLimits = {};
   bool get complex => widget.result.containsKey('items');
   Future<void> export() async {
     await FilePicker.saveFile(
@@ -408,6 +432,7 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
     final items = objects(r[complex ? 'items' : 'violations'])
         .where((i) => !complex || filter == 'ALL' || i['status'] == filter)
         .toList();
+    final groups = findingGroups(items, enabled: complex && groupRepeated);
     final counts = complex
         ? object(r['counts'])
         : <String, dynamic>{
@@ -487,13 +512,31 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
                 limit = 30;
               }),
             ),
-          Text('${items.length} findings'),
-          ...items.take(limit).map((i) {
-            final location = i['paragraph_index'] != null
-                ? 'Paragraph ${i['paragraph_index'] + 1}'
-                : i['section_index'] != null
-                ? 'Section ${i['section_index'] + 1}'
-                : 'Document';
+          if (complex)
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: const Text('Group repeated findings'),
+              subtitle: const Text(
+                'Every affected location remains available.',
+              ),
+              value: groupRepeated,
+              onChanged: (v) => setState(() {
+                groupRepeated = v;
+                limit = 30;
+              }),
+            ),
+          Text(
+            complex && groupRepeated
+                ? '${groups.length} groups · ${items.length} check items'
+                : '${items.length} findings',
+          ),
+          ...groups.take(limit).map((members) {
+            final i = members.first;
+            final location = members.length > 1
+                ? '${members.length} check items'
+                : findingLocation(i);
+            final groupId = '${i['item_id']}';
+            final shownLocations = locationLimits[groupId] ?? 30;
             return Panel(
               children: [
                 Text(
@@ -501,6 +544,33 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text('${i['message']}'),
+                if (members.length > 1)
+                  Text(
+                    '${members.map(findingLocation).toSet().length} affected locations. Expected and actual below show the first item.',
+                  ),
+                if (members.length > 1)
+                  ExpansionTile(
+                    title: const Text('Every affected location'),
+                    children: [
+                      ...members
+                          .take(shownLocations)
+                          .map(
+                            (member) => ListTile(
+                              title: Text(findingLocation(member)),
+                              subtitle: SelectableText(
+                                '${describe(member['actual'])}\n${member['source_path'] ?? ''}',
+                              ),
+                            ),
+                          ),
+                      if (members.length > shownLocations)
+                        TextButton(
+                          onPressed: () => setState(
+                            () => locationLimits[groupId] = shownLocations + 30,
+                          ),
+                          child: const Text('Show more locations'),
+                        ),
+                    ],
+                  ),
                 ExpansionTile(
                   title: const Text('Expected and actual'),
                   children: [
@@ -529,7 +599,7 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
             );
           }),
           if (items.isEmpty) const Notice('No findings in this category.'),
-          if (items.length > limit)
+          if (groups.length > limit)
             OutlinedButton(
               onPressed: () => setState(() => limit += 30),
               child: const Text('Show more findings'),

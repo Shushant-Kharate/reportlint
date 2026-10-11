@@ -109,12 +109,12 @@ def test_equivalent_approved_values_do_not_duplicate_rules(repository, draft):
     assert len(rules[0].evidence_ids) == 2
 
 
-def test_conditional_rules_are_retained_as_unsupported(repository, draft):
+def test_no_header_margin_condition_is_retained_as_supported(repository, draft):
     edited = reviewed(repository, draft, conditional=True)
     result = repository.change(draft.template_id, draft.revision_id, publish, edited.version)
     conditional = [r for r in result.publication.rules if r.condition == "HEADER_ABSENT"]
     assert len(conditional) == 1
-    assert conditional[0].readiness == "UNSUPPORTED_CONDITION"
+    assert conditional[0].readiness == "PROPERTY_CONTRACT"
     assert conditional[0].value.expected_pt == pytest.approx(30 * 72 / 25.4)
     assert all(r.readiness == "PENDING_BODY_SCOPE" for r in result.publication.rules if r.scope == "body")
 

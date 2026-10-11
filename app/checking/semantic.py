@@ -2,7 +2,7 @@
 from app.checking.models import CheckItem
 from app.checking.roles import nodes, paragraph_spacing, scalar_run
 from app.ooxml.constants import NS, qn
-from app.checking.headings import BANNER, title_key, chapter_titles
+from app.checking.headings import BANNER, title_key, chapter_titles, single_character_variant
 
 
 def body_checks(rule, package, paragraphs, registry, uncertain):
@@ -23,8 +23,13 @@ def body_checks(rule, package, paragraphs, registry, uncertain):
             continue
         if rule.value.kind == "line_spacing_multiple":
             actual = paragraph_spacing(package, paragraph)
-            status = "NOT_CHECKED" if actual is None else "PASS" if actual["rule"] == "auto" and abs(actual["multiplier"] - rule.value.multiplier) <= 1 / 240 + 1e-9 else "FAIL"
-            items.append(CheckItem(item_id=f"{rule.rule_id}:p:{paragraph.index}", status=status, code="BODY_SPACING_" + status, message="Compared inherited/default spacing; tolerance is 1/240 of a line. Small differences remain failures under this explicit policy.", actual=actual, **base))
+            difference = abs(actual["multiplier"] - rule.value.multiplier) if actual and actual["rule"] == "auto" else None
+            borderline = difference is not None and 1 / 240 + 1e-9 < difference <= .01 + 1e-9
+            status = "NOT_CHECKED" if actual is None or borderline else "PASS" if difference is not None and difference <= 1 / 240 + 1e-9 else "FAIL"
+            code = "BODY_SPACING_TOLERANCE_REVIEW" if borderline else "BODY_SPACING_" + status
+            message = ("Spacing differs by more than one OOXML line unit but no more than 0.01 lines. The template does not define rounding tolerance; reviewer confirmation is needed, not an automatic pass or failure."
+                       if borderline else "Compared inherited/default spacing; automatic matches allow one OOXML line unit (1/240). Larger discrepancies fail; close differences up to 0.01 lines require review.")
+            items.append(CheckItem(item_id=f"{rule.rule_id}:p:{paragraph.index}", status=status, code=code, message=message, actual=actual, **base))
         else:
             runs = paragraph.element.xpath("./w:r | ./w:hyperlink/w:r", namespaces=NS)
             for index, run in enumerate(runs):
@@ -49,6 +54,17 @@ def chapter_checks(revision, paragraphs, uncertain):
     for chapter in sorted(profile.chapters, key=lambda c: c.index):
         keys = {title_key(t) for t in [chapter.name, *chapter.aliases]}
         found = [p for p in top if p.chapter_index == chapter.index or (p.chapter_index is None and title_key(titles[p.index]) in keys)]
+        variants = [p for p in top if p.chapter_index is None and BANNER.match(p.text.strip())
+                    and any(single_character_variant(titles[p.index], key) for key in keys)]
+        corroboration = {}
+        if not found:
+            for anchor in variants:
+                boundary = min((p.index for p in top if p.index > anchor.index), default=len(paragraphs))
+                exact = [p for p in paragraphs if anchor.index < p.index < boundary
+                         and p.role == 'HEADING' and p.level > anchor.level and title_key(p.text) in keys]
+                if exact:
+                    found.append(anchor)
+                    corroboration[anchor.index] = exact[0].index
         questionable = [p for p in paragraphs if p.chapter_index is None and title_key(p.text) in keys and p.role not in {"TABLE", "FIELD", "FIELD_OR_CONTENTS", "EMPTY", "REVIEWED_EXCLUSION"} and p not in found]
         common = dict(item_id=f"profile:{profile.profile_id}:chapter:{chapter.index}", evidence_ids=source.chapters[chapter.index].evidence_ids, expected={"name": chapter.name, "required": chapter.required}, actual={"matches": len(found), "paragraph_indices": [p.index for p in found]})
         # A repeated lower-level subsection is not a second chapter when a
@@ -61,7 +77,7 @@ def chapter_checks(revision, paragraphs, uncertain):
             split_title = next_text.index if banner and not banner[1] and next_text else None
             questionable = [p for p in questionable if not (p.index == split_title or
                 (p.role == "HEADING" and p.level > anchor.level and anchor.index < p.index < next_chapter))]
-        if uncertain or questionable:
+        if uncertain or questionable or (not found and variants):
             status, code = "NOT_CHECKED", "AMBIGUOUS_CHAPTER"
         elif len(found) > 1:
             status, code = "FAIL", "DUPLICATE_CHAPTER"
@@ -75,8 +91,14 @@ def chapter_checks(revision, paragraphs, uncertain):
             status, code = "FAIL", "MISSING_CHAPTER"
         else:
             status, code = "OUT_OF_SCOPE", "OPTIONAL_CHAPTER_ABSENT"
-        items.append(CheckItem(status=status, code=code, message="Matched top-level headings, explicit numbered chapter banners, or reviewed assignments. Case, trailing punctuation and acknowledgement spelling variants are normalized; tables and contents fields do not count.", **common))
-    complete = all(i.status in {"PASS", "OUT_OF_SCOPE"} for i in items)
+        common['actual']['corroborating_heading_indices'] = list(corroboration.values())
+        items.append(CheckItem(status=status, code=code, message="Matched trusted chapter headings or reviewed assignments. A one-character banner variant needs an exact lower-level heading inside the same chapter to corroborate presence; an uncorroborated variant remains unchecked.", **common))
+        if corroboration:
+            anchor = next(p for p in found if p.index in corroboration)
+            items.append(CheckItem(item_id=f"profile:{profile.profile_id}:chapter:{chapter.index}:spelling", status='NOT_CHECKED',
+                code='CHAPTER_TITLE_VARIANT_REVIEW', message='Chapter presence is corroborated, but the banner has a one-character spelling difference. Review the title spelling.',
+                paragraph_index=anchor.index, source_path=anchor.path, expected={'name': chapter.name}, actual={'banner': anchor.text}))
+    complete = all(i.status in {"PASS", "OUT_OF_SCOPE"} for i in items if i.code != 'CHAPTER_TITLE_VARIANT_REVIEW')
     if len(locations) > 1:
         ordered = [p for _, p in locations] == sorted(p for _, p in locations)
         status = "FAIL" if not ordered else "PASS" if complete else "NOT_CHECKED"

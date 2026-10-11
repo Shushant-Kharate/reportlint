@@ -101,7 +101,9 @@ def publication_blockers(revision):
     # Check actual approved assertions as well as the extracted conflict list.
     for index, left in enumerate(approved):
         for right in approved[index + 1:]:
-            if property_key(left) == property_key(right) and not same_value(left, right):
+            conditional_override = (left.condition != right.condition and left.scope == right.scope == "document"
+                and left.value.kind == right.value.kind == "margin" and left.value.side == right.value.side == "top")
+            if property_key(left) == property_key(right) and not same_value(left, right) and not conditional_override:
                 blockers.append({"code": "CONFLICTING_APPROVALS", "candidate_ids": [left.candidate_id, right.candidate_id]})
     if not approved and not (revision.profile_review and revision.profile_review.chapters):
         blockers.append({"code": "EMPTY_SPECIFICATION"})
@@ -123,7 +125,8 @@ def compile_publication(revision):
             previous.evidence_ids = list(dict.fromkeys(previous.evidence_ids + candidate.evidence_ids))
             continue
         key = "|".join((*property_key(candidate), candidate.condition))
-        readiness = ("UNSUPPORTED_CONDITION" if candidate.condition != "ALWAYS" else
+        supported_condition = candidate.condition == "HEADER_ABSENT" and candidate.scope == "document" and candidate.value.kind == "margin" and candidate.value.side == "top"
+        readiness = ("UNSUPPORTED_CONDITION" if candidate.condition != "ALWAYS" and not supported_condition else
                      "PENDING_BODY_SCOPE" if candidate.scope == "body" else "PROPERTY_CONTRACT")
         rules.append(CompiledRule(
             rule_id="rule-" + sha256(key.encode()).hexdigest()[:20],
@@ -132,14 +135,14 @@ def compile_publication(revision):
             readiness=readiness,
         ))
     return Publication(
-        compiler_version="0.4.0", report_checking_available=True,
+        compiler_version="0.5.0", report_checking_available=True,
         rules=rules, profile=revision.profile_review,
         deferred_candidate_ids=[d.candidate_id for d in revision.candidate_decisions if d.action == "DEFER"],
         requirement_dispositions=revision.ledger_decisions,
         limitations=[
             "This is a reviewed specification snapshot, not a compliance result. V2 supports page settings, scoped Body Text, normalized chapter headings, and reviewed chapter/abstract properties; consult live capabilities.",
             "PROPERTY_CONTRACT indicates compiled values only, not a completed validator or verified physical geometry.",
-            "Full body-role inference and conditional rules remain unsupported; only explicit Body Text scopes can execute. No condition was flattened.",
+            "No-header top margins override the approved general top margin only when inherited active header content can be resolved. Other conditional scopes remain unsupported.",
             "Extracted requirement coverage is incomplete. Acknowledging partial evidence does not approve every instruction in that source paragraph.",
             "Chapter matching normalizes case, whitespace, trailing punctuation, numbered chapter prefixes and acknowledgement spelling variants. Semantic equivalence, generated numbering and chapter subtopics remain unsupported.",
         ],

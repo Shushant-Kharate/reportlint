@@ -7,6 +7,7 @@ import re
 from hashlib import sha256
 
 from app.analysis.template_source import inventory_source
+from app.analysis.structural_requirements import proposals
 from app.models.template_analysis import (
     TemplateAnalysis, RuleCandidate, Conflict, RequirementDisposition,
     SourceEvidence, FontValue, SizeValue, SpacingValue, PageValue, MarginValue,
@@ -42,7 +43,7 @@ def points(value, unit):
 
 def property_key(candidate):
     value = candidate.value
-    return (candidate.scope, value.kind, getattr(value, "side", ""))
+    return (candidate.scope, value.kind, str(getattr(value, "side", getattr(value, "depth", ""))))
 
 
 def same_value(left, right):
@@ -95,7 +96,7 @@ def find_conflicts(candidates):
 
 def analyze_template(package, source_sha256):
     inventory = inventory_source(package)
-    result = TemplateAnalysis(source_sha256=source_sha256, notices=inventory.notices, extractor_version="0.2.0")
+    result = TemplateAnalysis(source_sha256=source_sha256, notices=inventory.notices, extractor_version="0.3.0")
     evidence = {}
 
     def add(value, scope, source, *, origin="EXPLICIT_PROSE", condition="ALWAYS", note=""):
@@ -136,11 +137,15 @@ def analyze_template(package, source_sha256):
         elif short and re.match(r"^\d+(?:\.\d+)*\s+(?:chapter|section|table|figure|front|auxiliary|abstract)", text, re.I):
             body_context = False
 
-        directive = bool(NORMATIVE.search(text))
+        structured = proposals(text) if guidelines else []
+        directive = bool(NORMATIVE.search(text)) or bool(structured)
         if not directive and not (guidelines and FIELD.search(text)):
             continue
         evidence[source.source_id] = source
         ids = []
+        for value in structured:
+            ids.append(add(value, "document", source,
+                note="Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."))
         # Dedicated scoped properties; never turn heading typography into body
         # typography. Preserve the rest of each source span in the ledger.
         if guidelines and re.search(r"\bchapter number.*?\btitle\b", text, re.I) and not re.search(r"\beither\b|\bor\s+\d|\b(?:shall|must|should) not (?:be printed|use)\b", text, re.I):

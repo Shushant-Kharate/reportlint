@@ -29,6 +29,28 @@ String describe(dynamic value) {
       return 'Chapter title size: ${v['expected_pt']} pt';
     case 'chapter_case':
       return 'Chapter titles: upper and lowercase';
+    case 'chapter_bold':
+      return 'Chapter banners: bold';
+    case 'section_font_size':
+      return '${v['depth'] == 2 ? 'Section' : 'Subsection'} titles: ${v['expected_pt']} pt';
+    case 'page_number_alignment':
+      return 'Footer page numbers: centered';
+    case 'body_page_number_format':
+      return 'Body page numbers: Arabic numerals';
+    case 'front_page_number_format':
+      return 'Auxiliary page numbers: lowercase Roman numerals';
+    case 'introduction_numbering':
+      return 'Introduction: restart at 1 and hide the first page number';
+    case 'contents_structure':
+      return 'Contents: decimal sections and individual page references';
+    case 'contents_page_alignment':
+      return 'Contents page references: right aligned';
+    case 'illustration_lists':
+      return 'Separate lists of figures and tables';
+    case 'figure_captions':
+      return 'Chapter-numbered captions below figures';
+    case 'table_titles':
+      return 'Chapter-numbered titles above tables';
     case 'abstract_word_count':
       return 'Abstract: ${v['expected_words']} words';
     case 'abstract_keywords':

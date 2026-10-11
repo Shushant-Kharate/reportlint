@@ -4,6 +4,7 @@ import re
 from app.checking.headings import BANNER, chapter_titles, title_key
 from app.checking.models import CheckItem
 from app.checking.roles import scalar_run
+from app.checking.word_structure import run_flag, text_runs
 from app.ooxml.constants import NS
 
 KINDS = {"chapter_font_size", "chapter_case", "abstract_word_count", "abstract_keywords"}
@@ -35,8 +36,22 @@ def scoped_checks(rule, package, paragraphs, registry, uncertain):
             if rule.value.kind == 'chapter_case':
                 raw = banner[1] or parts[-1].text
                 letters = [c for c in raw if c.isalpha()]
-                status = 'PASS' if any(c.islower() for c in letters) and any(c.isupper() for c in letters) else 'FAIL' if letters else 'NOT_CHECKED'
-                results.append(item(str(p.index), status, 'Chapter title must contain upper- and lowercase letters; chapter-number label excluded.', p, {'title': raw}))
+                title_part = parts[-1]
+                title_runs = text_runs(title_part)
+                if title_part is p:
+                    # Runs may contain only the chapter-number label. Compare
+                    # flags only on runs overlapping the captured title.
+                    offset, title_start, selected = 0, len(p.text) - len(p.text.lstrip()) + banner.start(1), []
+                    for r in p.element.xpath('./w:r | ./w:hyperlink/w:r', namespaces=NS):
+                        value = ''.join(r.xpath('./w:t/text()', namespaces=NS))
+                        if offset + len(value) > title_start and value.strip():
+                            selected.append(r)
+                        offset += len(value)
+                    title_runs = selected
+                flags = [run_flag(package, registry, title_part, r, flag) for r in title_runs for flag in ('caps', 'smallCaps')]
+                mixed = any(c.islower() for c in letters) and any(c.isupper() for c in letters)
+                status = 'FAIL' if letters and (not mixed or True in flags) else 'NOT_CHECKED' if not letters or None in flags else 'PASS'
+                results.append(item(str(p.index), status, 'Chapter title must contain upper- and lowercase letters without caps/small-caps formatting; chapter-number label excluded.', p, {'title': raw, 'caps_or_small_caps': True in flags, 'unresolved_flags': flags.count(None)}))
             else:
                 values = [scalar_run(package, registry, part, r, 'font_size') for part in parts
                           for r in part.element.xpath('./w:r | ./w:hyperlink/w:r', namespaces=NS)

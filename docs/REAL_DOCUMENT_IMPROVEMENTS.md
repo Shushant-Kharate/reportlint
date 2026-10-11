@@ -1,5 +1,7 @@
 # Real-document improvements: checker 0.4.0
 
+Historical release record. See [checker 0.5.0 retest](REAL_DOCUMENT_RETEST.md) for the current conditional-margin, pagination, contents, caption and tolerance behavior.
+
 This release addresses defects found by comparing an independent audit with a real DOCX check. Private documents and extracted report contents are not included in this repository. Regression fixtures are fictional.
 
 | Root cause | Change | Remaining boundary |
