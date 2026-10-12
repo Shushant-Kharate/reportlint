@@ -169,13 +169,18 @@ class Panel extends StatelessWidget {
 
 class PageBody extends StatelessWidget {
   final List<Widget> children;
-  const PageBody({super.key, required this.children});
+  final ScrollController? controller;
+  const PageBody({super.key, required this.children, this.controller});
   @override
   Widget build(BuildContext context) => Align(
     alignment: Alignment.topCenter,
     child: ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 820),
-      child: ListView(padding: const EdgeInsets.all(20), children: children),
+      child: ListView(
+        controller: controller,
+        padding: const EdgeInsets.all(20),
+        children: children,
+      ),
     ),
   );
 }

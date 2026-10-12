@@ -105,6 +105,11 @@ void main() {
         scrollable: find.byType(Scrollable).first,
       );
       await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.text('Save and publish'),
+        350,
+        scrollable: find.byType(Scrollable).first,
+      );
       await tester.ensureVisible(find.text('Save and publish'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Save and publish'));
@@ -120,6 +125,190 @@ void main() {
       api.close();
     },
   );
+  testWidgets(
+    'Missing reasons show visible feedback at the bottom of a long review',
+    (tester) async {
+      final revision = draft();
+      revision['analysis']['notices'] = List.generate(
+        25,
+        (i) => 'Long review instruction $i.',
+      );
+      var requests = 0;
+      final api = ReportApi(
+        'http://localhost:8000',
+        client: MockClient((_) async {
+          requests++;
+          return http.Response('{}', 500);
+        }),
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ReviewScreen(api: api, revision: revision),
+        ),
+      );
+      await tester.tap(find.text('Choose a decision'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Approve').last);
+      await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.text('Save and publish'),
+        350,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.ensureVisible(find.text('Save and publish'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save and publish'));
+      await tester.pumpAndSettle();
+      expect(requests, 0);
+      expect(
+        find.descendant(
+          of: find.byType(SnackBar),
+          matching: find.textContaining('Add a reason'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('Save and publish'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      api.close();
+    },
+  );
+
+  testWidgets(
+    'A blocked publication confirms the draft was saved and explains remaining work',
+    (tester) async {
+      final revision = draft();
+      revision['candidate_decisions'] = [
+        {
+          'candidate_id': 'c',
+          'action': 'APPROVE',
+          'reason': 'Reviewed written rule.',
+        },
+      ];
+      var patches = 0;
+      var publications = 0;
+      final api = ReportApi(
+        'http://localhost:8000',
+        client: MockClient((request) async {
+          if (request.method == 'PATCH') {
+            patches++;
+            revision['version'] = patches;
+            return http.Response(jsonEncode(revision), 200);
+          }
+          if (request.url.path.endsWith('/blockers')) {
+            return http.Response(
+              jsonEncode({
+                'blockers': [
+                  {'code': 'UNREVIEWED_REQUIREMENT', 'id': 'e2'},
+                  {'code': 'PROFILE_REVIEW_REQUIRED'},
+                ],
+              }),
+              200,
+            );
+          }
+          publications++;
+          return http.Response('{}', 500);
+        }),
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ReviewScreen(api: api, revision: revision),
+        ),
+      );
+      await tester.scrollUntilVisible(
+        find.text('Save and publish'),
+        350,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.ensureVisible(find.text('Save and publish'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save and publish'));
+      await tester.pumpAndSettle();
+      expect(patches, 1);
+      expect(publications, 0);
+      expect(
+        find.descendant(
+          of: find.byType(SnackBar),
+          matching: find.textContaining('Draft saved, but not published.'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining(
+          '1 other instructions still need a handling decision',
+        ),
+        findsWidgets,
+      );
+      expect(find.text('Review publication blockers'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 9));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text('Review publication blockers'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Review publication blockers'));
+      await tester.pumpAndSettle();
+      expect(find.text('Revision 1 · DRAFT'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      api.close();
+    },
+  );
+
+  testWidgets(
+    'Save draft and network errors both acknowledge the button press',
+    (tester) async {
+      final revision = draft();
+      var offline = false;
+      final api = ReportApi(
+        'http://localhost:8000',
+        client: MockClient((request) async {
+          if (offline) throw http.ClientException('offline');
+          if (request.method == 'PATCH') {
+            return http.Response(jsonEncode(revision), 200);
+          }
+          return http.Response('{"blockers":[]}', 200);
+        }),
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ReviewScreen(api: api, revision: revision),
+        ),
+      );
+      await tester.scrollUntilVisible(
+        find.text('Save draft'),
+        350,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.ensureVisible(find.text('Save draft'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save draft'));
+      await tester.pumpAndSettle();
+      expect(
+        find.descendant(
+          of: find.byType(SnackBar),
+          matching: find.textContaining('Draft saved.'),
+        ),
+        findsOneWidget,
+      );
+      offline = true;
+      await tester.scrollUntilVisible(
+        find.text('Save and publish'),
+        350,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.ensureVisible(find.text('Save and publish'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save and publish'));
+      await tester.pumpAndSettle();
+      expect(
+        find.descendant(
+          of: find.byType(SnackBar),
+          matching: find.textContaining('Cannot reach the server'),
+        ),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+      api.close();
+    },
+  );
+
   testWidgets(
     'Mobile results distinguish unchecked findings and never invent a percentage',
     (tester) async {

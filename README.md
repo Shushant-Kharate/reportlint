@@ -90,9 +90,12 @@ On macOS/Linux use `REPORTLINT_CORS_ORIGINS=http://localhost:5173 .venv/bin/pyth
 2. Review written and observed proposals, source evidence and conflicts. Explicitly approve, reject or defer each candidate, with a reason.
 3. Choose the report/synopsis chapter profile, requiredness and any aliases. Under **Other instructions**, record how every source span will be handled. Unsupported rules must remain manual/deferred or explicitly out of scope.
 4. **Save draft** for later, or **Save and publish**. Publication blockers stay visible. Published revisions are immutable; use **Create new draft** to change them.
+
 5. **Check report**: choose a published revision and a report DOCX (up to 20 MB).
 6. Optionally **Review paragraph roles**: search paragraph text and explicitly confirm body/chapter/excluded roles. Changing the report or revision clears these decisions. Suggestions are never applied automatically.
 7. Review issues, passes and unchecked findings, including expected/actual values and source evidence. Export the result and reviewed specification as JSON.
+
+Selected review/handling decisions need a reason of at least five characters. Saving shows feedback next to the buttons and an immediate notification. If publication is blocked, the draft is saved and the remaining decisions are listed; it is not silently published.
 
 Item counts are **not a compliance percentage**. The v2 engine supports stored page settings, conditional no-header top margins, scoped body formatting, chapter recognition and typography, decimal section sizes, abstract length/keywords, inherited footer PAGE settings, native contents entry formatting, separate illustration-list headings and native caption/title associations. Results group repeated findings while retaining every location. Full contents completeness, semantic abstract coverage, image-embedded captions and rendered geometry remain incomplete. See the [latest real-document comparison and limitations](docs/REAL_DOCUMENT_RETEST.md) and [previous improvements](docs/REAL_DOCUMENT_IMPROVEMENTS.md).
 

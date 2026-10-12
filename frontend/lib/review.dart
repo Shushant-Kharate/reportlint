@@ -18,6 +18,9 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
   String profileId = '', profileReason = '';
   List<Json> chapters = [];
   List<Json> blockers = [];
+  final scroll = ScrollController();
+  String? saveFeedback;
+  bool saveNeedsAttention = false;
   bool dirty = false;
   bool get published => revision['status'] == 'PUBLISHED';
   Json get analysis => object(revision['analysis']);
@@ -25,6 +28,12 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
   void initState() {
     super.initState();
     load(widget.revision);
+  }
+
+  @override
+  void dispose() {
+    scroll.dispose();
+    super.dispose();
   }
 
   void load(Json value) {
@@ -42,11 +51,15 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
     profileReason = profile?['reason'] ?? '';
     chapters = profile == null ? [] : objects(profile['chapters']);
     dirty = false;
+    blockers = [];
+    saveFeedback = null;
+    saveNeedsAttention = false;
   }
 
   void edit(VoidCallback change) => setState(() {
     change();
     dirty = true;
+    saveFeedback = null;
   });
   String evidence(List<dynamic> ids) =>
       objects(analysis['evidence'])
@@ -124,6 +137,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
         data: patch(),
       ),
     );
+    if (!mounted) return;
     setState(() {
       revision = updated;
       dirty = false;
@@ -134,6 +148,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
         '${widget.api.revisionPath(revision)}/blockers',
       ),
     );
+    if (!mounted) return;
     setState(() => blockers = objects(validation['blockers']));
     if (publish && blockers.isEmpty) {
       final result = object(
@@ -143,7 +158,72 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
           data: {'expected_version': revision['version']},
         ),
       );
+      if (!mounted) return;
       setState(() => load(result));
+    }
+  }
+
+  String blockerSummary() {
+    final counts = <String, int>{};
+    for (final b in blockers) {
+      final code = '${b['code']}';
+      counts[code] = (counts[code] ?? 0) + 1;
+    }
+    return counts.entries
+        .map((e) {
+          switch (e.key) {
+            case 'UNREVIEWED_CANDIDATE':
+              return '${e.value} formatting decisions still need review';
+            case 'UNREVIEWED_REQUIREMENT':
+              return '${e.value} other instructions still need a handling decision';
+            case 'PROFILE_REVIEW_REQUIRED':
+              return 'Choose and explain a chapter profile';
+            case 'CONFLICTING_APPROVALS':
+              return '${e.value} conflicting approvals need resolving';
+            case 'EMPTY_SPECIFICATION':
+              return 'Approve at least one rule or select reviewed chapters';
+            default:
+              return '${e.value} ${e.key.toLowerCase().replaceAll('_', ' ')}';
+          }
+        })
+        .join('. ');
+  }
+
+  Future<void> saveWithFeedback({bool publish = false}) async {
+    if (busy) return;
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    setState(() {
+      saveFeedback = null;
+      saveNeedsAttention = false;
+      blockers = [];
+    });
+    await run(() async {
+      try {
+        await save(publish: publish);
+      } on ApiException catch (e) {
+        if (mounted && e.blockers.isNotEmpty) {
+          setState(() => blockers = e.blockers);
+        }
+        rethrow;
+      }
+    });
+    if (!mounted) return;
+    final message = error != null
+        ? error!
+        : published
+        ? 'Format published. You can now check a report.'
+        : publish && blockers.isNotEmpty
+        ? 'Draft saved, but not published. ${blockerSummary()}.'
+        : 'Draft saved. Your review decisions are kept.';
+    setState(() {
+      saveFeedback = message;
+      saveNeedsAttention = error != null || publish && blockers.isNotEmpty;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 8)),
+    );
+    if (published && scroll.hasClients) {
+      scroll.jumpTo(0);
     }
   }
 
@@ -222,6 +302,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
             if (current['action'] != '') decisions[id] = current;
           }),
           lines: 2,
+          hint: 'Required for a selected decision (at least 5 characters).',
           enabled: !published,
           key: ValueKey('reason-$id'),
         ),
@@ -240,6 +321,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
       body: AbsorbPointer(
         absorbing: busy,
         child: PageBody(
+          controller: scroll,
           key: ValueKey('${revision['revision_id']}:${revision['status']}'),
           children: [
             Text(
@@ -250,6 +332,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
               'Revision ${revision['revision_number']} · ${revision['status']}',
             ),
             ...status,
+            if (published && saveFeedback != null) Notice(saveFeedback!),
             Notice(
               published
                   ? 'Published requirements are locked. Create a new draft to change them.'
@@ -429,6 +512,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                         if (d['action'] != '') ledger[id] = d;
                       }),
                       lines: 2,
+                      hint: 'Required for a selected handling decision (at least 5 characters).',
                       enabled: !published,
                     ),
                   ],
@@ -436,22 +520,44 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
               }).toList(),
             ),
             if (!published)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () => run(() => save()),
-                      child: const Text('Save draft'),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (busy) const LinearProgressIndicator(),
+                  if (saveFeedback != null)
+                    Notice(saveFeedback!, error: saveNeedsAttention),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    child: Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: [
+                        OutlinedButton(
+                          onPressed: busy ? null : () => saveWithFeedback(),
+                          child: const Text('Save draft'),
+                        ),
+                        FilledButton(
+                          onPressed: busy
+                              ? null
+                              : () => saveWithFeedback(publish: true),
+                          child: const Text('Save and publish'),
+                        ),
+                      ],
                     ),
-                    FilledButton(
-                      onPressed: () => run(() => save(publish: true)),
-                      child: const Text('Save and publish'),
+                  ),
+                  if (blockers.isNotEmpty)
+                    TextButton.icon(
+                      onPressed: busy
+                          ? null
+                          : () => scroll.animateTo(
+                              0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeOut,
+                            ),
+                      icon: const Icon(Icons.arrow_upward),
+                      label: const Text('Review publication blockers'),
                     ),
-                  ],
-                ),
+                ],
               ),
             ...((analysis['notices'] as List?) ?? []).map(
               (n) => Padding(
