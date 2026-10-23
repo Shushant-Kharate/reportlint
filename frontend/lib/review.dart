@@ -64,10 +64,10 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
   String evidence(List<dynamic> ids) =>
       objects(analysis['evidence'])
           .where((e) => ids.contains(e['source_id']))
-          .map((e) => '${e['excerpt']}\n${e['path']}')
+          .map((e) => '${e['excerpt']}')
           .join('\n\n');
   Widget source(List<dynamic> ids) => ExpansionTile(
-    title: const Text('Source evidence'),
+    title: const Text('Read the format instruction'),
     children: [
       Padding(
         padding: const EdgeInsets.all(12),
@@ -259,20 +259,31 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
       id,
       () => {'candidate_id': id, 'action': '', 'reason': ''},
     );
-    return Panel(
+    return ExpansionTile(
+      key: ValueKey('rule-${revision['revision_id']}-$id'),
+      initiallyExpanded:
+          !published &&
+          id == objects(analysis['candidates']).first['candidate_id'],
+      maintainState: true,
+      title: Text(describe(candidate['value'])),
+      subtitle: Text(
+        current['action'] == ''
+            ? 'Not reviewed yet'
+            : '${{'APPROVE': 'Approved', 'REJECT': 'Not used', 'DEFER': 'Review later'}[current['action']]}${'${current['reason'] ?? ''}'.trim().length < 5 ? ' · Add a reason' : ''}',
+      ),
+      childrenPadding: const EdgeInsets.fromLTRB(12, 4, 12, 16),
       children: [
         Text(
-          describe(candidate['value']),
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        Text(
-          '${candidate['origin'] == 'EXPLICIT_PROSE' ? 'Written instruction' : 'Observed appearance only'} · ${candidate['scope']}',
+          candidate['origin'] == 'EXPLICIT_PROSE'
+              ? 'Written in the format document'
+              : 'Suggested from the sample’s appearance. Confirm it against the written instructions.',
         ),
         if (candidate['condition'] != 'ALWAYS')
           Notice(
-            'Conditional: ${candidate['condition']}. Check current backend support before approval.',
+            candidate['condition'] == 'HEADER_ABSENT'
+                ? 'Use this margin only where there is no header.'
+                : 'This rule applies only under a condition in the format document.',
           ),
-        if ('${candidate['note'] ?? ''}'.isNotEmpty) Text(candidate['note']),
         source(candidate['evidence_ids']),
         choice(
           'Decision',
@@ -306,7 +317,76 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
           enabled: !published,
           key: ValueKey('reason-$id'),
         ),
+        ExpansionTile(
+          title: const Text('Technical details'),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: SelectableText(pretty(candidate)),
+            ),
+          ],
+        ),
       ],
+    );
+  }
+
+  bool completeDecision(Json? value) =>
+      value != null &&
+      '${value['action'] ?? ''}'.isNotEmpty &&
+      '${value['reason'] ?? ''}'.trim().length >= 5;
+  Widget reviewActions() {
+    final candidates = objects(analysis['candidates']);
+    final instructions = objects(analysis['requirement_ledger']);
+    final done =
+        candidates
+            .where((c) => completeDecision(decisions[c['candidate_id']]))
+            .length +
+        instructions
+            .where((e) => completeDecision(ledger[e['evidence_id']]))
+            .length;
+    final total = candidates.length + instructions.length;
+    return SafeArea(
+      top: false,
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: Color(0xffdce4e7))),
+        ),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${dirty ? 'Unsaved changes' : 'Draft'} · $done of $total rule and instruction decisions complete',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: busy ? null : () => saveWithFeedback(),
+                  child: const Text('Save draft'),
+                ),
+                const SizedBox(width: 12),
+                Flexible(
+                  child: FilledButton(
+                    onPressed: busy
+                        ? null
+                        : () => saveWithFeedback(publish: true),
+                    child: const Text('Save and publish'),
+                  ),
+                ),
+              ],
+            ),
+            if (busy)
+              const Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: LinearProgressIndicator(),
+              ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -318,6 +398,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
     },
     child: Scaffold(
       appBar: AppBar(title: const Text('Review format')),
+      bottomNavigationBar: published ? null : reviewActions(),
       body: AbsorbPointer(
         absorbing: busy,
         child: PageBody(
@@ -336,7 +417,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
             Notice(
               published
                   ? 'Published requirements are locked. Create a new draft to change them.'
-                  : 'Approve only requirements you have reviewed. Observed appearance may contradict written instructions.',
+                  : 'Review the rules, choose the required chapters, and decide how to check any remaining instructions. Save your progress at any time.',
             ),
             if (published)
               Wrap(
@@ -371,10 +452,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                 ],
               ),
             if (blockers.isNotEmpty)
-              Notice(
-                'Publication needs attention:\n${blockers.map(describe).join('\n\n')}',
-                error: true,
-              ),
+              Notice('Before you publish: ${blockerSummary()}.', error: true),
             if (objects(analysis['conflicts']).isNotEmpty)
               ExpansionTile(
                 title: Text(
@@ -392,19 +470,40 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                     .toList(),
               ),
             const SizedBox(height: 16),
-            Text(
-              'Formatting requirements',
-              style: Theme.of(context).textTheme.titleLarge,
+            ExpansionTile(
+              initiallyExpanded: true,
+              title: const Text('1. Formatting rules'),
+              subtitle: const Text(
+                'Review written rules first. Open a rule to make your decision.',
+              ),
+              children: [
+                ...objects(analysis['candidates'])
+                    .where((c) => c['origin'] == 'EXPLICIT_PROSE')
+                    .map(decisionCard),
+                if (objects(analysis['candidates'])
+                    .any((c) => c['origin'] != 'EXPLICIT_PROSE'))
+                  ExpansionTile(
+                    title: Text(
+                      'Suggestions from sample appearance (${objects(analysis['candidates']).where((c) => c['origin'] != 'EXPLICIT_PROSE').length})',
+                    ),
+                    subtitle: const Text(
+                      'These also need a decision. They may differ from written instructions.',
+                    ),
+                    children: objects(analysis['candidates'])
+                        .where((c) => c['origin'] != 'EXPLICIT_PROSE')
+                        .map(decisionCard)
+                        .toList(),
+                  ),
+              ],
             ),
-            ...objects(analysis['candidates']).map(decisionCard),
             Panel(
               children: [
                 Text(
-                  'Chapter profile',
+                  '2. Required chapters',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 choice(
-                  'Profile',
+                  'Chapter list',
                   profileId,
                   {
                     '': 'Choose a profile',
@@ -469,10 +568,10 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
             ),
             ExpansionTile(
               title: Text(
-                'Other instructions (${objects(analysis['requirement_ledger']).length})',
+                '3. Other instructions (${objects(analysis['requirement_ledger']).length})',
               ),
               subtitle: const Text(
-                'Every source instruction needs a review disposition.',
+                'Decide which instructions need manual review or do not apply.',
               ),
               children: objects(analysis['requirement_ledger']).map((entry) {
                 final id = entry['evidence_id'] as String;
@@ -484,12 +583,12 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                   children: [
                     SelectableText(evidence([id])),
                     choice(
-                      'Handling',
+                      'How will this be checked?',
                       d['action'],
                       const {
                         '': 'Choose',
                         'ACKNOWLEDGED_PARTIAL':
-                            'Partly covered by approved rules',
+                            'Partly checked by approved rules',
                         'DEFERRED': 'Defer',
                         'MANUAL': 'Check manually',
                         'OUT_OF_SCOPE': 'Outside this report’s scope',
@@ -526,25 +625,6 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                   if (busy) const LinearProgressIndicator(),
                   if (saveFeedback != null)
                     Notice(saveFeedback!, error: saveNeedsAttention),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: Wrap(
-                      spacing: 12,
-                      runSpacing: 12,
-                      children: [
-                        OutlinedButton(
-                          onPressed: busy ? null : () => saveWithFeedback(),
-                          child: const Text('Save draft'),
-                        ),
-                        FilledButton(
-                          onPressed: busy
-                              ? null
-                              : () => saveWithFeedback(publish: true),
-                          child: const Text('Save and publish'),
-                        ),
-                      ],
-                    ),
-                  ),
                   if (blockers.isNotEmpty)
                     TextButton.icon(
                       onPressed: busy
@@ -559,11 +639,19 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                     ),
                 ],
               ),
-            ...((analysis['notices'] as List?) ?? []).map(
-              (n) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Text('$n', style: Theme.of(context).textTheme.bodySmall),
-              ),
+            ExpansionTile(
+              title: const Text('Technical details about format extraction'),
+              children: [
+                ...((analysis['notices'] as List?) ?? []).map(
+                  (n) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text(
+                      '$n',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

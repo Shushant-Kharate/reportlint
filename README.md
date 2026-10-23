@@ -99,6 +99,14 @@ Selected review/handling decisions need a reason of at least five characters. Sa
 
 Item counts are **not a compliance percentage**. The v2 engine supports stored page settings, conditional no-header top margins, scoped body formatting, chapter recognition and typography, decimal section sizes, abstract length/keywords, inherited footer PAGE settings, native contents entry formatting, separate illustration-list headings and native caption/title associations. Results group repeated findings while retaining every location. Full contents completeness, semantic abstract coverage, image-embedded captions and rendered geometry remain incomplete. See the [latest real-document comparison and limitations](docs/REAL_DOCUMENT_RETEST.md) and [previous improvements](docs/REAL_DOCUMENT_IMPROVEMENTS.md).
 
+## Reading results
+
+Results use plain-language **Required**, **Found**, and **How to fix it** explanations. Search by issue, value or location, and switch between **Needs fixing**, **Needs review**, **Passed**, and **Not applicable**. Repeated checks share a compact location summary; expand it to inspect every original location. Word sections and paragraph indexes are not rendered page numbers.
+
+Word field instructions, XML paths, original checker messages and other raw values are available under **Technical details**. **Download results** preserves the original result and reviewed specification as JSON. Display wording does not change the checker verdict or uncertainty.
+
+Format review separates written rules, sample-appearance suggestions, required chapters and other instructions. Open a rule to review it; save/publish controls stay visible while scrolling. No decisions are approved automatically.
+
 ## Three-file demonstration
 
 The same fictional documents are in `demo/` and bundled with Flutter:

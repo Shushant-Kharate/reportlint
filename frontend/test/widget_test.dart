@@ -95,6 +95,8 @@ void main() {
         find.byKey(const ValueKey('reason-c')),
         'Verified against the written instruction.',
       );
+      await tester.ensureVisible(find.text('Choose a decision'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Choose a decision'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Approve').last);
@@ -146,6 +148,8 @@ void main() {
           home: ReviewScreen(api: api, revision: revision),
         ),
       );
+      await tester.ensureVisible(find.text('Choose a decision'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Choose a decision'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Approve').last);
@@ -238,6 +242,12 @@ void main() {
         ),
         findsWidgets,
       );
+      await tester.scrollUntilVisible(
+        find.text('Review publication blockers'),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.pumpAndSettle();
       expect(find.text('Review publication blockers'), findsOneWidget);
       await tester.pump(const Duration(seconds: 9));
       await tester.pumpAndSettle();
@@ -423,13 +433,13 @@ void main() {
     );
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
-      find.text('Every affected location'),
+      find.text('Show affected locations'),
       300,
       scrollable: find.byType(Scrollable).first,
     );
-    await tester.ensureVisible(find.text('Every affected location'));
+    await tester.ensureVisible(find.text('Show affected locations'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Every affected location'));
+    await tester.tap(find.text('Show affected locations'));
     await tester.pumpAndSettle();
     expect(find.text('Section 9'), findsOneWidget);
     expect(find.text('Section 10'), findsOneWidget);

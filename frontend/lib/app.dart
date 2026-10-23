@@ -80,6 +80,12 @@ class _ReportLintAppState extends State<ReportLintApp> {
     theme: ThemeData(
       useMaterial3: true,
       fontFamily: 'ReportLint',
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(fontSize: 16, height: 1.5),
+        bodyMedium: TextStyle(fontSize: 15, height: 1.5),
+        bodySmall: TextStyle(fontSize: 13, height: 1.4),
+        titleMedium: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+      ),
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff087f72)),
       scaffoldBackgroundColor: const Color(0xfff6f8fa),
       appBarTheme: const AppBarTheme(

@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 
 import 'api.dart';
 import 'widgets.dart';
+import 'finding_text.dart';
 
 class CheckScreen extends StatefulWidget {
   final ReportApi api;
@@ -408,10 +409,29 @@ String findingLocation(Json item) => item['paragraph_index'] != null
 
 class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
   String filter = 'FAIL';
-  int limit = 30;
+  int limit = 20;
   bool groupRepeated = true;
-  final Map<String, int> locationLimits = {};
+  final search = TextEditingController();
   bool get complex => widget.result.containsKey('items');
+  @override
+  void initState() {
+    super.initState();
+    if (complex &&
+        objects(widget.result['items']).every((i) => i['status'] != 'FAIL')) {
+      filter =
+          objects(widget.result['items'])
+              .any((i) => i['status'] == 'NOT_CHECKED')
+          ? 'NOT_CHECKED'
+          : 'PASS';
+    }
+  }
+
+  @override
+  void dispose() {
+    search.dispose();
+    super.dispose();
+  }
+
   Future<void> export() async {
     await FilePicker.saveFile(
       dialogTitle: 'Save check result',
@@ -429,190 +449,375 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
   @override
   Widget build(BuildContext context) {
     final r = widget.result;
-    final items = objects(r[complex ? 'items' : 'violations'])
-        .where((i) => !complex || filter == 'ALL' || i['status'] == filter)
-        .toList();
+    final all = objects(r[complex ? 'items' : 'violations']);
+    final query = search.text.trim().toLowerCase();
+    final items = all.where((i) {
+      if (complex && filter != 'ALL' && i['status'] != filter) return false;
+      final copy = explainFinding(i);
+      return query.isEmpty ||
+          '${copy.title} ${copy.requiredValue} ${copy.foundValue} ${locationSummary([i])}'
+              .toLowerCase()
+              .contains(query);
+    }).toList();
     final groups = findingGroups(items, enabled: complex && groupRepeated);
-    final counts = complex
-        ? object(r['counts'])
-        : <String, dynamic>{
-            'PASS': r['total_checks_passed'],
-            'FAIL': r['total_errors'],
-            'WARNING': r['total_warnings'],
-          };
+    int total(String status) =>
+        findingGroups(all.where((i) => i['status'] == status).toList()).length;
+    final fixes = total('FAIL'), reviews = total('NOT_CHECKED');
     final titles = {
+      'FAIL': 'Needs fixing',
+      'NOT_CHECKED': 'Needs review',
       'PASS': 'Passed',
-      'FAIL': 'Issues',
-      'NOT_CHECKED': 'Not checked',
-      'OUT_OF_SCOPE': 'Excluded',
+      'OUT_OF_SCOPE': 'Not applicable',
       'WARNING': 'Warnings',
     };
     final heading = !complex
         ? 'Basic check result'
         : r['outcome'] == 'FAIL'
-        ? 'Formatting issues found'
+        ? 'Here’s what to fix'
         : r['outcome'] == 'INDETERMINATE'
         ? 'Some requirements remain unchecked'
         : 'Supported checks passed';
     return Scaffold(
-      appBar: AppBar(title: const Text('Results')),
+      appBar: AppBar(title: const Text('Report results')),
       body: PageBody(
         children: [
-          Text(heading, style: Theme.of(context).textTheme.headlineSmall),
-          ...status,
+          Text(heading, style: Theme.of(context).textTheme.headlineMedium),
+          const SizedBox(height: 8),
+          if (widget.revision != null)
+            Text(
+              'Compared with ${widget.revision!['name']}',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: counts.entries
-                .map(
-                  (e) => SizedBox(
-                    width: 145,
-                    child: Panel(
-                      children: [
-                        Text(
-                          '${e.value}',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        Text(titles[e.key] ?? e.key),
-                      ],
+          ...status,
+          if (complex)
+            LayoutBuilder(
+              builder: (context, constraints) => Row(
+                children: [
+                  Expanded(
+                    child: _ResultTotal(
+                      number: fixes,
+                      label: 'Issue groups',
+                      detail: 'Changes to make',
+                      color: const Color(0xffa63b28),
                     ),
                   ),
-                )
-                .toList(),
-          ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _ResultTotal(
+                      number: reviews,
+                      label: 'Review groups',
+                      detail: 'Need a human check',
+                      color: const Color(0xff946200),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           const Notice(
-            'These are check-item counts, not a percentage of document compliance. Passing supported checks does not certify the whole report.',
+            'This is not a percentage or a grade. The app checks supported rules; anything marked “Needs review” still needs a human check.',
           ),
           if (!complex)
             Text(
               'Basic engine score: ${r['overall_score']}% (limited legacy scoring, not full compliance).',
             ),
           if (complex)
-            Text(
-              'Checker ${r['checker_version']} · ${objects(r['role_decisions']).length} manual role decisions',
+            choice(
+              'Show',
+              filter,
+              {'ALL': 'All results', ...titles},
+              (v) => setState(() {
+                filter = v;
+                limit = 20;
+              }),
             ),
-          if (widget.revision != null)
-            Text(
-              '${widget.revision!['name']} · revision ${widget.revision!['revision_number']}',
+          TextField(
+            controller: search,
+            decoration: const InputDecoration(
+              labelText: 'Find an issue',
+              hintText: 'Try margins, page numbers, or font',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(),
             ),
+            onChanged: (_) => setState(() => limit = 20),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            '${groups.length} ${groupRepeated && complex ? (groups.length == 1 ? 'result group' : 'result groups') : (groups.length == 1 ? 'result' : 'results')}${query.isEmpty ? '' : ' matching your search'}',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 12),
+          ...groups
+              .take(limit)
+              .map(
+                (members) => ReadableFindingCard(
+                  key: ValueKey(
+                    '$filter:${members.first['item_id'] ?? members.first['code']}:${groups.indexOf(members)}',
+                  ),
+                  members: members,
+                  revision: widget.revision,
+                ),
+              ),
+          if (items.isEmpty)
+            const Notice(
+              'No results here. Try another category or search term.',
+            ),
+          if (groups.length > limit)
+            OutlinedButton(
+              onPressed: () => setState(() => limit += 20),
+              child: const Text('Show more results'),
+            ),
+          const SizedBox(height: 16),
           OutlinedButton.icon(
             onPressed: busy ? null : () => run(export),
             icon: const Icon(Icons.download_outlined),
-            label: const Text('Export result and evidence'),
+            label: const Text('Download results'),
           ),
-          if (complex)
-            choice(
-              'Show findings',
-              filter,
-              {'ALL': 'All findings', ...titles},
-              (v) => setState(() {
-                filter = v;
-                limit = 30;
-              }),
-            ),
-          if (complex)
-            SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              title: const Text('Group repeated findings'),
-              subtitle: const Text(
-                'Every affected location remains available.',
+          ExpansionTile(
+            title: const Text('About this check'),
+            children: [
+              const ListTile(
+                title: Text('What the numbers mean'),
+                subtitle: Text(
+                  'Repeated findings are grouped by the same rule and message. A group can affect many locations. Word sections and paragraph numbers are not rendered page numbers.',
+                ),
               ),
-              value: groupRepeated,
-              onChanged: (v) => setState(() {
-                groupRepeated = v;
-                limit = 30;
-              }),
-            ),
-          Text(
-            complex && groupRepeated
-                ? '${groups.length} groups · ${items.length} check items'
-                : '${items.length} findings',
-          ),
-          ...groups.take(limit).map((members) {
-            final i = members.first;
-            final location = members.length > 1
-                ? '${members.length} check items'
-                : findingLocation(i);
-            final groupId = '${i['item_id']}';
-            final shownLocations = locationLimits[groupId] ?? 30;
-            return Panel(
-              children: [
-                Text(
-                  '${titles[i['status']] ?? i['severity'] ?? ''} · $location',
-                  style: Theme.of(context).textTheme.titleMedium,
+              if (complex)
+                ListTile(
+                  title: const Text('Original check counts'),
+                  subtitle: Text(
+                    '''${object(r['counts']).entries.map((e) => '${titles[e.key] ?? e.key}: ${e.value}').join(' · ')}
+These counts include repeated sections and text segments; they are not a compliance score.''',
+                  ),
                 ),
-                Text('${i['message']}'),
-                if (members.length > 1)
-                  Text(
-                    '${members.map(findingLocation).toSet().length} affected locations. Expected and actual below show the first item.',
+              if (complex)
+                SwitchListTile(
+                  title: const Text('Group repeated findings'),
+                  subtitle: const Text(
+                    'Turn off to inspect each original check separately.',
                   ),
-                if (members.length > 1)
-                  ExpansionTile(
-                    title: const Text('Every affected location'),
-                    children: [
-                      ...members
-                          .take(shownLocations)
-                          .map(
-                            (member) => ListTile(
-                              title: Text(findingLocation(member)),
-                              subtitle: SelectableText(
-                                '${describe(member['actual'])}\n${member['source_path'] ?? ''}',
-                              ),
-                            ),
-                          ),
-                      if (members.length > shownLocations)
-                        TextButton(
-                          onPressed: () => setState(
-                            () => locationLimits[groupId] = shownLocations + 30,
-                          ),
-                          child: const Text('Show more locations'),
-                        ),
-                    ],
-                  ),
+                  value: groupRepeated,
+                  onChanged: (v) => setState(() {
+                    groupRepeated = v;
+                    limit = 20;
+                  }),
+                ),
+              if (complex)
                 ExpansionTile(
-                  title: const Text('Expected and actual'),
+                  title: const Text('Technical details'),
                   children: [
                     ListTile(
-                      title: const Text('Expected'),
-                      subtitle: SelectableText(describe(i['expected'])),
-                    ),
-                    ListTile(
-                      title: const Text('Actual'),
-                      subtitle: SelectableText(describe(i['actual'])),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: const Text('Evidence and location'),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: SelectableText(
-                        '${i['source_path'] ?? describe(i['location'])}\n${objects(widget.revision?['analysis']?['evidence']).where((e) => ((i['evidence_ids'] as List?) ?? []).contains(e['source_id'])).map((e) => e['excerpt']).join('\n\n')}',
+                      title: Text('Checker ${r['checker_version']}'),
+                      subtitle: Text(
+                        '${objects(r['role_decisions']).length} paragraph-role decisions',
                       ),
                     ),
+                    ...((r['limitations'] as List?) ?? []).map(
+                      (x) => ListTile(title: Text('$x')),
+                    ),
                   ],
                 ),
-              ],
-            );
-          }),
-          if (items.isEmpty) const Notice('No findings in this category.'),
-          if (groups.length > limit)
-            OutlinedButton(
-              onPressed: () => setState(() => limit += 30),
-              child: const Text('Show more findings'),
-            ),
-          if (complex)
-            ExpansionTile(
-              title: const Text('Limits of this check'),
-              children: ((r['limitations'] as List?) ?? [])
-                  .map((x) => ListTile(title: Text('$x')))
-                  .toList(),
-            ),
+            ],
+          ),
         ],
       ),
+    );
+  }
+}
+
+class _ResultTotal extends StatelessWidget {
+  final int number;
+  final String label, detail;
+  final Color color;
+  const _ResultTotal({
+    required this.number,
+    required this.label,
+    required this.detail,
+    required this.color,
+  });
+  @override
+  Widget build(BuildContext context) => Panel(
+    children: [
+      Text(
+        '$number',
+        style: Theme.of(context).textTheme.headlineLarge
+            ?.copyWith(color: color, fontWeight: FontWeight.w600),
+      ),
+      Text(label, style: Theme.of(context).textTheme.titleMedium),
+      const SizedBox(height: 4),
+      Text(detail, style: Theme.of(context).textTheme.bodySmall),
+    ],
+  );
+}
+
+class ReadableFindingCard extends StatefulWidget {
+  final List<Json> members;
+  final Json? revision;
+  const ReadableFindingCard({super.key, required this.members, this.revision});
+  @override
+  State<ReadableFindingCard> createState() => _ReadableFindingCardState();
+}
+
+class _ReadableFindingCardState extends State<ReadableFindingCard> {
+  int shown = 5;
+  @override
+  Widget build(BuildContext context) {
+    final members = widget.members, item = members.first;
+    final copy = explainFinding(item);
+    final status = findingStatus(item);
+    final color = status == 'FAIL'
+        ? const Color(0xffa63b28)
+        : status == 'PASS'
+        ? const Color(0xff087f72)
+        : const Color(0xff946200);
+    final label =
+        {
+          'FAIL': 'Needs fixing',
+          'PASS': 'Passed',
+          'NOT_CHECKED': 'Needs review',
+          'OUT_OF_SCOPE': 'Not applicable',
+        }[status] ??
+        'Review';
+    final actuals = members.map((i) => explainFinding(i).foundValue).toSet();
+    final found = actuals.length == 1
+        ? actuals.first
+        : 'Values differ across locations. See the affected locations below.';
+    final evidence = objects(widget.revision?['analysis']?['evidence'])
+        .where(
+          (e) =>
+              ((item['evidence_ids'] as List?) ?? []).contains(e['source_id']),
+        )
+        .toList();
+    Widget value(String title, String text) => Padding(
+      padding: const EdgeInsets.symmetric(vertical: 7),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.labelLarge
+                ?.copyWith(color: const Color(0xff52616b)),
+          ),
+          const SizedBox(height: 3),
+          Text(text, style: Theme.of(context).textTheme.bodyLarge),
+        ],
+      ),
+    );
+    return Panel(
+      children: [
+        Row(
+          children: [
+            Icon(
+              status == 'PASS'
+                  ? Icons.check_circle_outline
+                  : status == 'FAIL'
+                  ? Icons.error_outline
+                  : Icons.help_outline,
+              color: color,
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(color: color, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Text(
+          copy.title,
+          style: Theme.of(context).textTheme.titleLarge
+              ?.copyWith(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          locationSummary(members),
+          style: Theme.of(context).textTheme.bodyMedium
+              ?.copyWith(color: const Color(0xff52616b)),
+        ),
+        const SizedBox(height: 10),
+        LayoutBuilder(
+          builder: (context, c) => c.maxWidth >= 550
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: value('Required', copy.requiredValue)),
+                    const SizedBox(width: 20),
+                    Expanded(child: value('Found', found)),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    value('Required', copy.requiredValue),
+                    value('Found', found),
+                  ],
+                ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          status == 'FAIL'
+              ? 'How to fix it'
+              : status == 'PASS' || status == 'OUT_OF_SCOPE'
+              ? 'What this means'
+              : 'What to check',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: 4),
+        Text(copy.action),
+        if (members.length > 1)
+          ExpansionTile(
+            tilePadding: EdgeInsets.zero,
+            title: const Text('Show affected locations'),
+            subtitle: Text(
+              '${members.map(findingLocation).toSet().length} affected locations',
+            ),
+            children: [
+              ...members
+                  .take(shown)
+                  .map(
+                    (m) => ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(findingLocation(m)),
+                      subtitle: Text(explainFinding(m).foundValue),
+                    ),
+                  ),
+              if (members.length > shown)
+                TextButton(
+                  onPressed: () => setState(() => shown += 20),
+                  child: Text(
+                    'Show more locations (${members.length - shown} remaining)',
+                  ),
+                ),
+            ],
+          ),
+        if (evidence.isNotEmpty)
+          ExpansionTile(
+            tilePadding: EdgeInsets.zero,
+            title: const Text('What the format says'),
+            children: evidence
+                .map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: SelectableText('${e['excerpt']}'),
+                  ),
+                )
+                .toList(),
+          ),
+        ExpansionTile(
+          tilePadding: EdgeInsets.zero,
+          title: const Text('Technical details'),
+          subtitle: const Text(
+            'Original checker message and document references',
+          ),
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: SelectableText(pretty({'checks': members})),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
