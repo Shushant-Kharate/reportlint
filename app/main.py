@@ -16,6 +16,15 @@ from app.uploads import parse_upload, read_limited
 from starlette.concurrency import run_in_threadpool
 
 app = FastAPI(title="ReportLint Engine")
+from app.cloud import WorkspaceMiddleware
+app.add_middleware(WorkspaceMiddleware)
+from app.review.service import ReviewError
+
+
+@app.exception_handler(ReviewError)
+async def review_error_handler(request, exc):
+    from fastapi.responses import JSONResponse
+    return JSONResponse(status_code=exc.status, content={"detail": {"code": exc.code, "message": str(exc), "blockers": exc.blockers}})
 _origins = [origin.strip() for origin in os.environ.get("REPORTLINT_CORS_ORIGINS", "").split(",") if origin.strip()]
 if _origins:
     app.add_middleware(CORSMiddleware, allow_origins=_origins,
@@ -49,6 +58,14 @@ def root():
 @app.get("/debug/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/api/builtin-formats/mini-project-1a/source")
+def builtin_source():
+    from fastapi.responses import FileResponse
+    from app.builtin_formats import DIRECTORY, builtin
+    builtin()
+    return FileResponse(DIRECTORY / "mini-project-1a.docx", filename="Mini Project 1A Report_Format.docx")
 
 
 @app.post("/debug/extract-ruleset")

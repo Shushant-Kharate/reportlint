@@ -27,6 +27,12 @@ def _ensure_dirs():
 
 
 def save_template(template: Template) -> None:
+    from app.cloud import enabled, BlobRecords
+    if enabled():
+        records = BlobRecords("v1")
+        _, generation = records.get(template.id)
+        records.save(template.id, template.model_dump(mode="json"), generation)
+        return
     _ensure_dirs()
     path = _path(template.id)
     temporary = None
@@ -41,6 +47,10 @@ def save_template(template: Template) -> None:
 
 
 def get_template(template_id: str) -> Template | None:
+    from app.cloud import enabled, BlobRecords
+    if enabled():
+        value, _ = BlobRecords("v1").get(template_id)
+        return Template.model_validate(value) if value else None
     try:
         path = _path(template_id)
     except ValueError:
@@ -52,6 +62,12 @@ def get_template(template_id: str) -> Template | None:
 
 
 def list_templates() -> list[TemplateSummary]:
+    from app.cloud import enabled, BlobRecords
+    if enabled():
+        templates = [Template.model_validate(v) for v in BlobRecords("v1").values()]
+        return [TemplateSummary(id=t.id, name=t.name, source_filename=t.source_filename,
+            status=t.status, created_at=t.created_at, rule_count=sum(len(getattr(t.ruleset, k))
+            for k in ("typography_rules", "paragraph_rules", "page_rules", "structure_rules"))) for t in templates]
     _ensure_dirs()
     summaries = []
     for path in sorted(TEMPLATES_DIR.glob("*.json")):
@@ -75,6 +91,9 @@ def list_templates() -> list[TemplateSummary]:
 
 
 def delete_template(template_id: str) -> bool:
+    from app.cloud import enabled, BlobRecords
+    if enabled():
+        return BlobRecords("v1").delete(template_id)
     try:
         path = _path(template_id)
     except ValueError:

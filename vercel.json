@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "fastapi",
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "functions": {
+    "app/main.py": {
+      "maxDuration": 300,
+      "excludeFiles": "{tests/**,storage/**,frontend/android/**,frontend/ios/**,frontend/.dart_tool/**,android/**,docs/**,.git/**,.pytest_cache/**}"
+    }
+  }
+}

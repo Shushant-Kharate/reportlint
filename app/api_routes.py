@@ -26,7 +26,7 @@ async def upload_template(file: UploadFile = File(...), name: str | None = None)
         status=TemplateStatus.DRAFT,
         ruleset=ruleset,
     )
-    storage.save_template(template)
+    await run_in_threadpool(storage.save_template, template)
     return json.loads(template.model_dump_json())
 
 
@@ -86,7 +86,7 @@ async def check_report(template_id: str, report: UploadFile = File(...)):
     current RuleSet (DRAFT templates are allowed too, so a teacher can test
     the rules before publishing — but the UI should visually distinguish
     this)."""
-    t = storage.get_template(template_id)
+    t = await run_in_threadpool(storage.get_template, template_id)
     if t is None:
         raise HTTPException(404, "Template not found")
 

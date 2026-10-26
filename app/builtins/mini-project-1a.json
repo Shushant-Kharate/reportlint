@@ -1,0 +1,2511 @@
+{
+  "schema_version": 2,
+  "template_id": "builtin-mini-project-1a",
+  "revision_id": "builtin-mini-project-1a-v1",
+  "revision_number": 1,
+  "parent_revision_id": null,
+  "name": "Mini Project 1A Report Format",
+  "status": "PUBLISHED",
+  "version": 1,
+  "analysis": {
+    "schema_version": 2,
+    "extractor_version": "0.3.0",
+    "source_sha256": "bb715c8d80fba5afbf7472974e5c503fbc5bc8ee4757f51a67bde79b11599cbc",
+    "candidates": [
+      {
+        "candidate_id": "candidate-d7476710474a310ab085",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 595.2755905511812,
+          "height_pt": 841.8897637795276
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "cdb3e579d0a6f848219a"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Proposed named paper dimensions; verify orientation and any explicit dimensions in the source."
+      },
+      {
+        "candidate_id": "candidate-93f8b8f917483c731868",
+        "scope": "body",
+        "value": {
+          "kind": "font_family",
+          "font": "Times New Roman"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "15a678952cafeb5c0a47"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-cf72f54faae0d780d04c",
+        "scope": "body",
+        "value": {
+          "kind": "font_size",
+          "expected_pt": 12.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "15a678952cafeb5c0a47"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-47eaf5b006cc29351ae1",
+        "scope": "body",
+        "value": {
+          "kind": "line_spacing_multiple",
+          "multiplier": 1.5
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "15a678952cafeb5c0a47"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-490ffcadb840b9a9b866",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 42.51968503937008
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "9648d6d5e5d3b67ec06b"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Review Word text-margin versus physical header/footer geometry before enforcement."
+      },
+      {
+        "candidate_id": "candidate-dc567f6f95f0fa2cec65",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 62.36220472440945
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "227f6169f3008aa0a282"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Review Word text-margin versus physical header/footer geometry before enforcement."
+      },
+      {
+        "candidate_id": "candidate-fd8818eaf93c31e0a44f",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 85.03937007874016
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "3522cb864d27a55c1996"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Review Word text-margin versus physical header/footer geometry before enforcement."
+      },
+      {
+        "candidate_id": "candidate-80614855b48ed204e8b0",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 56.69291338582678
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "36b0ce440ca85ddfb94f"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Review Word text-margin versus physical header/footer geometry before enforcement."
+      },
+      {
+        "candidate_id": "candidate-ed1945cff7d0f41e873e",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 85.03937007874016
+        },
+        "condition": "HEADER_ABSENT",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "77af8fb2331e436b8193"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Review Word text-margin versus physical header/footer geometry before enforcement."
+      },
+      {
+        "candidate_id": "candidate-00ef566c3a48cb6ba88c",
+        "scope": "document",
+        "value": {
+          "kind": "body_page_number_format",
+          "format": "decimal"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-6dc7605149fbc42c6f4e",
+        "scope": "document",
+        "value": {
+          "kind": "page_number_alignment",
+          "alignment": "center"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-232d16e0384045e2f29d",
+        "scope": "document",
+        "value": {
+          "kind": "front_page_number_format",
+          "format": "lowerRoman"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-3a593e14af1eb9b2de3b",
+        "scope": "document",
+        "value": {
+          "kind": "introduction_numbering",
+          "start": 1,
+          "suppress_first": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-2cf9b3555e715eff5056",
+        "scope": "document",
+        "value": {
+          "kind": "chapter_bold",
+          "required": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "9f8d5dfb47dfab5abe9d"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-35c3eece4632279fd52d",
+        "scope": "document",
+        "value": {
+          "kind": "chapter_font_size",
+          "expected_pt": 18.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "9f8d5dfb47dfab5abe9d"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-3203b9072ce7beb78cc4",
+        "scope": "document",
+        "value": {
+          "kind": "chapter_case",
+          "expected": "mixed"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "9f8d5dfb47dfab5abe9d"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-86dc252db6aea03b75d8",
+        "scope": "document",
+        "value": {
+          "kind": "contents_page_alignment",
+          "alignment": "right"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "90e5b42bf845c025fbbc"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-1bc105dc626ee7b77c6d",
+        "scope": "document",
+        "value": {
+          "kind": "section_font_size",
+          "depth": 2,
+          "expected_pt": 16.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "1c7682ff41338c3585b7"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-1f18ce044b67efc3b76b",
+        "scope": "document",
+        "value": {
+          "kind": "section_font_size",
+          "depth": 3,
+          "expected_pt": 14.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "1c7682ff41338c3585b7"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-328fdf0de053aa3ae4e4",
+        "scope": "document",
+        "value": {
+          "kind": "table_titles",
+          "chapter_numbering": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "f7a4a522be80e031556c"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-f5ecd14b8293de7dcdb5",
+        "scope": "document",
+        "value": {
+          "kind": "figure_captions",
+          "chapter_numbering": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "f7a4a522be80e031556c"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-f87a24de29ab640cb36d",
+        "scope": "document",
+        "value": {
+          "kind": "abstract_word_count",
+          "expected_words": 500
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "6f5f995cef6252ab6288"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Exact whitespace-delimited word count; reviewer must confirm this is an exact target, not a maximum."
+      },
+      {
+        "candidate_id": "candidate-eb85de7e63e1f2baf436",
+        "scope": "document",
+        "value": {
+          "kind": "abstract_keywords",
+          "required": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "6f5f995cef6252ab6288"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks an explicit nonempty Keywords label within the abstract region; semantic keyword identification is not supported."
+      },
+      {
+        "candidate_id": "candidate-dbd54df80d5ecf4f7dd5",
+        "scope": "document",
+        "value": {
+          "kind": "contents_structure",
+          "decimal_sections": true,
+          "individual_page_references": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "3459d56d51201017b5cb"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-cbe8da98e0dd4d2a4a77",
+        "scope": "document",
+        "value": {
+          "kind": "contents_page_alignment",
+          "alignment": "right"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "3459d56d51201017b5cb"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-9a5c37c9ab1d08354c66",
+        "scope": "document",
+        "value": {
+          "kind": "illustration_lists",
+          "separate": true
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "32b268e77c5627eb0fe4"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-2f163f329c59b84cf38f",
+        "scope": "document",
+        "value": {
+          "kind": "front_page_number_format",
+          "format": "lowerRoman"
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "4b1e26a7544242902d76"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Checks stored Word structure. Generated labels, rendered positions and image-embedded captions may require additional review."
+      },
+      {
+        "candidate_id": "candidate-b7acada65f427fd949f8",
+        "scope": "body",
+        "value": {
+          "kind": "font_family",
+          "font": "Times New Roman"
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Observed agreement 100.0%; not authority for a rule."
+      },
+      {
+        "candidate_id": "candidate-5cf59695f11bf267e91f",
+        "scope": "body",
+        "value": {
+          "kind": "font_size",
+          "expected_pt": 11.5
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Observed agreement 75.8%; not authority for a rule."
+      },
+      {
+        "candidate_id": "candidate-68fedc9e83070beb38ba",
+        "scope": "body",
+        "value": {
+          "kind": "line_spacing_multiple",
+          "multiplier": 1.5
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Observed agreement 79.2%; not authority for a rule."
+      },
+      {
+        "candidate_id": "candidate-9d30f8258ef087d97cfb",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-e282ac01fa91ef4de5ea",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-51a8def3e9170f074679",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-5562f1a02bcb9a7a207e",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-7c9380df7c9dd42baec1",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      }
+    ],
+    "conflicts": [
+      {
+        "conflict_id": "conflict-3ea1f532ac1f2f81",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-d7476710474a310ab085",
+          "candidate-9d30f8258ef087d97cfb"
+        ],
+        "suggested_candidate_id": "candidate-d7476710474a310ab085",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-430623777d163cab",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-cf72f54faae0d780d04c",
+          "candidate-5cf59695f11bf267e91f"
+        ],
+        "suggested_candidate_id": "candidate-cf72f54faae0d780d04c",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-e70921c8cb39da6b",
+        "kind": "CONDITIONAL_OVERRIDE",
+        "candidate_ids": [
+          "candidate-490ffcadb840b9a9b866",
+          "candidate-ed1945cff7d0f41e873e"
+        ],
+        "suggested_candidate_id": null,
+        "explanation": "A general value and a conditional alternative overlap. Review the intended conditions and physical measurements; neither value is approved.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-616d69d5248ca9af",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-490ffcadb840b9a9b866",
+          "candidate-e282ac01fa91ef4de5ea"
+        ],
+        "suggested_candidate_id": "candidate-490ffcadb840b9a9b866",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-5a4d2cf374c2433f",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-dc567f6f95f0fa2cec65",
+          "candidate-51a8def3e9170f074679"
+        ],
+        "suggested_candidate_id": "candidate-dc567f6f95f0fa2cec65",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-a3c80a902f093f45",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-fd8818eaf93c31e0a44f",
+          "candidate-5562f1a02bcb9a7a207e"
+        ],
+        "suggested_candidate_id": "candidate-fd8818eaf93c31e0a44f",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-3b8e97b794eea2b8",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-80614855b48ed204e8b0",
+          "candidate-7c9380df7c9dd42baec1"
+        ],
+        "suggested_candidate_id": "candidate-80614855b48ed204e8b0",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conflict_id": "conflict-82d4405cecb94867",
+        "kind": "PROSE_APPEARANCE",
+        "candidate_ids": [
+          "candidate-ed1945cff7d0f41e873e",
+          "candidate-e282ac01fa91ef4de5ea"
+        ],
+        "suggested_candidate_id": "candidate-ed1945cff7d0f41e873e",
+        "explanation": "Written guidance differs from observed formatting. Review the written value, its scope and any conditions before approving a rule.",
+        "status": "UNRESOLVED"
+      }
+    ],
+    "profiles": [
+      {
+        "profile_id": "profile-90f9a56384d8097d",
+        "label": "report",
+        "chapters": [
+          {
+            "title": "Introduction",
+            "number": "1",
+            "suggested_topics": [
+              "Back ground",
+              "Motivation",
+              "Problem Definition",
+              "Scope / Assumptions",
+              "Issues / Limitations"
+            ],
+            "evidence_ids": [
+              "63e82efffc33770c80ad",
+              "71da36a770b7047cf880",
+              "02762614c2a9d2a741ee",
+              "8675f9f0a47f2092ea59",
+              "09b67e3c3daf1d57e29f",
+              "f7adf82eed1d428a19a2"
+            ],
+            "required": null
+          },
+          {
+            "title": "Literature Survey and Analysis",
+            "number": "2",
+            "suggested_topics": [
+              "Related work",
+              "Existing System",
+              "Requirements Analysis"
+            ],
+            "evidence_ids": [
+              "2b25559b7126a3864566",
+              "d4a392d3588be964655c",
+              "b89b4338401195e0d588",
+              "cbe6a0a355def40fdb02"
+            ],
+            "required": null
+          },
+          {
+            "title": "System Design",
+            "number": "3",
+            "suggested_topics": [
+              "Architectural Diagram/ block diagram",
+              "Flow chart",
+              "ER Diagram for database",
+              "DFD",
+              "Execution flow / Working of system"
+            ],
+            "evidence_ids": [
+              "35a67ae62137a4fd0836",
+              "b9a4dd745e0faa2dfa53",
+              "7edfdd3a74d2e3b00e77",
+              "8f123e6d414c3e6afe10",
+              "450727af7003f8e66cfa",
+              "3110880ed415ef37acaa"
+            ],
+            "required": null
+          },
+          {
+            "title": "Conclusion and Future Scope",
+            "number": "4",
+            "suggested_topics": [
+              "Conclusion",
+              "Future Scope"
+            ],
+            "evidence_ids": [
+              "8a5636be95201ead728a",
+              "1726ce7f47b99130ec0d",
+              "b7721afed1f77212410a"
+            ],
+            "required": null
+          },
+          {
+            "title": "References",
+            "number": null,
+            "suggested_topics": [],
+            "evidence_ids": [
+              "d1a4f8a4a344ddcf0026"
+            ],
+            "required": null
+          },
+          {
+            "title": "Acknowledgements",
+            "number": null,
+            "suggested_topics": [],
+            "evidence_ids": [
+              "7dfbf074c6f53b3c5550"
+            ],
+            "required": null
+          }
+        ],
+        "review_status": "PROPOSED"
+      },
+      {
+        "profile_id": "profile-e1c7ef2ec39a202d",
+        "label": "synopsis",
+        "chapters": [
+          {
+            "title": "Abstract",
+            "number": "1",
+            "suggested_topics": [],
+            "evidence_ids": [
+              "7bd9f03247ce428f8d86"
+            ],
+            "required": null
+          },
+          {
+            "title": "Introduction",
+            "number": "2",
+            "suggested_topics": [],
+            "evidence_ids": [
+              "875f2dc3bc95cffa6211"
+            ],
+            "required": null
+          },
+          {
+            "title": "Literature Survey / Analysis / Existing System (if any)",
+            "number": "3",
+            "suggested_topics": [],
+            "evidence_ids": [
+              "69f876e0fca7e5db8431",
+              "4c4184b653ac2b4bac83",
+              "2b53226e30fdb8637619"
+            ],
+            "required": null
+          },
+          {
+            "title": "Scope",
+            "number": "4",
+            "suggested_topics": [],
+            "evidence_ids": [
+              "b0823c30fee7c5efde64",
+              "7c60f0ff0bfb3c2d26f6"
+            ],
+            "required": null
+          },
+          {
+            "title": "Proposed System/ Problem Statement",
+            "number": "5",
+            "suggested_topics": [],
+            "evidence_ids": [
+              "f71ba726836004a5daaf"
+            ],
+            "required": null
+          },
+          {
+            "title": "Design",
+            "number": "6.",
+            "suggested_topics": [],
+            "evidence_ids": [
+              "b502d4f403c3ec446a25"
+            ],
+            "required": null
+          },
+          {
+            "title": "Conclusion and Future Scope",
+            "number": "7",
+            "suggested_topics": [
+              "Conclusion",
+              "-Future Scope"
+            ],
+            "evidence_ids": [
+              "a56ca9117e7a2f66ca02",
+              "3773a8076504b245c82e",
+              "106a6b2718c43e0a5b76"
+            ],
+            "required": null
+          },
+          {
+            "title": "References",
+            "number": null,
+            "suggested_topics": [],
+            "evidence_ids": [
+              "e758e3b5d7bff323574a"
+            ],
+            "required": null
+          },
+          {
+            "title": "Acknowledgements",
+            "number": null,
+            "suggested_topics": [],
+            "evidence_ids": [
+              "fe14d040ee1b409d7a12"
+            ],
+            "required": null
+          }
+        ],
+        "review_status": "PROPOSED"
+      }
+    ],
+    "evidence": [
+      {
+        "source_id": "e89a4893dd8e3c903c83",
+        "part": "word/document.xml",
+        "path": "body/p[5]",
+        "excerpt": "Submitted in partial fulfillment of the requirement for"
+      },
+      {
+        "source_id": "88a4bf0703e06c6b90c4",
+        "part": "word/document.xml",
+        "path": "body/p[82]",
+        "excerpt": "We declare that this written submission represents our ideas in our own words and where others' ideas or words have been included, we have adequately cited and referenced the original sources. We also declare that We have adhered to all principles of academic honesty and integrity and have not misrepresented or fabricated or falsified any idea/data/fact/source in my submission. We understand that any violation of the above will be cause for disciplinary action by the Institute and can also evoke penal action from the sources which have thus not been properly cited or from whom proper permission has not been taken when needed."
+      },
+      {
+        "source_id": "cdb3e579d0a6f848219a",
+        "part": "word/document.xml",
+        "path": "body/p[229]",
+        "excerpt": "The report shall be printed/xeroxed on white bond paper, whiteness 95% or above, weight 70 gram or more per square meter. The size of the paper shall be standard A4; height 297 mm, width 210 mm."
+      },
+      {
+        "source_id": "15a678952cafeb5c0a47",
+        "part": "word/document.xml",
+        "path": "body/p[231]",
+        "excerpt": "The text shall be printed on single side of a page employing laser jet or Inkjet printer, the text having been processed using a standard text processor. The standard font shall be Times New Roman of 12 pts with 1.5 line spacing."
+      },
+      {
+        "source_id": "a428c4157d25d25da530",
+        "part": "word/document.xml",
+        "path": "body/p[233]",
+        "excerpt": "The Printed Sheets shall have the following written area and margins:"
+      },
+      {
+        "source_id": "9648d6d5e5d3b67ec06b",
+        "part": "word/document.xml",
+        "path": "body/p[234]",
+        "excerpt": "Top Margin : 15 mm"
+      },
+      {
+        "source_id": "227f6169f3008aa0a282",
+        "part": "word/document.xml",
+        "path": "body/p[237]",
+        "excerpt": "Bottom Margin : 22 mm"
+      },
+      {
+        "source_id": "3522cb864d27a55c1996",
+        "part": "word/document.xml",
+        "path": "body/p[240]",
+        "excerpt": "Left Margin : 30 mm"
+      },
+      {
+        "source_id": "36b0ce440ca85ddfb94f",
+        "part": "word/document.xml",
+        "path": "body/p[241]",
+        "excerpt": "Right Margin : 20 mm"
+      },
+      {
+        "source_id": "77af8fb2331e436b8193",
+        "part": "word/document.xml",
+        "path": "body/p[244]",
+        "excerpt": "When header is not used the top margin shall be 30 mm."
+      },
+      {
+        "source_id": "80f468ca25b9889f725e",
+        "part": "word/document.xml",
+        "path": "body/p[246]",
+        "excerpt": "Page numbering in the text of the report shall be Hindu- Arabic numerals at the center of the footer. Page number “1” for the first page of the Introduction chapter shall not appear in print; only the second page will bear the number “2”. The subsequent chapters shall begin on a fresh page. Pagination for pages before the Introduction chapter shall be in lower case Roman numerals, e.g., “iv”(from declaration till table page roman numbering)."
+      },
+      {
+        "source_id": "4796f67810cd8c85d472",
+        "part": "word/document.xml",
+        "path": "body/p[248]",
+        "excerpt": "When the header style is chosen, the header can have the Chapter number and Section number (e.g., Chapter 2, Section 3) on even numbered page headers and Chapter title or Section title on the odd numbered page header."
+      },
+      {
+        "source_id": "dea41d2ee741f3331a6f",
+        "part": "word/document.xml",
+        "path": "body/p[250]",
+        "excerpt": "Vertical space between paragraphs shall be about 2.5 line spacing. The first line of each paragraph should normally be indented by five characters or 12mm. A candidate may, however, choose not to indent if s/he has provided sufficient paragraph separation. A paragraph should normally comprise more than one line. A single line of a paragraph shall not be left at the top or bottom of a page. The word at the right end of the first line of a page or paragraph should, as far as possible, not be hyphenated."
+      },
+      {
+        "source_id": "9f8d5dfb47dfab5abe9d",
+        "part": "word/document.xml",
+        "path": "body/p[253]",
+        "excerpt": "Each chapter shall begin on a fresh page with an additional top margin of about 75mm. Chapter number (in HinduArabic) and title shall be printed at the center of the line in 6mm font size (18pt) in bold face using both upper and lower case (all capitals or small capitals shall not be used). A vertical gap of about 12 mm (spacing after font size 36 with single line spacing) shall be left between the Chapter number and Chapter title lines and between chapter title line and the first paragraph (sample is given as specimen ‘A’)."
+      },
+      {
+        "source_id": "90e5b42bf845c025fbbc",
+        "part": "word/document.xml",
+        "path": "body/p[255]",
+        "excerpt": "A chapter can be divided into Sections, Subsections and Sub-sub Sections so as to present different concepts separately. Sections and subsections can be numbered using decimal points, e.g. 2.2 for the second section in Chapter 2 and 2.3.4 for the fourth Subsection in third Section of Chapter 2. Chapters, Sections and Subsections shall be included in the contents with page numbers flushed to the right. Further subsections need not be numbered or included in the contents."
+      },
+      {
+        "source_id": "1c7682ff41338c3585b7",
+        "part": "word/document.xml",
+        "path": "body/p[256]",
+        "excerpt": "The Section and SubSection titles along with their numbers in 5 and 4mm (16 and 14 pt) fonts, respectively, in bold face shall be flushed to the left (not centered) with 15 mm space above and below these lines."
+      },
+      {
+        "source_id": "e8e5ed1e639a7011c59b",
+        "part": "word/document.xml",
+        "path": "body/p[257]",
+        "excerpt": "In further subdivisions character size of 3 and 3.5 with bold face, small caps, all caps and italics may be used for the titles flushed left or centered. These shall not feature in the contents."
+      },
+      {
+        "source_id": "8de09292666af28fdbd6",
+        "part": "word/document.xml",
+        "path": "body/p[259]",
+        "excerpt": "Tables and figures should be presented in portrait style as far as possible. Small size table and figures (less than half of writing area of a page) should be incorporated within the text, while larger ones may be presented on separate pages. Table and figures shall be numbered chapter wise. For example, the fourth figure in chapter 5 will bear the number Figure 5.4 or Fig 5.4."
+      },
+      {
+        "source_id": "f7a4a522be80e031556c",
+        "part": "word/document.xml",
+        "path": "body/p[260]",
+        "excerpt": "Table number and title will be placed above the table while the figure number and caption will be located below the figure. Reference for Table and Figures reproduced from elsewhere shall be cited in the last and separate line in the table and figure caption."
+      },
+      {
+        "source_id": "5b960584594952c33f0d",
+        "part": "word/document.xml",
+        "path": "body/p[281]",
+        "excerpt": "The front covers shall contain the following details:"
+      },
+      {
+        "source_id": "27dc537d9e9e99b7089a",
+        "part": "word/document.xml",
+        "path": "body/p[286]",
+        "excerpt": "All lettering shall be embossed in gold."
+      },
+      {
+        "source_id": "cd03df47dedcbe6efd8b",
+        "part": "word/document.xml",
+        "path": "body/p[288]",
+        "excerpt": "The degree, the name of the candidate and the year of submission shall also be embossed on the bound (side) in gold."
+      },
+      {
+        "source_id": "2995389d588ec8bde9ba",
+        "part": "word/document.xml",
+        "path": "body/p[290]",
+        "excerpt": "In addition to the white sheets (binding requirement) two white sheets shall be put at the beginning and the end of the thesis."
+      },
+      {
+        "source_id": "37cc82114d4bed9dac21",
+        "part": "word/document.xml",
+        "path": "body/p[292]",
+        "excerpt": "This shall be the first printed page of the report and shall contain the submission statement: the Thesis/Dissertation/project Report submitted in partial fulfillment of the requirements of the Degree, Ph.D. /M.E./B.E., the name and Roll No. of the candidate, name(s) of the Supervisor and Cosupervisor (s) (if any), Department, Institute and year of submission."
+      },
+      {
+        "source_id": "fd1bee753e8b66edaa7f",
+        "part": "word/document.xml",
+        "path": "body/p[296]",
+        "excerpt": "If the candidate so desires s/he may dedicate her/his report, which statement shall follow the title page. If included, this shall form the page 1 of the auxiliary sheets but shall not have a page number."
+      },
+      {
+        "source_id": "8314df281a624d0cdaef",
+        "part": "word/document.xml",
+        "path": "body/p[298]",
+        "excerpt": "In the absence of a dedication sheet this will form the first page and in that case shall not have a page number. Otherwise, this will bear the number two in Roman lower case “ii” at the center of the footer. The top line shall be:"
+      },
+      {
+        "source_id": "6f5f995cef6252ab6288",
+        "part": "word/document.xml",
+        "path": "body/p[306]",
+        "excerpt": "The 500 word abstract shall highlight the important features of the thesis/dissertation/ project report and shall correspond to the electronic version to be submitted to the Library for inclusion in the website. The Abstract in the thesis, however, shall have two more parts, namely, the layout of the thesis giving a brief chapterwise description of the work and the key words."
+      },
+      {
+        "source_id": "3459d56d51201017b5cb",
+        "part": "word/document.xml",
+        "path": "body/p[308]",
+        "excerpt": "The contents shall follow the Abstract and shall enlist the titles of the chapters, section and subsection using decimal notation, as in the text, with corresponding page number against them, flushed to the right."
+      },
+      {
+        "source_id": "32b268e77c5627eb0fe4",
+        "part": "word/document.xml",
+        "path": "body/p[309]",
+        "excerpt": "Two separate lists of Figure captions and Table titles along with their numbers and corresponding page numbers against them shall follow the Contents."
+      },
+      {
+        "source_id": "4d02957b934ad1e01d33",
+        "part": "word/document.xml",
+        "path": "body/p[311]",
+        "excerpt": "A complete and comprehensive list of all abbreviations, notations and nomenclature including Greek alphabets with subscripts and superscripts shall be provided after the list of tables and figures. (As far as possible, generally accepted symbols and notation should be used)."
+      },
+      {
+        "source_id": "4b1e26a7544242902d76",
+        "part": "word/document.xml",
+        "path": "body/p[312]",
+        "excerpt": "Auxiliary page from dedication (if any) to abbreviations shall be numbered using Roman numerals in lower case, while the text starting from the Introduction shall be in HinduArabic. (The first pages in the both the cases shall not bear a page number)."
+      },
+      {
+        "source_id": "f3b1a7310090ec7c9fb1",
+        "part": "word/document.xml",
+        "path": "body/p[314]",
+        "excerpt": "A declaration of Academic honesty and integrity is required to be included along with every thesis/dissertation/ project report after the approval sheet. The format of this declaration is given in Specimen `D' attached."
+      },
+      {
+        "source_id": "63e82efffc33770c80ad",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[1]/tc[1]/p[0]",
+        "excerpt": "Introduction"
+      },
+      {
+        "source_id": "71da36a770b7047cf880",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[1]/tc[1]/p[1]",
+        "excerpt": "Back ground"
+      },
+      {
+        "source_id": "02762614c2a9d2a741ee",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[1]/tc[1]/p[2]",
+        "excerpt": "Motivation"
+      },
+      {
+        "source_id": "8675f9f0a47f2092ea59",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[1]/tc[1]/p[3]",
+        "excerpt": "Problem Definition"
+      },
+      {
+        "source_id": "09b67e3c3daf1d57e29f",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[1]/tc[1]/p[4]",
+        "excerpt": "Scope / Assumptions"
+      },
+      {
+        "source_id": "f7adf82eed1d428a19a2",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[1]/tc[1]/p[5]",
+        "excerpt": "Issues / Limitations"
+      },
+      {
+        "source_id": "2b25559b7126a3864566",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[2]/tc[1]/p[0]",
+        "excerpt": "Literature Survey and Analysis"
+      },
+      {
+        "source_id": "d4a392d3588be964655c",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[2]/tc[1]/p[1]",
+        "excerpt": "Related work"
+      },
+      {
+        "source_id": "b89b4338401195e0d588",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[2]/tc[1]/p[2]",
+        "excerpt": "Existing System"
+      },
+      {
+        "source_id": "cbe6a0a355def40fdb02",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[2]/tc[1]/p[3]",
+        "excerpt": "Requirements Analysis"
+      },
+      {
+        "source_id": "35a67ae62137a4fd0836",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[3]/tc[1]/p[0]",
+        "excerpt": "System Design"
+      },
+      {
+        "source_id": "b9a4dd745e0faa2dfa53",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[3]/tc[1]/p[1]",
+        "excerpt": "Architectural Diagram/ block diagram"
+      },
+      {
+        "source_id": "7edfdd3a74d2e3b00e77",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[3]/tc[1]/p[2]",
+        "excerpt": "Flow chart"
+      },
+      {
+        "source_id": "8f123e6d414c3e6afe10",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[3]/tc[1]/p[3]",
+        "excerpt": "ER Diagram for database"
+      },
+      {
+        "source_id": "450727af7003f8e66cfa",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[3]/tc[1]/p[4]",
+        "excerpt": "DFD"
+      },
+      {
+        "source_id": "3110880ed415ef37acaa",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[3]/tc[1]/p[5]",
+        "excerpt": "Execution flow / Working of system"
+      },
+      {
+        "source_id": "8a5636be95201ead728a",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[4]/tc[1]/p[0]",
+        "excerpt": "Conclusion and Future Scope"
+      },
+      {
+        "source_id": "1726ce7f47b99130ec0d",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[4]/tc[1]/p[1]",
+        "excerpt": "Conclusion"
+      },
+      {
+        "source_id": "b7721afed1f77212410a",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[4]/tc[1]/p[2]",
+        "excerpt": "Future Scope"
+      },
+      {
+        "source_id": "d1a4f8a4a344ddcf0026",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[5]/tc[1]/p[0]",
+        "excerpt": "References"
+      },
+      {
+        "source_id": "7dfbf074c6f53b3c5550",
+        "part": "word/document.xml",
+        "path": "body/tbl[0]/tr[6]/tc[1]/p[0]",
+        "excerpt": "Acknowledgements"
+      },
+      {
+        "source_id": "7bd9f03247ce428f8d86",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[1]/tc[1]/p[0]",
+        "excerpt": "Abstract"
+      },
+      {
+        "source_id": "875f2dc3bc95cffa6211",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[2]/tc[1]/p[0]",
+        "excerpt": "Introduction"
+      },
+      {
+        "source_id": "69f876e0fca7e5db8431",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[3]/tc[1]/p[0]",
+        "excerpt": "Literature Survey / Analysis / Existing System (if any)"
+      },
+      {
+        "source_id": "4c4184b653ac2b4bac83",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[3]/tc[1]/p[1]",
+        "excerpt": ""
+      },
+      {
+        "source_id": "2b53226e30fdb8637619",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[3]/tc[1]/p[2]",
+        "excerpt": ""
+      },
+      {
+        "source_id": "b0823c30fee7c5efde64",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[4]/tc[1]/p[0]",
+        "excerpt": "Scope"
+      },
+      {
+        "source_id": "7c60f0ff0bfb3c2d26f6",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[4]/tc[1]/p[1]",
+        "excerpt": ""
+      },
+      {
+        "source_id": "f71ba726836004a5daaf",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[5]/tc[1]/p[0]",
+        "excerpt": "Proposed System/ Problem Statement"
+      },
+      {
+        "source_id": "b502d4f403c3ec446a25",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[6]/tc[1]/p[0]",
+        "excerpt": "Design"
+      },
+      {
+        "source_id": "a56ca9117e7a2f66ca02",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[7]/tc[1]/p[0]",
+        "excerpt": "Conclusion and Future Scope"
+      },
+      {
+        "source_id": "3773a8076504b245c82e",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[7]/tc[1]/p[1]",
+        "excerpt": "Conclusion"
+      },
+      {
+        "source_id": "106a6b2718c43e0a5b76",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[7]/tc[1]/p[2]",
+        "excerpt": "-Future Scope"
+      },
+      {
+        "source_id": "e758e3b5d7bff323574a",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[8]/tc[1]/p[0]",
+        "excerpt": "References"
+      },
+      {
+        "source_id": "fe14d040ee1b409d7a12",
+        "part": "word/document.xml",
+        "path": "body/tbl[3]/tr[9]/tc[1]/p[0]",
+        "excerpt": "Acknowledgements"
+      },
+      {
+        "source_id": "observed-body",
+        "part": "word/document.xml",
+        "path": "body",
+        "excerpt": "Dominant formatting sampled by the legacy body heuristic; may include sample or guideline text."
+      },
+      {
+        "source_id": "observed-section-0",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      }
+    ],
+    "requirement_ledger": [
+      {
+        "evidence_id": "e89a4893dd8e3c903c83",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "88a4bf0703e06c6b90c4",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "cdb3e579d0a6f848219a",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-d7476710474a310ab085"
+        ]
+      },
+      {
+        "evidence_id": "15a678952cafeb5c0a47",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-93f8b8f917483c731868",
+          "candidate-cf72f54faae0d780d04c",
+          "candidate-47eaf5b006cc29351ae1"
+        ]
+      },
+      {
+        "evidence_id": "a428c4157d25d25da530",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "9648d6d5e5d3b67ec06b",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-490ffcadb840b9a9b866"
+        ]
+      },
+      {
+        "evidence_id": "227f6169f3008aa0a282",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-dc567f6f95f0fa2cec65"
+        ]
+      },
+      {
+        "evidence_id": "3522cb864d27a55c1996",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-fd8818eaf93c31e0a44f"
+        ]
+      },
+      {
+        "evidence_id": "36b0ce440ca85ddfb94f",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-80614855b48ed204e8b0"
+        ]
+      },
+      {
+        "evidence_id": "77af8fb2331e436b8193",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-ed1945cff7d0f41e873e"
+        ]
+      },
+      {
+        "evidence_id": "80f468ca25b9889f725e",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-00ef566c3a48cb6ba88c",
+          "candidate-6dc7605149fbc42c6f4e",
+          "candidate-232d16e0384045e2f29d",
+          "candidate-3a593e14af1eb9b2de3b"
+        ]
+      },
+      {
+        "evidence_id": "4796f67810cd8c85d472",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "dea41d2ee741f3331a6f",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "9f8d5dfb47dfab5abe9d",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-2cf9b3555e715eff5056",
+          "candidate-35c3eece4632279fd52d",
+          "candidate-3203b9072ce7beb78cc4"
+        ]
+      },
+      {
+        "evidence_id": "90e5b42bf845c025fbbc",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-86dc252db6aea03b75d8"
+        ]
+      },
+      {
+        "evidence_id": "1c7682ff41338c3585b7",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-1bc105dc626ee7b77c6d",
+          "candidate-1f18ce044b67efc3b76b"
+        ]
+      },
+      {
+        "evidence_id": "e8e5ed1e639a7011c59b",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "8de09292666af28fdbd6",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "f7a4a522be80e031556c",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-328fdf0de053aa3ae4e4",
+          "candidate-f5ecd14b8293de7dcdb5"
+        ]
+      },
+      {
+        "evidence_id": "5b960584594952c33f0d",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "27dc537d9e9e99b7089a",
+        "status": "MANUAL_REVIEW",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "cd03df47dedcbe6efd8b",
+        "status": "MANUAL_REVIEW",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "2995389d588ec8bde9ba",
+        "status": "MANUAL_REVIEW",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "37cc82114d4bed9dac21",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "fd1bee753e8b66edaa7f",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "8314df281a624d0cdaef",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "6f5f995cef6252ab6288",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-f87a24de29ab640cb36d",
+          "candidate-eb85de7e63e1f2baf436"
+        ]
+      },
+      {
+        "evidence_id": "3459d56d51201017b5cb",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-dbd54df80d5ecf4f7dd5",
+          "candidate-cbe8da98e0dd4d2a4a77"
+        ]
+      },
+      {
+        "evidence_id": "32b268e77c5627eb0fe4",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-9a5c37c9ab1d08354c66"
+        ]
+      },
+      {
+        "evidence_id": "4d02957b934ad1e01d33",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "4b1e26a7544242902d76",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-2f163f329c59b84cf38f"
+        ]
+      },
+      {
+        "evidence_id": "f3b1a7310090ec7c9fb1",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "69f876e0fca7e5db8431",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      }
+    ],
+    "notices": [
+      "Extraction preview only: candidates are not approved. Publish a reviewed revision before checking; consult live capabilities for supported page settings, Body Text and outline-chapter checks.",
+      "English patterns cover a limited property set. The requirement ledger is an extraction aid, not proof of complete template coverage.",
+      "Candidate-bearing paragraphs can contain additional unsupported requirements. Review the full source excerpt.",
+      "Table topics are suggestions, not mandatory sections or aliases. Select and review report/synopsis profiles separately."
+    ],
+    "publication_ready": false
+  },
+  "candidate_decisions": [
+    {
+      "candidate_id": "candidate-d7476710474a310ab085",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-93f8b8f917483c731868",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-cf72f54faae0d780d04c",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-47eaf5b006cc29351ae1",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-490ffcadb840b9a9b866",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-dc567f6f95f0fa2cec65",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-fd8818eaf93c31e0a44f",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-80614855b48ed204e8b0",
+      "action": "APPROVE",
+      "reason": "Analyst benchmark interpretation: use the written requirement, not conflicting formatting observed in the template."
+    },
+    {
+      "candidate_id": "candidate-ed1945cff7d0f41e873e",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-00ef566c3a48cb6ba88c",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-6dc7605149fbc42c6f4e",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-232d16e0384045e2f29d",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-3a593e14af1eb9b2de3b",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-2cf9b3555e715eff5056",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-35c3eece4632279fd52d",
+      "action": "APPROVE",
+      "reason": "Analyst reviewed the explicit written chapter or abstract rule for this benchmark; not institution approval."
+    },
+    {
+      "candidate_id": "candidate-3203b9072ce7beb78cc4",
+      "action": "APPROVE",
+      "reason": "Analyst reviewed the explicit written chapter or abstract rule for this benchmark; not institution approval."
+    },
+    {
+      "candidate_id": "candidate-86dc252db6aea03b75d8",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-1bc105dc626ee7b77c6d",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-1f18ce044b67efc3b76b",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-328fdf0de053aa3ae4e4",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-f5ecd14b8293de7dcdb5",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-f87a24de29ab640cb36d",
+      "action": "APPROVE",
+      "reason": "Analyst reviewed the explicit written chapter or abstract rule for this benchmark; not institution approval."
+    },
+    {
+      "candidate_id": "candidate-eb85de7e63e1f2baf436",
+      "action": "APPROVE",
+      "reason": "Analyst reviewed the explicit written chapter or abstract rule for this benchmark; not institution approval."
+    },
+    {
+      "candidate_id": "candidate-dbd54df80d5ecf4f7dd5",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-cbe8da98e0dd4d2a4a77",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-9a5c37c9ab1d08354c66",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-2f163f329c59b84cf38f",
+      "action": "APPROVE",
+      "reason": "Independent reviewer confirmed this explicit written structural requirement for this private benchmark."
+    },
+    {
+      "candidate_id": "candidate-b7acada65f427fd949f8",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-5cf59695f11bf267e91f",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-68fedc9e83070beb38ba",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-9d30f8258ef087d97cfb",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-e282ac01fa91ef4de5ea",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-51a8def3e9170f074679",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-5562f1a02bcb9a7a207e",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    },
+    {
+      "candidate_id": "candidate-7c9380df7c9dd42baec1",
+      "action": "REJECT",
+      "reason": "Analyst benchmark: stored appearance is not authoritative when written instructions specify the required value."
+    }
+  ],
+  "ledger_decisions": [
+    {
+      "evidence_id": "e89a4893dd8e3c903c83",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "88a4bf0703e06c6b90c4",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "cdb3e579d0a6f848219a",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "15a678952cafeb5c0a47",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "a428c4157d25d25da530",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "9648d6d5e5d3b67ec06b",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "227f6169f3008aa0a282",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "3522cb864d27a55c1996",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "36b0ce440ca85ddfb94f",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "77af8fb2331e436b8193",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "80f468ca25b9889f725e",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "4796f67810cd8c85d472",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "dea41d2ee741f3331a6f",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "9f8d5dfb47dfab5abe9d",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "90e5b42bf845c025fbbc",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "1c7682ff41338c3585b7",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "e8e5ed1e639a7011c59b",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "8de09292666af28fdbd6",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "f7a4a522be80e031556c",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "5b960584594952c33f0d",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "27dc537d9e9e99b7089a",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "cd03df47dedcbe6efd8b",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "2995389d588ec8bde9ba",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "37cc82114d4bed9dac21",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "fd1bee753e8b66edaa7f",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "8314df281a624d0cdaef",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "6f5f995cef6252ab6288",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "3459d56d51201017b5cb",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "32b268e77c5627eb0fe4",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "4d02957b934ad1e01d33",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "4b1e26a7544242902d76",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "f3b1a7310090ec7c9fb1",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    },
+    {
+      "evidence_id": "69f876e0fca7e5db8431",
+      "action": "MANUAL",
+      "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+    }
+  ],
+  "profile_review": {
+    "profile_id": "profile-90f9a56384d8097d",
+    "reason": "Analyst comparison requested by the user: use the supplied 1A report index exactly. No report-specific aliases added. Differences attributable to a 1B scope must be discussed separately; this is not institutional approval.",
+    "chapters": [
+      {
+        "index": 0,
+        "name": "Introduction",
+        "aliases": [],
+        "required": true
+      },
+      {
+        "index": 1,
+        "name": "Literature Survey and Analysis",
+        "aliases": [],
+        "required": true
+      },
+      {
+        "index": 2,
+        "name": "System Design",
+        "aliases": [],
+        "required": true
+      },
+      {
+        "index": 3,
+        "name": "Conclusion and Future Scope",
+        "aliases": [],
+        "required": true
+      },
+      {
+        "index": 4,
+        "name": "References",
+        "aliases": [],
+        "required": true
+      },
+      {
+        "index": 5,
+        "name": "Acknowledgements",
+        "aliases": [],
+        "required": true
+      }
+    ]
+  },
+  "audit": [
+    {
+      "version": 0,
+      "timestamp": "2026-10-26T04:17:13.662529+00:00",
+      "action": "CREATE",
+      "patch": null
+    },
+    {
+      "version": 1,
+      "timestamp": "2026-10-26T04:17:13.670524+00:00",
+      "action": "PUBLISH",
+      "patch": null
+    }
+  ],
+  "publication": {
+    "compiler_version": "0.5.0",
+    "rules": [
+      {
+        "rule_id": "rule-80cf766106c19af379b9",
+        "candidate_ids": [
+          "candidate-d7476710474a310ab085"
+        ],
+        "evidence_ids": [
+          "cdb3e579d0a6f848219a"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 595.2755905511812,
+          "height_pt": 841.8897637795276
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-544a3e50ed79130eed3b",
+        "candidate_ids": [
+          "candidate-93f8b8f917483c731868"
+        ],
+        "evidence_ids": [
+          "15a678952cafeb5c0a47"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "font_family",
+          "font": "Times New Roman"
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-722e0b6680cc3dc5618d",
+        "candidate_ids": [
+          "candidate-cf72f54faae0d780d04c"
+        ],
+        "evidence_ids": [
+          "15a678952cafeb5c0a47"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "font_size",
+          "expected_pt": 12.0
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-4a7b1aafca84af4a4baa",
+        "candidate_ids": [
+          "candidate-47eaf5b006cc29351ae1"
+        ],
+        "evidence_ids": [
+          "15a678952cafeb5c0a47"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "line_spacing_multiple",
+          "multiplier": 1.5
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-4e86fa772191cd26e7cb",
+        "candidate_ids": [
+          "candidate-490ffcadb840b9a9b866"
+        ],
+        "evidence_ids": [
+          "9648d6d5e5d3b67ec06b"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 42.51968503937008
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-b93ebe4c7c408502fd20",
+        "candidate_ids": [
+          "candidate-dc567f6f95f0fa2cec65"
+        ],
+        "evidence_ids": [
+          "227f6169f3008aa0a282"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 62.36220472440945
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-47979e93867ff90fb0f5",
+        "candidate_ids": [
+          "candidate-fd8818eaf93c31e0a44f"
+        ],
+        "evidence_ids": [
+          "3522cb864d27a55c1996"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 85.03937007874016
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-6f986c910af20252b1f2",
+        "candidate_ids": [
+          "candidate-80614855b48ed204e8b0"
+        ],
+        "evidence_ids": [
+          "36b0ce440ca85ddfb94f"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 56.69291338582678
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-cbbda195a7bb39bbba07",
+        "candidate_ids": [
+          "candidate-ed1945cff7d0f41e873e"
+        ],
+        "evidence_ids": [
+          "77af8fb2331e436b8193"
+        ],
+        "scope": "document",
+        "condition": "HEADER_ABSENT",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 85.03937007874016
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-56667fa5c6513a30c75a",
+        "candidate_ids": [
+          "candidate-00ef566c3a48cb6ba88c"
+        ],
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "body_page_number_format",
+          "format": "decimal"
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-a5802de9f1cf3a591f49",
+        "candidate_ids": [
+          "candidate-6dc7605149fbc42c6f4e"
+        ],
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "page_number_alignment",
+          "alignment": "center"
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-125a4b17c1fb7e94b642",
+        "candidate_ids": [
+          "candidate-232d16e0384045e2f29d",
+          "candidate-2f163f329c59b84cf38f"
+        ],
+        "evidence_ids": [
+          "80f468ca25b9889f725e",
+          "4b1e26a7544242902d76"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "front_page_number_format",
+          "format": "lowerRoman"
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-69aab34390093802c225",
+        "candidate_ids": [
+          "candidate-3a593e14af1eb9b2de3b"
+        ],
+        "evidence_ids": [
+          "80f468ca25b9889f725e"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "introduction_numbering",
+          "start": 1,
+          "suppress_first": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-578b0bc75a047b2c2336",
+        "candidate_ids": [
+          "candidate-2cf9b3555e715eff5056"
+        ],
+        "evidence_ids": [
+          "9f8d5dfb47dfab5abe9d"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "chapter_bold",
+          "required": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-32c9f54a04e524d33734",
+        "candidate_ids": [
+          "candidate-35c3eece4632279fd52d"
+        ],
+        "evidence_ids": [
+          "9f8d5dfb47dfab5abe9d"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "chapter_font_size",
+          "expected_pt": 18.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-c15496d68ebb5f0c81a6",
+        "candidate_ids": [
+          "candidate-3203b9072ce7beb78cc4"
+        ],
+        "evidence_ids": [
+          "9f8d5dfb47dfab5abe9d"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "chapter_case",
+          "expected": "mixed"
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-79ba04452b509fb509fa",
+        "candidate_ids": [
+          "candidate-86dc252db6aea03b75d8",
+          "candidate-cbe8da98e0dd4d2a4a77"
+        ],
+        "evidence_ids": [
+          "90e5b42bf845c025fbbc",
+          "3459d56d51201017b5cb"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "contents_page_alignment",
+          "alignment": "right"
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-02157b5dbf406910a0a7",
+        "candidate_ids": [
+          "candidate-1bc105dc626ee7b77c6d"
+        ],
+        "evidence_ids": [
+          "1c7682ff41338c3585b7"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "section_font_size",
+          "depth": 2,
+          "expected_pt": 16.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-64ec45749bd97a285f75",
+        "candidate_ids": [
+          "candidate-1f18ce044b67efc3b76b"
+        ],
+        "evidence_ids": [
+          "1c7682ff41338c3585b7"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "section_font_size",
+          "depth": 3,
+          "expected_pt": 14.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-3c1272fd7d98b95b68c6",
+        "candidate_ids": [
+          "candidate-328fdf0de053aa3ae4e4"
+        ],
+        "evidence_ids": [
+          "f7a4a522be80e031556c"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "table_titles",
+          "chapter_numbering": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-2f6191909a73aa7bb319",
+        "candidate_ids": [
+          "candidate-f5ecd14b8293de7dcdb5"
+        ],
+        "evidence_ids": [
+          "f7a4a522be80e031556c"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "figure_captions",
+          "chapter_numbering": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-5bac620204dce8336c72",
+        "candidate_ids": [
+          "candidate-f87a24de29ab640cb36d"
+        ],
+        "evidence_ids": [
+          "6f5f995cef6252ab6288"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "abstract_word_count",
+          "expected_words": 500
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-69601bc14a92645d0e09",
+        "candidate_ids": [
+          "candidate-eb85de7e63e1f2baf436"
+        ],
+        "evidence_ids": [
+          "6f5f995cef6252ab6288"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "abstract_keywords",
+          "required": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-8a1236c2036c6e4b925a",
+        "candidate_ids": [
+          "candidate-dbd54df80d5ecf4f7dd5"
+        ],
+        "evidence_ids": [
+          "3459d56d51201017b5cb"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "contents_structure",
+          "decimal_sections": true,
+          "individual_page_references": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-24ad0c14bcd93e428b92",
+        "candidate_ids": [
+          "candidate-9a5c37c9ab1d08354c66"
+        ],
+        "evidence_ids": [
+          "32b268e77c5627eb0fe4"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "illustration_lists",
+          "separate": true
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      }
+    ],
+    "profile": {
+      "profile_id": "profile-90f9a56384d8097d",
+      "reason": "Analyst comparison requested by the user: use the supplied 1A report index exactly. No report-specific aliases added. Differences attributable to a 1B scope must be discussed separately; this is not institutional approval.",
+      "chapters": [
+        {
+          "index": 0,
+          "name": "Introduction",
+          "aliases": [],
+          "required": true
+        },
+        {
+          "index": 1,
+          "name": "Literature Survey and Analysis",
+          "aliases": [],
+          "required": true
+        },
+        {
+          "index": 2,
+          "name": "System Design",
+          "aliases": [],
+          "required": true
+        },
+        {
+          "index": 3,
+          "name": "Conclusion and Future Scope",
+          "aliases": [],
+          "required": true
+        },
+        {
+          "index": 4,
+          "name": "References",
+          "aliases": [],
+          "required": true
+        },
+        {
+          "index": 5,
+          "name": "Acknowledgements",
+          "aliases": [],
+          "required": true
+        }
+      ]
+    },
+    "deferred_candidate_ids": [],
+    "requirement_dispositions": [
+      {
+        "evidence_id": "e89a4893dd8e3c903c83",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "88a4bf0703e06c6b90c4",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "cdb3e579d0a6f848219a",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "15a678952cafeb5c0a47",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "a428c4157d25d25da530",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "9648d6d5e5d3b67ec06b",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "227f6169f3008aa0a282",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "3522cb864d27a55c1996",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "36b0ce440ca85ddfb94f",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "77af8fb2331e436b8193",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "80f468ca25b9889f725e",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "4796f67810cd8c85d472",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "dea41d2ee741f3331a6f",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "9f8d5dfb47dfab5abe9d",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "90e5b42bf845c025fbbc",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "1c7682ff41338c3585b7",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "e8e5ed1e639a7011c59b",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "8de09292666af28fdbd6",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "f7a4a522be80e031556c",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "5b960584594952c33f0d",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "27dc537d9e9e99b7089a",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "cd03df47dedcbe6efd8b",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "2995389d588ec8bde9ba",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "37cc82114d4bed9dac21",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "fd1bee753e8b66edaa7f",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "8314df281a624d0cdaef",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "6f5f995cef6252ab6288",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "3459d56d51201017b5cb",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "32b268e77c5627eb0fe4",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "4d02957b934ad1e01d33",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "4b1e26a7544242902d76",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "f3b1a7310090ec7c9fb1",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      },
+      {
+        "evidence_id": "69f876e0fca7e5db8431",
+        "action": "MANUAL",
+        "reason": "Analyst benchmark: retained for independent manual audit. The engine cannot establish complete compliance with this source paragraph."
+      }
+    ],
+    "limitations": [
+      "This is a reviewed specification snapshot, not a compliance result. V2 supports page settings, scoped Body Text, normalized chapter headings, and reviewed chapter/abstract properties; consult live capabilities.",
+      "PROPERTY_CONTRACT indicates compiled values only, not a completed validator or verified physical geometry.",
+      "No-header top margins override the approved general top margin only when inherited active header content can be resolved. Other conditional scopes remain unsupported.",
+      "Extracted requirement coverage is incomplete. Acknowledging partial evidence does not approve every instruction in that source paragraph.",
+      "Chapter matching normalizes case, whitespace, trailing punctuation, numbered chapter prefixes and acknowledgement spelling variants. Semantic equivalence, generated numbering and chapter subtopics remain unsupported."
+    ],
+    "report_checking_available": true
+  },
+  "snapshot_sha256": "5f2bc360bc80ccdf92573910572f5d1d14be6f66a2a9cfa8727fc80999c62653"
+}

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
 typedef Json = Map<String, dynamic>;
+const maxUploadMb = int.fromEnvironment('MAX_UPLOAD_MB', defaultValue: 20);
 Json object(dynamic value) =>
     value is Json ? value : Map<String, dynamic>.from(value as Map);
 List<Json> objects(dynamic value) =>
@@ -27,8 +28,8 @@ class PickedDoc {
     if (!name.toLowerCase().endsWith('.docx')) {
       throw ApiException('Choose a Word .docx document.');
     }
-    if (bytes.isEmpty || bytes.length > 20 * 1024 * 1024) {
-      throw ApiException('Choose a nonempty document up to 20 MB.');
+    if (bytes.isEmpty || bytes.length > maxUploadMb * 1024 * 1024) {
+      throw ApiException('Choose a nonempty document up to $maxUploadMb MB.');
     }
   }
 }
@@ -37,9 +38,13 @@ class ReportApi {
   final http.Client client;
   final String base;
   final Duration requestTimeout;
+  String? workspaceCookie;
+  final void Function(String)? onWorkspaceCookie;
   ReportApi(
     String address, {
     http.Client? client,
+    this.workspaceCookie,
+    this.onWorkspaceCookie,
     this.requestTimeout = const Duration(minutes: 3),
   }) : base = normalizeAddress(address),
        client = client ?? http.Client();
@@ -74,6 +79,12 @@ class ReportApi {
     final uri = Uri.parse('$base$path');
     final http.BaseRequest request;
     if (file != null) {
+      final extra = utf8.encode(jsonEncode(fields ?? {})).length + 2048;
+      if (file.bytes.length + extra > maxUploadMb * 1024 * 1024) {
+        throw ApiException(
+          'The document and paragraph-review data together must be under $maxUploadMb MB.',
+        );
+      }
       request = http.MultipartRequest(method, uri)
         ..fields.addAll(fields ?? {})
         ..files.add(
@@ -91,17 +102,35 @@ class ReportApi {
       }
     }
     request.headers['Accept'] = 'application/json';
+    // Browsers handle the HttpOnly cookie themselves. Native HTTP clients need
+    // to retain it explicitly, scoped to the selected server origin.
+    if (!kIsWeb) {
+      if (workspaceCookie != null) {
+        request.headers['Cookie'] = workspaceCookie!;
+      }
+    }
     try {
       final response = await (() async {
         final stream = await client.send(request);
         return http.Response.fromStream(stream);
       })().timeout(requestTimeout);
+      if (!kIsWeb) {
+        final cookie = RegExp(r'reportlint_workspace=[a-f0-9]{64}')
+            .firstMatch(response.headers['set-cookie'] ?? '')
+            ?.group(0);
+        if (cookie != null) {
+          workspaceCookie = cookie;
+          onWorkspaceCookie?.call(cookie);
+        }
+      }
       dynamic decoded;
       try {
         decoded = jsonDecode(response.body);
       } catch (_) {
         throw ApiException(
-          'The server returned an unexpected response (${response.statusCode}). Check the server address.',
+          response.statusCode == 413
+              ? 'The document and review data exceed this server’s upload limit. Try a smaller DOCX.'
+              : 'The server returned an unexpected response (${response.statusCode}). Check the server address.',
         );
       }
       if (response.statusCode >= 400) {

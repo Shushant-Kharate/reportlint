@@ -27,8 +27,8 @@ fs.mkdirSync(out,{recursive:true});
   await page.goto(base+'/app/');
   await page.locator('flt-semantics-placeholder').waitFor({state:'attached'});
   await page.locator('flt-semantics-placeholder').evaluate(e=>e.click());
-  // The newly created template is first in the backend's descending creation order.
-  await page.getByText('Open format',{exact:true}).first().click();
+  // The read-only built-in precedes the newly created custom format.
+  await page.getByText('Open format',{exact:true}).nth(1).click();
   await page.getByText('Revision 1 PUBLISHED',{exact:true}).click();
   await page.getByText('Check a report',{exact:true}).click();
   await page.waitForTimeout(400);
@@ -53,7 +53,12 @@ fs.mkdirSync(out,{recursive:true});
   assert.equal(result.overall_score,undefined);
   await page.waitForTimeout(600);await page.screenshot({path:path.join(out,'flutter-complex-result-mobile.png')});
   const downloadPromise=page.waitForEvent('download');
-  await page.getByText('Export result and evidence',{exact:true}).click();
+  for(let i=0;i<30;i++) {
+   const button=page.getByText('Download results',{exact:true});
+   if(await button.count()) {const box=await button.boundingBox();if(box&&box.y>55&&box.y<800)break;}
+   await page.mouse.move(200,500);await page.mouse.wheel(0,500);await page.waitForTimeout(150);
+  }
+  await page.getByText('Download results',{exact:true}).click();
   await(await downloadPromise).saveAs(path.join(out,'complex-export.json'));
   const exported=JSON.parse(fs.readFileSync(path.join(out,'complex-export.json'),'utf8'));
   assert.deepEqual(exported.result,result);assert.equal(exported.revision.revision_id,draft.revision_id);

@@ -10,8 +10,8 @@ Future<PickedDoc?> pickDoc() async {
   );
   if (file == null) return null;
   final size = await file.length();
-  if (size != null && size > 20 * 1024 * 1024) {
-    throw ApiException('Choose a document up to 20 MB.');
+  if (size != null && size > maxUploadMb * 1024 * 1024) {
+    throw ApiException('Choose a document up to $maxUploadMb MB.');
   }
   return PickedDoc(file.name, await file.readAsBytes());
 }

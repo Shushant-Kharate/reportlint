@@ -10,6 +10,7 @@ python-multipart>=0.0.18,<1
 pydantic>=2.9,<3
 lxml>=5.3,<7
 rapidfuzz>=3.10,<4
+vercel-blob==0.5.0
 
 # Demo DOCX generation and test suite
 python-docx>=1.1,<2

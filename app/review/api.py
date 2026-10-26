@@ -11,7 +11,14 @@ router = APIRouter(prefix="/api/v2/templates", tags=["V2 template review"])
 
 
 def get_repository():
-    return RevisionRepository(storage.STORAGE_DIR / "review.sqlite3")
+    from app.cloud import enabled
+    from app.builtin_formats import CatalogRepository
+    if enabled():
+        from app.review.blob_repository import BlobRevisionRepository
+        repository = BlobRevisionRepository()
+    else:
+        repository = RevisionRepository(storage.STORAGE_DIR / "review.sqlite3")
+    return CatalogRepository(repository)
 
 
 def perform(function, *args):

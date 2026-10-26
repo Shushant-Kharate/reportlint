@@ -156,7 +156,7 @@ class _CheckScreenState extends State<CheckScreen> with AsyncPage {
               const SizedBox(height: 12),
               Text(file?.name ?? 'Select your report (.docx)'),
               const Text(
-                'Up to 20 MB. Your report is not retained by the checking API.',
+                'Up to $maxUploadMb MB including review data. Your report is not retained by the checking API.',
               ),
               const SizedBox(height: 12),
               OutlinedButton(

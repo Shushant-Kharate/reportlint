@@ -6,5 +6,6 @@
 *.kt text eol=lf
 *.kts text eol=lf
 *.yml text eol=lf
+*.sh text eol=lf
 android/gradlew text eol=lf
 *.bat text eol=crlf

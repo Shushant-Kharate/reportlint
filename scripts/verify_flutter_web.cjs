@@ -47,7 +47,7 @@ fs.mkdirSync(output,{recursive:true});
   const wrong=await(await wrongResponse).json();assert(wrong.violations.length>0);assert(wrong.overall_score<100);
   await page.getByText('Basic check result',{exact:true}).waitFor();await page.waitForTimeout(400);
   await page.screenshot({path:path.join(output,'flutter-error-demo.png')});
-  const downloadPromise=page.waitForEvent('download');await(await visibleText('Export result and evidence')).click();
+  const downloadPromise=page.waitForEvent('download');await(await visibleText('Download results')).click();
   const download=await downloadPromise;await download.saveAs(path.join(output,'exported-result.json'));
   const exported=JSON.parse(fs.readFileSync(path.join(output,'exported-result.json'),'utf8'));assert.equal(exported.result.overall_score,wrong.overall_score);
   assert.deepEqual(errors,[]);

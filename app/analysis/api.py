@@ -47,7 +47,7 @@ async def preview_template(file: UploadFile = File(...)):
         data = await read_limited(file)
     except HTTPException as exc:
         if exc.status_code == 413:
-            raise HTTPException(413, detail={"code": "INPUT_LIMIT_EXCEEDED", "message": "Maximum template upload size is 20 MB."}) from exc
+            raise HTTPException(413, detail={"code": "INPUT_LIMIT_EXCEEDED", "message": f"Maximum template upload size is {MAX_UPLOAD_BYTES // (1024 * 1024)} MB."}) from exc
         raise
     try:
         return await run_in_threadpool(analyze_bytes, data)

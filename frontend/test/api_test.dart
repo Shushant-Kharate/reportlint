@@ -9,6 +9,70 @@ import 'package:reportlint_flutter/api.dart';
 
 void main() {
   test(
+    'Native workspace cookie survives requests and can be restored',
+    () async {
+      final cookie = 'reportlint_workspace=${List.filled(64, 'a').join()}';
+      String? saved;
+      var count = 0;
+      final api = ReportApi(
+        'https://reports.example',
+        onWorkspaceCookie: (value) => saved = value,
+        client: MockClient((request) async {
+          if (count++ == 0) {
+            expect(request.headers['Cookie'], isNull);
+            return http.Response(
+              '{}',
+              200,
+              headers: {
+                'set-cookie': '$cookie; HttpOnly; Secure; SameSite=Lax',
+              },
+            );
+          }
+          expect(request.headers['Cookie'], cookie);
+          return http.Response('{}', 200);
+        }),
+      );
+      await api.request('GET', '/api/v2/templates');
+      await api.request('GET', '/api/v2/templates');
+      expect(saved, cookie);
+      api.close();
+      final restored = ReportApi(
+        'https://reports.example',
+        workspaceCookie: saved,
+        client: MockClient((request) async {
+          expect(request.headers['Cookie'], cookie);
+          return http.Response('{}', 200);
+        }),
+      );
+      await restored.request('GET', '/api/v2/templates');
+      restored.close();
+    },
+  );
+  test(
+    'Combined multipart data is rejected before sending an oversized request',
+    () async {
+      var sent = false;
+      final api = ReportApi(
+        'https://reports.example',
+        client: MockClient((_) async {
+          sent = true;
+          return http.Response('{}', 200);
+        }),
+      );
+      await expectLater(
+        api.request(
+          'POST',
+          '/check',
+          file: PickedDoc('report.docx', Uint8List(maxUploadMb * 1024 * 1024)),
+          fields: {'role_review': 'extra data'},
+        ),
+        throwsA(isA<ApiException>()),
+      );
+      expect(sent, false);
+      api.close();
+    },
+  );
+  test(
     'Timeout covers waiting for response headers, not just the body',
     () async {
       final pending = Completer<http.Response>();

@@ -4,6 +4,8 @@ ReportLint checks Word reports against reviewed formatting requirements. **All a
 
 ## Requirements
 
+For hosted deployment, see [Vercel deployment and storage setup](docs/VERCEL_DEPLOYMENT.md). The Mini Project 1A format is now included as a read-only built-in, with a reviewed specification and customizable draft copies.
+
 - Git and Python 3.10 or newer.
 - **Flutter 3.47.6 stable (Dart 3.13.5)**, the version pinned in CI. Install from https://docs.flutter.dev/install and add `flutter/bin` to PATH. Run `flutter --version` and `flutter doctor`.
 - Internet access for first-time Python, Flutter and build dependencies.
@@ -144,7 +146,7 @@ The iOS project is included for the shared Flutter UI, but requires independent 
 - `/debug/health` checks backend connectivity. API docs are at `/docs`. If a port is busy, change it in uvicorn and in Flutter Server settings.
 - A missing Flutter web build produces HTTP 503 at `/app/`; build first and restart the backend.
 - Flutter/Gradle may download platform artifacts on the first build. Run `flutter doctor` and install the SDK components it reports.
-- This is a trusted, single-user MVP without authentication or user isolation. Use authentication and HTTPS before public deployment.
+- Local mode remains a trusted, single-user MVP. Vercel mode isolates custom formats in anonymous browser workspaces backed by private Blob storage; it does not provide account login or cross-device synchronization. See the deployment guide for cookie retention, history and hosted upload limits.
 
 ## Project map
 

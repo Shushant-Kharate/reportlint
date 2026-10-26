@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +21,25 @@ class ReportLintApp extends StatefulWidget {
 class _ReportLintAppState extends State<ReportLintApp> {
   ReportApi? api;
   String? startupError;
+  ReportApi configuredApi(String address, SharedPreferences? preferences) {
+    final origin = ReportApi.normalizeAddress(address);
+    return ReportApi(
+      address,
+      workspaceCookie: kIsWeb
+          ? null
+          : preferences?.getString('reportlint.workspace.$origin'),
+      onWorkspaceCookie: (cookie) {
+        if (preferences != null) {
+          unawaited(
+            preferences
+                .setString('reportlint.workspace.$origin', cookie)
+                .catchError((_) => false),
+          );
+        }
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -35,17 +56,15 @@ class _ReportLintAppState extends State<ReportLintApp> {
         ? 'http://10.0.2.2:8000'
         : 'http://127.0.0.1:8000';
     String address = fallback;
+    SharedPreferences? preferences;
     try {
-      address =
-          (await SharedPreferences.getInstance()).getString(
-            'reportlint.server',
-          ) ??
-          fallback;
+      preferences = await SharedPreferences.getInstance();
+      address = preferences.getString('reportlint.server') ?? fallback;
     } catch (_) {
       /* Storage can be unavailable in private browsing. */
     }
     try {
-      final next = ReportApi(address);
+      final next = configuredApi(address, preferences);
       if (mounted) setState(() => api = next);
     } catch (e) {
       if (mounted) setState(() => startupError = '$e');
@@ -53,7 +72,11 @@ class _ReportLintAppState extends State<ReportLintApp> {
   }
 
   Future<void> changeServer(String address) async {
-    final next = ReportApi(address);
+    SharedPreferences? preferences;
+    try {
+      preferences = await SharedPreferences.getInstance();
+    } catch (_) {}
+    final next = configuredApi(address, preferences);
     await next.request('GET', '/debug/health');
     try {
       await (await SharedPreferences.getInstance()).setString(
@@ -302,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> with AsyncPage {
             children: [
               Expanded(
                 child: Text(
-                  'Your formats',
+                  'Available formats',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -321,6 +344,10 @@ class _HomeScreenState extends State<HomeScreen> with AsyncPage {
             (t) => Panel(
               children: [
                 Text(t['name'], style: Theme.of(context).textTheme.titleMedium),
+                if (t['builtin'] == true)
+                  const Text(
+                    'Built-in format · ready to check reports. Create a draft copy to customize it.',
+                  ),
                 Text(
                   'Latest revision ${t['latest_revision_number']} · ${t['published_revision_id'] == null ? 'Needs review' : 'Published format available'}',
                 ),

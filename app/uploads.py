@@ -1,12 +1,13 @@
 """Bounded upload parsing. No document is retained after parsing."""
 import tempfile
+import os
 from pathlib import Path
 from fastapi import HTTPException, UploadFile
 from starlette.concurrency import run_in_threadpool
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.ooxml.structure_extractor import build_document_model
 
-MAX_UPLOAD_BYTES = 20 * 1024 * 1024
+MAX_UPLOAD_BYTES = (4 if os.environ.get("VERCEL") == "1" or os.environ.get("REPORTLINT_CLOUD") == "1" else 20) * 1024 * 1024
 
 
 async def read_limited(upload: UploadFile, limit: int = MAX_UPLOAD_BYTES) -> bytes:
