@@ -2,6 +2,8 @@
 
 ReportLint checks Word reports against reviewed formatting requirements. **All application screens now use Flutter**, shared by Android and web, with an iOS project for macOS builds. Python/FastAPI remains the checking backend. The previous HTML/JavaScript UI and Kotlin Compose client have been retired.
 
+**Live app:** [Open ReportLint](https://reportlint-shushantkharate-3779s-projects.vercel.app/app/). The Mini Project 1A format is ready to select. Hosted uploads have a 4 MB combined request limit; local installations retain their 20 MB document limit.
+
 ## Requirements
 
 For hosted deployment, see [Vercel deployment and storage setup](docs/VERCEL_DEPLOYMENT.md). The Mini Project 1A format is now included as a read-only built-in, with a reviewed specification and customizable draft copies.

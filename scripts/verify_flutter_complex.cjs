@@ -13,7 +13,7 @@ fs.mkdirSync(out,{recursive:true});
  const browser=await chromium.launch({executablePath:process.env.REPORTLINT_BROWSER_PATH||undefined});
  const page=await browser.newPage({viewport:{width:390,height:844}});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- async function json(response){assert(response.ok(),await response.text());return response.json();}
+ async function json(response){if(!response.ok())throw Error(await response.text());return response.json();}
  try{
   const draft=await json(await page.request.post(base+'/api/v2/templates',{multipart:{name:'Flutter complex QA',file:{name:'format.docx',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',buffer:fs.readFileSync(path.join(fixtures,'format.docx'))}}}));
   const revisionPath=base+`/api/v2/templates/${draft.template_id}/revisions/${draft.revision_id}`;
@@ -30,7 +30,9 @@ fs.mkdirSync(out,{recursive:true});
   // The read-only built-in precedes the newly created custom format.
   await page.getByText('Open format',{exact:true}).nth(1).click();
   await page.getByText('Revision 1 PUBLISHED',{exact:true}).click();
+  const formatsLoaded=page.waitForResponse(r=>r.url()===base+`/api/v2/templates/${draft.template_id}/revisions`);
   await page.getByText('Check a report',{exact:true}).click();
+  await formatsLoaded;
   await page.waitForTimeout(400);
   const chooser=page.waitForEvent('filechooser');
   await page.getByText('Choose report',{exact:true}).click();

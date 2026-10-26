@@ -40,6 +40,10 @@ The optional LibreOffice rendering path is not installed in the Function. Native
 
 ## Release verification (26 October 2026)
 
+Production: https://reportlint-shushantkharate-3779s-projects.vercel.app/app/
+
+The production alias is public, as requested. Vercel Authentication remains enabled for preview and direct deployment URLs (`prod_deployment_urls_and_all_previews`). The deployed application code is from commit `5d60a78`; later documentation and browser-test changes do not change the application bundle.
+
 - Python: 212 passed; four optional rendering tests skipped.
 - Flutter: 19 passed; static analysis clean; release web build succeeded.
 - Chromium desktop/mobile browser flows: basic demo scored 100 and 33.8 for the correct and incorrect fixtures; complex upload, paragraph-role correction, checking and exact JSON export passed with no page exceptions.
@@ -47,3 +51,5 @@ The optional LibreOffice rendering path is not installed in the Function. Native
 - Hosted API: built-in report check returned 1,505 passes, 324 failures, 180 unresolved and 37 inapplicable items (1,007,282 response bytes), matching the local result. These are repeated check-item counts, not a compliance percentage.
 - Hosted custom format: copy, publish and reload passed; a separate anonymous workspace received 404 for that private format.
 - The first deployment exposed missing generated static assets. Explicit FastAPI CDN promotion and retention of the compiled mount fixed `/app/` and its JavaScript assets, both verified over authenticated HTTP.
+- After promotion, signed-out HTTP checks returned 200 for the app, bootstrap JavaScript, health and format catalog. The exact source DOCX hash matched. Playwright's matching Chromium build passed the basic and complex browser flows, including downloads, against the public production alias. A separate mobile/desktop browser run uploaded the original case report against the built-in format and reproduced the same counts without page exceptions.
+- Browser scripts wait for format-list requests before interacting, so cloud loading latency does not cause ignored clicks. Use the browser installed for the selected Playwright version to avoid response-body protocol errors.
