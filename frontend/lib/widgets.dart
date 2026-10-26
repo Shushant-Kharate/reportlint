@@ -3,17 +3,17 @@ import 'package:file_picker/file_picker.dart';
 
 import 'api.dart';
 
-Future<PickedDoc?> pickDoc() async {
+Future<PickedDoc?> pickDoc({bool allowPdf = false}) async {
   final file = await FilePicker.pickFile(
     type: FileType.custom,
-    allowedExtensions: ['docx'],
+    allowedExtensions: ['docx', if (allowPdf) 'pdf'],
   );
   if (file == null) return null;
   final size = await file.length();
   if (size != null && size > maxUploadMb * 1024 * 1024) {
     throw ApiException('Choose a document up to $maxUploadMb MB.');
   }
-  return PickedDoc(file.name, await file.readAsBytes());
+  return PickedDoc(file.name, await file.readAsBytes(), allowPdf: allowPdf);
 }
 
 String describe(dynamic value) {
@@ -61,6 +61,8 @@ String describe(dynamic value) {
       return '${v['side']} margin: ${((v['expected_pt'] as num) * 25.4 / 72).toStringAsFixed(1)} mm';
     case 'page_size':
       return 'Page: ${((v['width_pt'] as num) * 25.4 / 72).toStringAsFixed(1)} × ${((v['height_pt'] as num) * 25.4 / 72).toStringAsFixed(1)} mm';
+    case 'body_columns':
+      return 'Body text: ${v['count']} columns';
   }
   return v.entries
       .map(

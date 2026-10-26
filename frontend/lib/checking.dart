@@ -133,7 +133,7 @@ class _CheckScreenState extends State<CheckScreen> with AsyncPage {
           ),
           const SizedBox(height: 12),
           const Text(
-            'Choose a reviewed format, upload your Word report, and see exactly what needs attention.',
+            'Choose a reviewed format, upload your DOCX or PDF report, and see what needs attention.',
           ),
           ...status,
           if (options.isEmpty && !busy)
@@ -154,35 +154,42 @@ class _CheckScreenState extends State<CheckScreen> with AsyncPage {
             children: [
               const Icon(Icons.upload_file_outlined, size: 40),
               const SizedBox(height: 12),
-              Text(file?.name ?? 'Select your report (.docx)'),
+              Text(file?.name ?? 'Select your report (.docx or .pdf)'),
               const Text(
                 'Up to $maxUploadMb MB including review data. Your report is not retained by the checking API.',
               ),
               const SizedBox(height: 12),
               OutlinedButton(
-                onPressed: () => run(() async {
-                  final f = await pickDoc();
-                  if (f != null && mounted) {
-                    setState(() {
-                      file = f;
-                      roleReview = null;
-                    });
-                  }
-                }),
+                onPressed: busy
+                    ? null
+                    : () => run(() async {
+                        final f = await pickDoc(allowPdf: true);
+                        if (f != null && mounted) {
+                          setState(() {
+                            file = f;
+                            roleReview = null;
+                          });
+                        }
+                      }),
                 child: const Text('Choose report'),
               ),
             ],
           ),
           FilledButton.icon(
-            onPressed: () => run(check),
+            onPressed: busy ? null : () => run(check),
             icon: const Icon(Icons.fact_check_outlined),
             label: const Text('Check report'),
           ),
           const SizedBox(height: 16),
-          OutlinedButton(
-            onPressed: () => run(preview),
-            child: const Text('Review paragraph roles'),
-          ),
+          if (file?.isPdf != true)
+            OutlinedButton(
+              onPressed: busy ? null : () => run(preview),
+              child: const Text('Review paragraph roles'),
+            ),
+          if (file?.isPdf == true)
+            const Notice(
+              'PDF checks are limited to paper size and supported column-layout evidence. Font samples and other requirements need manual review. This is not IEEE certification.',
+            ),
           if (roleReview != null)
             Notice(
               '${objects(roleReview!['decisions']).length} explicit paragraph decisions will be applied.',
@@ -401,7 +408,9 @@ List<List<Json>> findingGroups(List<Json> items, {bool enabled = true}) {
   return grouped.values.toList();
 }
 
-String findingLocation(Json item) => item['paragraph_index'] != null
+String findingLocation(Json item) => item['page_number'] != null
+    ? 'PDF page ${item['page_number']}'
+    : item['paragraph_index'] != null
     ? 'Paragraph ${item['paragraph_index'] + 1}'
     : item['section_index'] != null
     ? 'Section ${item['section_index'] + 1}'
@@ -491,6 +500,11 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
           const SizedBox(height: 16),
           ...status,
           if (complex)
+            if (r['report_format'] == 'pdf')
+              const Notice(
+                'Native PDF check: paper size and supported column-layout evidence. Other requirements remain manual. Passing these checks does not certify IEEE compliance.',
+              ),
+          if (complex)
             LayoutBuilder(
               builder: (context, constraints) => Row(
                 children: [
@@ -576,10 +590,12 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
           ExpansionTile(
             title: const Text('About this check'),
             children: [
-              const ListTile(
-                title: Text('What the numbers mean'),
+              ListTile(
+                title: const Text('What the numbers mean'),
                 subtitle: Text(
-                  'Repeated findings are grouped by the same rule and message. A group can affect many locations. Word sections and paragraph numbers are not rendered page numbers.',
+                  r['report_format'] == 'pdf'
+                      ? 'Repeated findings are grouped by rule and message. PDF page numbers refer to the uploaded PDF. Counts mix measured and unresolved requirements; they are not a compliance percentage.'
+                      : 'Repeated findings are grouped by the same rule and message. A group can affect many locations. Word sections and paragraph numbers are not rendered page numbers.',
                 ),
               ),
               if (complex)

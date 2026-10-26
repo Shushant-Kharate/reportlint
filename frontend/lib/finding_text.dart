@@ -147,6 +147,13 @@ FindingText explainFinding(Json item) {
       found = pointsToMm(actual['margin_pt']);
       action =
           'In Word, open Layout → Margins → Custom Margins. Set the $side margin in each affected section.';
+    case 'body_columns':
+      title = 'Body column layout';
+      required = '${expected['count']} columns';
+      found = actual['observed_columns'] == null
+          ? 'Column layout needs review'
+          : '${actual['observed_columns']} columns in the measured prose';
+      action = 'Compare the main text columns with the template. Full-width figures and tables may be allowed.';
     case 'font_family':
       title = 'Body text font';
       required = '${expected['font']}';
@@ -344,6 +351,20 @@ FindingText explainFinding(Json item) {
       kind != 'contents_structure') {
     action = 'The app could not confirm this requirement. Check this part manually before deciding whether to change it.';
   }
+  if (code.startsWith('PDF_')) {
+    if (code == 'PDF_SOURCE_PROPERTY_REVIEW') {
+      found = actual['prose_sample_sizes_pt'] is Map && kind == 'font_size'
+          ? 'Prose samples: ${object(actual['prose_sample_sizes_pt']).keys.join(', ')} pt; body roles need review'
+          : actual['prose_sample_fonts'] is Map && kind == 'font_family'
+          ? 'Prose samples: ${object(actual['prose_sample_fonts']).keys.join(', ')}; font identity needs review'
+          : 'Not established from the PDF';
+    }
+    action = status == 'FAIL'
+        ? 'Correct the page size or main text layout in the source document, then export a new PDF.'
+        : status == 'PASS'
+        ? 'This PDF measurement matched. Other formatting requirements may still need review.'
+        : 'Review this requirement in the PDF and its source document. No automatic violation has been established.';
+  }
   return FindingText(title, required, found, action);
 }
 
@@ -355,7 +376,7 @@ String locationSummary(List<Json> members) {
           ? object(member['location'])
           : <String, dynamic>{};
       final index = member[key] ?? location[key];
-      if (index is int) indices.add(index + 1);
+      if (index is int) indices.add(index + (key == 'page_number' ? 0 : 1));
       if (key == 'paragraph_index') {
         for (final i in (member['affected_paragraph_indices'] as List?) ?? []) {
           if (i is int) indices.add(i + 1);
@@ -378,7 +399,12 @@ String locationSummary(List<Json> members) {
 
   final sections = ranges('section_index', 'Word sections');
   final paragraphs = ranges('paragraph_index', 'Paragraphs');
-  return [sections, paragraphs].where((s) => s.isNotEmpty).join(' · ').isEmpty
+  final pages = ranges('page_number', 'PDF pages');
+  return [
+        pages,
+        sections,
+        paragraphs,
+      ].where((s) => s.isNotEmpty).join(' · ').isEmpty
       ? 'Whole document'
-      : [sections, paragraphs].where((s) => s.isNotEmpty).join(' · ');
+      : [pages, sections, paragraphs].where((s) => s.isNotEmpty).join(' · ');
 }

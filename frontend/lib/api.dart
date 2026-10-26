@@ -24,9 +24,14 @@ class ApiException implements Exception {
 class PickedDoc {
   final String name;
   final Uint8List bytes;
-  PickedDoc(this.name, this.bytes) {
-    if (!name.toLowerCase().endsWith('.docx')) {
-      throw ApiException('Choose a Word .docx document.');
+  bool get isPdf => name.toLowerCase().endsWith('.pdf');
+  PickedDoc(this.name, this.bytes, {bool allowPdf = false}) {
+    if (!name.toLowerCase().endsWith('.docx') && !(allowPdf && isPdf)) {
+      throw ApiException(
+        allowPdf
+            ? 'Choose a DOCX or PDF report.'
+            : 'Choose a Word .docx document.',
+      );
     }
     if (bytes.isEmpty || bytes.length > maxUploadMb * 1024 * 1024) {
       throw ApiException('Choose a nonempty document up to $maxUploadMb MB.');

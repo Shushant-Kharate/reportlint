@@ -3,6 +3,8 @@ no interpretation happens here (see style_resolver.py / structure_extractor.py).
 
 import zipfile
 import posixpath
+import re
+from decimal import Decimal
 from lxml import etree
 
 MAX_MEMBER_SIZE = 200 * 1024 * 1024  # 200MB guard against zip bombs
@@ -14,6 +16,43 @@ def _xml(data):
     root = etree.fromstring(data, parser=etree.XMLParser(resolve_entities=False, no_network=True))
     if root.getroottree().docinfo.doctype:
         raise InvalidDocxError("Document type declarations are not allowed")
+    # ISO Strict OOXML uses different namespace URIs for the same supported
+    # Word properties. Normalize element/attribute names in memory only; keep
+    # source bytes, text, semantic measurements and their source hash unchanged.
+    namespaces = {
+        "http://purl.oclc.org/ooxml/wordprocessingml/main": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+        "http://purl.oclc.org/ooxml/officeDocument/relationships": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+        "http://purl.oclc.org/ooxml/drawingml/main": "http://schemas.openxmlformats.org/drawingml/2006/main",
+        "http://purl.oclc.org/ooxml/drawingml/wordprocessingDrawing": "http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing",
+    }
+    def name(value):
+        if not isinstance(value, str) or not value.startswith("{"):
+            return value
+        uri, local = value[1:].split("}", 1)
+        return "{" + namespaces.get(uri, uri) + "}" + local
+    if any(uri in namespaces for uri in root.nsmap.values()):
+        for element in root.iter():
+            if not isinstance(element.tag, str):
+                continue
+            element.tag = name(element.tag)
+            attributes = {name(k): v for k, v in element.attrib.items()}
+            local = etree.QName(element).localname if isinstance(element.tag, str) else ""
+            measured = {"pgSz", "pgMar", "cols", "col", "ind", "spacing", "tab", "tblW", "tcW", "tblInd", "sz", "szCs", "position", "kern"}
+            if local in measured:
+                for key, value in attributes.items():
+                    match = re.fullmatch(r"(-?[0-9]{1,9}(?:\.[0-9]{1,6})?)(pt|in|cm|mm|pc|pi)", value)
+                    if key.startswith("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}") and match:
+                        points = Decimal(match[1]) * {"pt": Decimal(1), "in": Decimal(72), "cm": Decimal(7200)/254, "mm": Decimal(720)/254, "pc": Decimal(12), "pi": Decimal(12)}[match[2]]
+                        factor = 2 if local in {"sz", "szCs", "position", "kern"} else 20
+                        attributes[key] = str(round(points * factor))
+            element.attrib.clear()
+            element.attrib.update(attributes)
+        replacement = etree.Element(root.tag, nsmap={k: namespaces.get(v, v) for k, v in root.nsmap.items()})
+        replacement.attrib.update(root.attrib)
+        replacement.text, replacement.tail = root.text, root.tail
+        replacement.extend(root)
+        root = replacement
+        etree.cleanup_namespaces(root)
     return root
 
 

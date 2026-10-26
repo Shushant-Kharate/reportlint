@@ -8,6 +8,15 @@ import 'package:http/testing.dart';
 import 'package:reportlint_flutter/api.dart';
 
 void main() {
+  test('PDF is a report input while templates remain DOCX-only', () {
+    final bytes = Uint8List.fromList(utf8.encode('%PDF-test'));
+    expect(() => PickedDoc('paper.pdf', bytes), throwsA(isA<ApiException>()));
+    expect(PickedDoc('paper.PDF', bytes, allowPdf: true).isPdf, isTrue);
+    expect(
+      () => PickedDoc('paper.exe', bytes, allowPdf: true),
+      throwsA(isA<ApiException>()),
+    );
+  });
   test(
     'Native workspace cookie survives requests and can be restored',
     () async {

@@ -163,7 +163,8 @@ def test_api_checks_and_input_errors(repository, published):
             data = encoded(Document())
             response = client.post(base, files={"file": ("report.docx", data)})
             assert response.status_code == 200 and response.json()["outcome"] == "PASS_SUPPORTED_CHECKS"
-            assert client.post(base, files={"file": ("report.pdf", data)}).status_code == 415
+            assert client.post(base, files={"file": ("report.pdf", data)}).status_code == 422  # DOCX bytes are not a PDF.
+            assert client.post(base, files={"file": ("report.txt", data)}).status_code == 415
             assert client.post(base, files={"file": ("report.docx", b"invalid")}).status_code == 422
             assert client.post(base.replace(published.template_id, "wrong"), files={"file": ("report.docx", data)}).status_code == 404
             draft = repository.fork(published.template_id, published.revision_id)

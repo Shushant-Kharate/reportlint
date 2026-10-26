@@ -27,8 +27,9 @@ fs.mkdirSync(out,{recursive:true});
   await page.goto(base+'/app/');
   await page.locator('flt-semantics-placeholder').waitFor({state:'attached'});
   await page.locator('flt-semantics-placeholder').evaluate(e=>e.click());
-  // The read-only built-in precedes the newly created custom format.
-  await page.getByText('Open format',{exact:true}).nth(1).click();
+  const catalog=await json(await page.request.get(base+'/api/v2/templates'));
+  const formatIndex=catalog.findIndex(t=>t.id===draft.template_id);assert(formatIndex>=0);
+  await page.getByText('Open format',{exact:true}).nth(formatIndex).click();
   await page.getByText('Revision 1 PUBLISHED',{exact:true}).click();
   const formatsLoaded=page.waitForResponse(r=>r.url()===base+`/api/v2/templates/${draft.template_id}/revisions`);
   await page.getByText('Check a report',{exact:true}).click();

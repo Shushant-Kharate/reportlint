@@ -23,6 +23,33 @@ Json footer(int section) => {
 };
 
 void main() {
+  test(
+    'PDF pages use one-based numbering and font samples remain uncertain',
+    () {
+      expect(
+        locationSummary([
+          {'page_number': 1},
+          {'page_number': 2},
+          {'page_number': 6},
+        ]),
+        'PDF pages 1–2, 6',
+      );
+      final item = <String, dynamic>{
+        'status': 'NOT_CHECKED',
+        'code': 'PDF_SOURCE_PROPERTY_REVIEW',
+        'expected': {'kind': 'font_family', 'font': 'Times New Roman'},
+        'actual': {
+          'prose_sample_fonts': {'Times-Roman': 1000},
+        },
+        'page_number': 1,
+      };
+      final before = jsonEncode(item);
+      final text = explainFinding(item);
+      expect(text.foundValue, contains('Times-Roman'));
+      expect(text.action, contains('No automatic violation'));
+      expect(jsonEncode(item), before);
+    },
+  );
   test('Word footer internals become an actionable alignment explanation without changing evidence', () {
     final item = footer(10), original = jsonEncode(footer(10));
     final copy = explainFinding(item);

@@ -36,6 +36,11 @@ class PageValue(AnalysisModel):
     height_pt: PositiveFloat
 
 
+class BodyColumnsValue(AnalysisModel):
+    kind: Literal["body_columns"] = "body_columns"
+    count: int = Field(ge=1, le=6)
+
+
 class MarginValue(AnalysisModel):
     kind: Literal["margin"] = "margin"
     side: Literal["top", "bottom", "left", "right"]
@@ -116,7 +121,7 @@ class CaptionsValue(AnalysisModel):
 
 
 RequirementValue = Annotated[
-    FontValue | SizeValue | SpacingValue | PageValue | MarginValue | ChapterSizeValue | ChapterCaseValue | AbstractWordsValue | AbstractKeywordsValue
+    FontValue | SizeValue | SpacingValue | PageValue | BodyColumnsValue | MarginValue | ChapterSizeValue | ChapterCaseValue | AbstractWordsValue | AbstractKeywordsValue
     | ChapterBoldValue | SectionSizeValue | PageNumberAlignmentValue | BodyNumberFormatValue
     | FrontNumberFormatValue | IntroductionNumberingValue | ContentsStructureValue
     | ContentsAlignmentValue | IllustrationListsValue | CaptionsValue,

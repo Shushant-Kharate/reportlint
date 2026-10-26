@@ -60,12 +60,15 @@ def health():
     return {"status": "ok"}
 
 
-@app.get("/api/builtin-formats/mini-project-1a/source")
-def builtin_source():
+@app.get("/api/builtin-formats/{slug}/source")
+def builtin_source(slug: str):
     from fastapi.responses import FileResponse
-    from app.builtin_formats import DIRECTORY, builtin
-    builtin()
-    return FileResponse(DIRECTORY / "mini-project-1a.docx", filename="Mini Project 1A Report_Format.docx")
+    from app.builtin_formats import DIRECTORY, BUILTINS, builtin
+    identifier = next((key for key, value in BUILTINS.items() if value == slug), None)
+    if identifier is None:
+        raise HTTPException(404, "Built-in format not found.")
+    revision = builtin(identifier)
+    return FileResponse(DIRECTORY / (slug + ".docx"), filename=revision.name + ".docx")
 
 
 @app.post("/debug/extract-ruleset")

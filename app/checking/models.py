@@ -36,13 +36,15 @@ class CheckItem(AnalysisModel):
     paragraph_index: int | None = None
     run_index: int | None = None
     source_path: str | None = None
+    page_number: int | None = Field(default=None, ge=1)
     expected: dict | None = None
     actual: dict | None = None
 
 
 class RevisionCheck(AnalysisModel):
     schema_version: Literal[2] = 2
-    checker_version: Literal["0.5.0"] = "0.5.0"
+    checker_version: Literal["0.5.0", "0.6.0"] = "0.5.0"
+    report_format: Literal["docx", "pdf"] = "docx"
     template_id: str
     revision_id: str
     snapshot_sha256: str

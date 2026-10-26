@@ -1,8 +1,10 @@
 # ReportLint
 
-ReportLint checks Word reports against reviewed formatting requirements. **All application screens now use Flutter**, shared by Android and web, with an iOS project for macOS builds. Python/FastAPI remains the checking backend. The previous HTML/JavaScript UI and Kotlin Compose client have been retired.
+ReportLint checks DOCX reports against reviewed formatting requirements and supports a limited native-PDF measurement path. **All application screens use Flutter**, shared by Android and web, with an iOS project for macOS builds. Python/FastAPI remains the checking backend. The previous HTML/JavaScript UI and Kotlin Compose client have been retired.
 
 **Live app:** [Open ReportLint](https://reportlint-shushantkharate-3779s-projects.vercel.app/app/). The Mini Project 1A format is ready to select. Hosted uploads have a 4 MB combined request limit; local installations retain their 20 MB document limit.
+
+The **IEEE Conference — US Letter** reviewed baseline is also available. [Real IEEE paper test and supported PDF checks](docs/IEEE_VALIDATION.md) explains the original SVO paper case, source downloads and unresolved requirements. Template uploads remain DOCX; report uploads can be DOCX or PDF. The PDF path does not certify full IEEE compliance.
 
 ## Requirements
 

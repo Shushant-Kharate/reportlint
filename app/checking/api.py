@@ -8,6 +8,7 @@ from app.checking.role_review import ReportRoleReview, RolePreview, preview_byte
 from app.ooxml.docx_loader import InvalidDocxError
 from app.review.api import get_repository, perform
 from app.uploads import read_limited
+from app.checking.pdf import check_pdf, InvalidPdfError
 
 router = APIRouter(prefix="/api/v2/templates", tags=["V2 report checks"])
 
@@ -17,9 +18,17 @@ async def check_report(template_id: str, revision_id: str, file: UploadFile = Fi
     revision = await run_in_threadpool(perform, repository.get, template_id, revision_id)
     if revision.status != "PUBLISHED":
         raise HTTPException(409, detail={"code": "PUBLISHED_REVISION_REQUIRED", "message": "Publish a reviewed revision before checking a report."})
-    if not (file.filename or "").lower().endswith(".docx"):
-        raise HTTPException(415, detail={"code": "UNSUPPORTED_INPUT", "message": "Choose a Word .docx report."})
+    filename = (file.filename or "").lower()
+    if not filename.endswith((".docx", ".pdf")):
+        raise HTTPException(415, detail={"code": "UNSUPPORTED_INPUT", "message": "Choose a DOCX or PDF report."})
     data = await read_limited(file)
+    if filename.endswith(".pdf"):
+        if role_review is not None:
+            raise HTTPException(422, detail={"code":"PDF_ROLE_REVIEW_UNSUPPORTED","message":"Word paragraph-role decisions cannot be applied to a PDF."})
+        try:
+            return await run_in_threadpool(check_pdf, revision, data)
+        except InvalidPdfError as exc:
+            raise HTTPException(422, detail={"code":"INVALID_PDF","message":str(exc)}) from exc
     review = None
     if role_review is not None:
         if len(role_review.encode("utf-8")) > 2 * 1024 * 1024:
