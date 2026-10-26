@@ -42,7 +42,7 @@ The optional LibreOffice rendering path is not installed in the Function. Native
 
 Production: https://reportlint-shushantkharate-3779s-projects.vercel.app/app/
 
-The production alias is public, as requested. Vercel Authentication remains enabled for preview and direct deployment URLs (`prod_deployment_urls_and_all_previews`). The deployed application code is from commit `5d60a78`; later documentation and browser-test changes do not change the application bundle.
+The production alias is public, as requested. Vercel Authentication remains enabled for preview and direct deployment URLs (`prod_deployment_urls_and_all_previews`). The initial deployment was validated at commit `5d60a78`. The subsequent IEEE baseline and native-PDF extension is documented in [IEEE validation](IEEE_VALIDATION.md).
 
 - Python: 212 passed; four optional rendering tests skipped.
 - Flutter: 19 passed; static analysis clean; release web build succeeded.
@@ -53,3 +53,5 @@ The production alias is public, as requested. Vercel Authentication remains enab
 - The first deployment exposed missing generated static assets. Explicit FastAPI CDN promotion and retention of the compiled mount fixed `/app/` and its JavaScript assets, both verified over authenticated HTTP.
 - After promotion, signed-out HTTP checks returned 200 for the app, bootstrap JavaScript, health and format catalog. The exact source DOCX hash matched. Playwright's matching Chromium build passed the basic and complex browser flows, including downloads, against the public production alias. A separate mobile/desktop browser run uploaded the original case report against the built-in format and reproduced the same counts without page exceptions.
 - Browser scripts wait for format-list requests before interacting, so cloud loading latency does not cause ignored clicks. Use the browser installed for the selected Playwright version to avoid response-body protocol errors.
+
+The IEEE/PDF extension adds a second built-in format and installs PyMuPDF as a runtime dependency. PDF checks do not require LibreOffice and cover a limited set of native measurements. Its validation has 226 passing Python tests, four optional rendering skips, 21 passing Flutter tests, and an original real-paper upload/export test; see the IEEE validation document for the scope and unresolved requirements.

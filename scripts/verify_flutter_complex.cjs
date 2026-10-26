@@ -46,9 +46,13 @@ fs.mkdirSync(out,{recursive:true});
   await page.screenshot({path:path.join(out,'flutter-roles-mobile.png')});
   await page.getByText('Confirmed role Keep detected role',{exact:true}).first().click();
   await page.getByRole('menuitem',{name:'Exclude',exact:true}).click();
-  await page.getByRole('textbox',{name:'Reason',exact:true}).fill('Verified fictional cover, excluded from body rules.');
-  await page.getByText('Apply 1 decisions',{exact:true}).click();await page.waitForTimeout(400);
+  const reason=page.getByRole('textbox',{name:'Reason',exact:true});
+  await reason.click();await page.waitForTimeout(150);
+  await reason.pressSequentially('Verified fictional cover, excluded from body rules.',{delay:5});
+  await page.keyboard.press('Tab');
+  await page.getByText('Apply 1 decisions',{exact:true}).click();await page.waitForTimeout(1200);
   const response=page.waitForResponse(r=>r.url().endsWith('/check'));
+  response.catch(()=>{});
   await page.getByRole('button',{name:'Check report',exact:true}).click();
   const result=await json(await response);
   assert.equal(result.role_decisions.length,1);assert.equal(result.role_decisions[0].role,'EXCLUDE');
@@ -68,6 +72,6 @@ fs.mkdirSync(out,{recursive:true});
   assert.deepEqual(errors,[]);
   const receipt={outcome:result.outcome,counts:result.counts,roleDecisions:result.role_decisions.length,exportVerified:true,pageErrors:errors};
   fs.writeFileSync(path.join(out,'complex-smoke.json'),JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt));
- }catch(e){await page.screenshot({path:path.join(out,'complex-failure.png')});throw e;}
+ }catch(e){await page.screenshot({path:path.join(out,'complex-failure.png')});console.error(await page.locator('body').innerText());throw e;}
  finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

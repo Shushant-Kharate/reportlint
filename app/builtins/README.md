@@ -1,4 +1,6 @@
-# Mini Project 1A built-in format
+# Built-in report formats
+
+## Mini Project 1A
 
 The owner supplied `Mini Project 1A Report_Format.docx` and explicitly requested its inclusion in the deployed application. The packaged DOCX is byte-for-byte identical (SHA-256 `bb715c8d80fba5afbf7472974e5c503fbc5bc8ee4757f51a67bde79b11599cbc`).
 
