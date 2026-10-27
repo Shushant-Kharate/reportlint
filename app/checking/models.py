@@ -43,7 +43,7 @@ class CheckItem(AnalysisModel):
 
 class RevisionCheck(AnalysisModel):
     schema_version: Literal[2] = 2
-    checker_version: Literal["0.5.0", "0.6.0"] = "0.5.0"
+    checker_version: Literal["0.5.0", "0.6.0", "0.6.1"] = "0.5.0"
     report_format: Literal["docx", "pdf"] = "docx"
     template_id: str
     revision_id: str

@@ -60,3 +60,21 @@ node scripts/verify_ieee_pdf.cjs http://127.0.0.1:8000 PATH_TO_ORIGINAL_PAPER.pd
 ```
 
 The script checks the original PDF hash, counts, correct template selection, PDF-specific UI, and exact JSON export. It does not generate or substitute a paper. `NODE_PATH` may be needed when Playwright is installed outside the repository, as described in the Flutter verification documentation.
+
+## DOCX wrong-format regression fixed on 27 October 2026
+
+A real mini-project DOCX checked against the IEEE baseline previously returned 735 passes, no failures and 77 unresolved items. Its 37 stored sections use Letter paper, and the selected body runs use Times New Roman, so those matches were legitimate. The problem was a missing DOCX executor for the already-approved `body_columns` rule. It was reported as unsupported instead of comparing the report's single-column body sections against two columns.
+
+Checker 0.6.1 maps main-story paragraphs to their stored section definitions and evaluates column counts for substantive body prose. Explicit/reviewed body paragraphs are preferred. Multiple substantial unstyled prose paragraphs can establish layout scope without being promoted into font-role assignments. Covers, author blocks, captions, tables, references and sparse sections remain unresolved when body applicability cannot be established. Reviewed paragraph exclusions are respected. Equal-width counts, the single-column default, and consistent explicit unequal-width definitions are supported; malformed or ambiguous definitions remain manual. This is based on the [OOXML column specification](https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.wordprocessing.columns.equalwidth).
+
+The same private mini-project report now returns **735 PASS, 13 FAIL, 100 NOT_CHECKED**. The 13 confirmed failures are single-column body sections requiring two columns, grouped as one issue type. They occur in Word sections 4, 9, 10, 14–17, 27, 28, 31–33 and 37. These are section indices, not rendered page numbers. The report itself is not distributed. The higher unresolved item count reflects per-section column scope results, not additional detected mistakes.
+
+Controls verify that changing only the body column setting from one to two removes the failure, that matching fonts and paper size do not conceal wrong columns, and that one-column author blocks or full-width captions are not automatically failed. The original IEEE Word template still has zero confirmed failures. The original SVO PDF remains at 14 passes, no failures and 28 unresolved items. Other IEEE checks remain limited; this fix does not add a complete IEEE rulebook.
+
+The Flutter interface explains a mismatch as “2 columns” required versus “1 column in this Word section,” with source-editing guidance. An indeterminate result now explicitly states that zero confirmed issues is not a clean result.
+
+```powershell
+node scripts/verify_ieee_docx.cjs http://127.0.0.1:8000 PATH_TO_SINGLE_COLUMN_REPORT.docx OUTPUT_DIRECTORY
+```
+
+This regression exercises actual file selection, report checking and JSON export. The output contains report evidence and should remain outside the public repository.

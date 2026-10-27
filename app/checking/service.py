@@ -12,6 +12,7 @@ from app.checking.role_review import apply_roles
 from app.checking.scoped import KINDS, scoped_checks
 from app.checking.structural import KINDS as STRUCTURAL_KINDS, structural_checks
 from app.checking.word_structure import header_presence
+from app.checking.columns import column_checks
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.review.service import ReviewError, snapshot_hash
@@ -65,6 +66,9 @@ def check_package(revision, package, report_hash, role_review=None):
     headers = header_presence(package, sections) if conditional_top and not ambiguous else []
     for rule in revision.publication.rules:
         common = dict(rule_id=rule.rule_id, evidence_ids=rule.evidence_ids, expected=rule.value.model_dump())
+        if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind == "body_columns":
+            items.extend(column_checks(rule, package, paragraphs, sections, ambiguous or uncertain))
+            continue
         if rule.condition == "ALWAYS" and rule.scope == "document" and rule.value.kind in STRUCTURAL_KINDS:
             items.extend(structural_checks(rule, revision, package, paragraphs, registry, uncertain, sections, ambiguous))
             continue
@@ -120,7 +124,7 @@ def check_package(revision, package, report_hash, role_review=None):
     counts = {status: 0 for status in ("PASS", "FAIL", "NOT_CHECKED", "OUT_OF_SCOPE")}
     counts.update(Counter(item.status for item in items))
     outcome = "FAIL" if counts["FAIL"] else "INDETERMINATE" if counts["NOT_CHECKED"] or not counts["PASS"] else "PASS_SUPPORTED_CHECKS"
-    return RevisionCheck(template_id=revision.template_id, revision_id=revision.revision_id,
+    return RevisionCheck(checker_version="0.6.1", template_id=revision.template_id, revision_id=revision.revision_id,
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
                          role_review_sha256=review_hash, role_decisions=[d.model_dump() for d in role_review.decisions] if role_review else [],
                          outcome=outcome, counts=counts, items=items, limitations=[

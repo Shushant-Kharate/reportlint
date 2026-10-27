@@ -512,7 +512,9 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
                     child: _ResultTotal(
                       number: fixes,
                       label: 'Issue groups',
-                      detail: 'Changes to make',
+                      detail: fixes == 0 && reviews > 0
+                          ? 'Check incomplete'
+                          : 'Changes to make',
                       color: const Color(0xffa63b28),
                     ),
                   ),
@@ -528,8 +530,10 @@ class _ResultsScreenState extends State<ResultsScreen> with AsyncPage {
                 ],
               ),
             ),
-          const Notice(
-            'This is not a percentage or a grade. The app checks supported rules; anything marked “Needs review” still needs a human check.',
+          Notice(
+            complex && r['outcome'] == 'INDETERMINATE'
+                ? 'This check is incomplete, not a percentage or a grade. Zero confirmed issues does not mean the report follows the format. Review unchecked requirements before accepting it.'
+                : 'This is not a percentage or a grade. The app checks supported rules; anything marked “Needs review” still needs a human check.',
           ),
           if (!complex)
             Text(

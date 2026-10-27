@@ -17,6 +17,7 @@ def capabilities():
         "template_analysis": "EXPERIMENTAL_PREVIEW",
         "accepted_inputs": ["docx"],
         "accepted_report_inputs": ["docx", "pdf"],
+        "docx_body_columns": "STORED_SECTION_COUNTS_SCOPED_TO_SUBSTANTIVE_BODY_PROSE",
         "pdf_checking": {"status": "EXPERIMENTAL", "automatic": ["page_size", "body_columns"],
                          "max_pages": 100, "ocr": False, "ieee_certification": False,
                          "typography": "PROSE_SAMPLES_FOR_MANUAL_REVIEW"},

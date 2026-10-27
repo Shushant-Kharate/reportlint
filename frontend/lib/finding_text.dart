@@ -150,10 +150,13 @@ FindingText explainFinding(Json item) {
     case 'body_columns':
       title = 'Body column layout';
       required = '${expected['count']} columns';
-      found = actual['observed_columns'] == null
-          ? 'Column layout needs review'
-          : '${actual['observed_columns']} columns in the measured prose';
-      action = 'Compare the main text columns with the template. Full-width figures and tables may be allowed.';
+      final count = actual['observed_columns'];
+      found = count == null
+          ? 'Body column layout could not be established'
+          : code.startsWith('DOCX_')
+          ? '$count ${count == 1 ? 'column' : 'columns'} in this Word section'
+          : '$count columns in the measured prose';
+      action = 'In Word, select the affected body section and use Layout → Columns. Match the required count. Author blocks and full-width figures or tables may use a different layout.';
     case 'font_family':
       title = 'Body text font';
       required = '${expected['font']}';

@@ -24,6 +24,24 @@ Json footer(int section) => {
 
 void main() {
   test(
+    'A DOCX column mismatch explains the section setting and correction',
+    () {
+      final item = <String, dynamic>{
+        'status': 'FAIL',
+        'code': 'DOCX_BODY_COLUMNS_MISMATCH',
+        'expected': {'kind': 'body_columns', 'count': 2},
+        'actual': {'observed_columns': 1},
+        'section_index': 8,
+      };
+      final copy = explainFinding(item);
+      expect(copy.title, 'Body column layout');
+      expect(copy.requiredValue, '2 columns');
+      expect(copy.foundValue, '1 column in this Word section');
+      expect(copy.action, contains('Layout → Columns'));
+      expect(locationSummary([item]), 'Word sections 9');
+    },
+  );
+  test(
     'PDF pages use one-based numbering and font samples remain uncertain',
     () {
       expect(
