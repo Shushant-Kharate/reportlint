@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "template_id": "builtin-ieee-conference-letter",
-  "revision_id": "builtin-ieee-conference-letter-v1",
-  "revision_number": 1,
+  "revision_id": "builtin-ieee-conference-letter-v2",
+  "revision_number": 2,
   "parent_revision_id": null,
   "name": "IEEE Conference — US Letter (reviewed baseline)",
   "status": "PUBLISHED",
@@ -647,6 +647,252 @@
         ],
         "review_status": "PROPOSED",
         "note": "PDF checker measures sustained prose layout; this does not constrain author blocks or full-width figures."
+      },
+      {
+        "candidate_id": "ieee-v2-body-size",
+        "scope": "body",
+        "value": {
+          "kind": "font_size",
+          "expected_pt": 10.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "ieee-v2-body-size"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-body-spacing",
+        "scope": "body",
+        "value": {
+          "kind": "line_spacing_multiple",
+          "multiplier": 0.95
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-body-spacing"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-top-margin",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-top-margin"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-bottom-margin",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-bottom-margin"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-left-margin",
+        "scope": "document",
+        "value": {
+          "kind": "margin_range",
+          "side": "left",
+          "minimum_pt": 44.5,
+          "maximum_pt": 45.5
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-left-margin"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-right-margin",
+        "scope": "document",
+        "value": {
+          "kind": "margin_range",
+          "side": "right",
+          "minimum_pt": 44.5,
+          "maximum_pt": 45.5
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-right-margin"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_abstract_size",
+        "scope": "document",
+        "value": {
+          "kind": "paper_abstract_size",
+          "expected_pt": 9.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_abstract_size"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_title_size",
+        "scope": "document",
+        "value": {
+          "kind": "paper_title_size",
+          "expected_pt": 24.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_title_size"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_reference_size",
+        "scope": "document",
+        "value": {
+          "kind": "paper_reference_size",
+          "expected_pt": 8.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_reference_size"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-main-heading-size",
+        "scope": "document",
+        "value": {
+          "kind": "paper_heading_size",
+          "expected_pt": 10.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "ieee-v2-main-heading-size"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_heading_numbering",
+        "scope": "document",
+        "value": {
+          "kind": "paper_heading_numbering",
+          "expected_pt": null
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_heading_numbering"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_abstract_run_in",
+        "scope": "document",
+        "value": {
+          "kind": "paper_abstract_run_in",
+          "expected_pt": null
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_abstract_run_in"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_keywords",
+        "scope": "document",
+        "value": {
+          "kind": "paper_keywords",
+          "expected_pt": null
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_keywords"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_no_page_numbers",
+        "scope": "document",
+        "value": {
+          "kind": "paper_no_page_numbers",
+          "expected_pt": null
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "ieee-v2-paper_no_page_numbers"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_body_alignment",
+        "scope": "document",
+        "value": {
+          "kind": "paper_body_alignment",
+          "expected_pt": null
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_body_alignment"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
+      },
+      {
+        "candidate_id": "ieee-v2-paper_caption_numbering",
+        "scope": "document",
+        "value": {
+          "kind": "paper_caption_numbering",
+          "expected_pt": null
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "ieee-v2-paper_caption_numbering"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Curated source-specific baseline. Unresolved applicability remains visible; not IEEE certification."
       }
     ],
     "conflicts": [],
@@ -819,6 +1065,102 @@
         "part": "word/document.xml",
         "path": "/w:document/w:body/w:p[98]/w:pPr/w:sectPr/w:cols",
         "excerpt": "The sampled main-text section stores w:cols w:num=\"2\". Author blocks, full-width figures and tables are exceptions; this is a reviewed body-layout baseline."
+      },
+      {
+        "source_id": "ieee-v2-body-size",
+        "part": "external-guideline",
+        "path": "https://ieee-pvsc.org/PVSC47/downloads/2020_manuscript_template_PVSC.pdf#page=3",
+        "excerpt": "Reviewed body-size supplement: 10 pt Times New Roman. PVSC p.3 IV-A states this explicitly; the bundled Word BodyText style omits size. Other PVSC-specific rules are not adopted."
+      },
+      {
+        "source_id": "ieee-v2-body-spacing",
+        "part": "word/styles.xml",
+        "path": "//w:style[@w:styleId=\"BodyText\"]/w:pPr/w:spacing",
+        "excerpt": "Bundled BodyText style: w:line=\"228\", w:lineRule=\"auto\"; 228/240 = 0.95 lines."
+      },
+      {
+        "source_id": "ieee-v2-top-margin",
+        "part": "word/document.xml",
+        "path": "//w:sectPr/w:pgMar/@w:top",
+        "excerpt": "The bundled Letter sections store a 54 pt top margin."
+      },
+      {
+        "source_id": "ieee-v2-bottom-margin",
+        "part": "word/document.xml",
+        "path": "//w:sectPr/w:pgMar/@w:bottom",
+        "excerpt": "The bundled Letter sections store a 72 pt bottom margin."
+      },
+      {
+        "source_id": "ieee-v2-left-margin",
+        "part": "word/document.xml",
+        "path": "//w:sectPr/w:pgMar/@w:left",
+        "excerpt": "Reviewed source-compatible range 44.5–45.5 pt around 0.625 inch. The unchanged Word template stores 44.65 and 45.35 pt side-margin variants; both are accepted."
+      },
+      {
+        "source_id": "ieee-v2-right-margin",
+        "part": "word/document.xml",
+        "path": "//w:sectPr/w:pgMar/@w:right",
+        "excerpt": "Reviewed source-compatible range 44.5–45.5 pt around 0.625 inch. The unchanged Word template stores 44.65 and 45.35 pt side-margin variants; both are accepted."
+      },
+      {
+        "source_id": "ieee-v2-paper_abstract_size",
+        "part": "word/styles.xml",
+        "path": "//w:style[@w:styleId=\"Abstract\"]",
+        "excerpt": "Abstract text uses 9 pt in the bundled style."
+      },
+      {
+        "source_id": "ieee-v2-paper_title_size",
+        "part": "word/styles.xml",
+        "path": "//w:style[@w:styleId=\"papertitle\"]",
+        "excerpt": "Paper title style uses 24 pt. A cover heading is not silently guessed to be the paper title."
+      },
+      {
+        "source_id": "ieee-v2-paper_reference_size",
+        "part": "word/styles.xml",
+        "path": "//w:style[@w:styleId=\"references\"]",
+        "excerpt": "Reference-entry style uses 8 pt. Only the contiguous native References block is checked."
+      },
+      {
+        "source_id": "ieee-v2-main-heading-size",
+        "part": "external-guideline",
+        "path": "https://ieee-pvsc.org/PVSC47/downloads/2020_manuscript_template_PVSC.pdf#page=3",
+        "excerpt": "Reviewed 10 pt main-heading supplement from IEEE PVSC IV-A. The bundled Heading1 style omits an explicit size; component heads are excluded."
+      },
+      {
+        "source_id": "ieee-v2-paper_heading_numbering",
+        "part": "word/document.xml",
+        "path": "//w:body",
+        "excerpt": "Template main text heads use uppercase Roman numerals; component heads such as References remain unnumbered."
+      },
+      {
+        "source_id": "ieee-v2-paper_abstract_run_in",
+        "part": "word/document.xml",
+        "path": "//w:body",
+        "excerpt": "The template Abstract label and abstract prose share a paragraph, separated by a dash."
+      },
+      {
+        "source_id": "ieee-v2-paper_keywords",
+        "part": "word/document.xml",
+        "path": "//w:body",
+        "excerpt": "This reviewed baseline requires the nonempty Keywords line shown after the abstract; Index Terms is accepted as an equivalent label. No word-count limit is inferred."
+      },
+      {
+        "source_id": "ieee-v2-paper_no_page_numbers",
+        "part": "word/document.xml",
+        "path": "//w:body",
+        "excerpt": "The template instructions prohibit adding pagination anywhere in the paper. Active native PAGE fields provide positive evidence of a violation; absence is not a rendered-page verdict."
+      },
+      {
+        "source_id": "ieee-v2-paper_body_alignment",
+        "part": "word/document.xml",
+        "path": "//w:body",
+        "excerpt": "The template BodyText style inherits justified paragraph alignment."
+      },
+      {
+        "source_id": "ieee-v2-paper_caption_numbering",
+        "part": "word/document.xml",
+        "path": "//w:body",
+        "excerpt": "The template uses consecutive Fig. 1. captions and Roman TABLE I labels, rather than chapter-decimal numbering."
       }
     ],
     "requirement_ledger": [
@@ -920,7 +1262,8 @@
       "English patterns cover a limited property set. The requirement ledger is an extraction aid, not proof of complete template coverage.",
       "Candidate-bearing paragraphs can contain additional unsupported requirements. Review the full source excerpt.",
       "Table topics are suggestions, not mandatory sections or aliases. Select and review report/synopsis profiles separately.",
-      "Curated IEEE conference US Letter baseline. Not an IEEE-endorsed validator, venue-specific rulebook, or PDF eXpress certification. The source itself has section-specific margin variants; they remain manual."
+      "Curated IEEE conference US Letter baseline. Not an IEEE-endorsed validator, venue-specific rulebook, or PDF eXpress certification. The source itself has section-specific margin variants; they remain manual.",
+      "Revision 2 adds separately sourced typography, margins and paper structure. Body size uses the documented IEEE PVSC supplement; no venue page limit or abstract word cap is inferred. Side margin range is an explicit review policy."
     ],
     "publication_ready": false
   },
@@ -1124,111 +1467,191 @@
       "candidate_id": "reviewed-ieee-body-columns",
       "action": "APPROVE",
       "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "ieee-v2-body-size",
+      "action": "APPROVE",
+      "reason": "Reviewed body-size supplement: 10 pt Times New Roman. PVSC p.3 IV-A states this explicitly; the bundled Word BodyText style omits size. Other PVSC-specific rules are not adopted."
+    },
+    {
+      "candidate_id": "ieee-v2-body-spacing",
+      "action": "APPROVE",
+      "reason": "Bundled BodyText style: w:line=\"228\", w:lineRule=\"auto\"; 228/240 = 0.95 lines."
+    },
+    {
+      "candidate_id": "ieee-v2-top-margin",
+      "action": "APPROVE",
+      "reason": "The bundled Letter sections store a 54 pt top margin."
+    },
+    {
+      "candidate_id": "ieee-v2-bottom-margin",
+      "action": "APPROVE",
+      "reason": "The bundled Letter sections store a 72 pt bottom margin."
+    },
+    {
+      "candidate_id": "ieee-v2-left-margin",
+      "action": "APPROVE",
+      "reason": "Reviewed source-compatible range 44.5–45.5 pt around 0.625 inch. The unchanged Word template stores 44.65 and 45.35 pt side-margin variants; both are accepted."
+    },
+    {
+      "candidate_id": "ieee-v2-right-margin",
+      "action": "APPROVE",
+      "reason": "Reviewed source-compatible range 44.5–45.5 pt around 0.625 inch. The unchanged Word template stores 44.65 and 45.35 pt side-margin variants; both are accepted."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_abstract_size",
+      "action": "APPROVE",
+      "reason": "Abstract text uses 9 pt in the bundled style."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_title_size",
+      "action": "APPROVE",
+      "reason": "Paper title style uses 24 pt. A cover heading is not silently guessed to be the paper title."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_reference_size",
+      "action": "APPROVE",
+      "reason": "Reference-entry style uses 8 pt. Only the contiguous native References block is checked."
+    },
+    {
+      "candidate_id": "ieee-v2-main-heading-size",
+      "action": "APPROVE",
+      "reason": "Reviewed 10 pt main-heading supplement from IEEE PVSC IV-A. The bundled Heading1 style omits an explicit size; component heads are excluded."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_heading_numbering",
+      "action": "APPROVE",
+      "reason": "Template main text heads use uppercase Roman numerals; component heads such as References remain unnumbered."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_abstract_run_in",
+      "action": "APPROVE",
+      "reason": "The template Abstract label and abstract prose share a paragraph, separated by a dash."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_keywords",
+      "action": "APPROVE",
+      "reason": "This reviewed baseline requires the nonempty Keywords line shown after the abstract; Index Terms is accepted as an equivalent label. No word-count limit is inferred."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_no_page_numbers",
+      "action": "APPROVE",
+      "reason": "The template instructions prohibit adding pagination anywhere in the paper. Active native PAGE fields provide positive evidence of a violation; absence is not a rendered-page verdict."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_body_alignment",
+      "action": "APPROVE",
+      "reason": "The template BodyText style inherits justified paragraph alignment."
+    },
+    {
+      "candidate_id": "ieee-v2-paper_caption_numbering",
+      "action": "APPROVE",
+      "reason": "The template uses consecutive Fig. 1. captions and Roman TABLE I labels, rather than chapter-decimal numbering."
     }
   ],
   "ledger_decisions": [
     {
       "evidence_id": "a269a4a60fd5b96df328",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "ba273a2dbd785c6baf5c",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "c38ce7717a187f9325df",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "ceabe3b77c32bc88135a",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "4086f0ca7f2dc6f99e78",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "699a1c94287483cb13ac",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "4d0abe509e8813ba1f4b",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "6302b9fa2af6ce51f132",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "76063c704afad79faa39",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "67d006d4f22e341e1c59",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "e36ebc3843e2c10486cc",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "89a8c23e33a7cead238d",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "780ef74a8eb6cc2fa5ad",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "76ecf70a8e6fad8f9d4a",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "39fe29c5734c63a62153",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "6ca338b1f3d82475d2ac",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "75e5bf38c90ce8a642e5",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     },
     {
       "evidence_id": "2bd664b859c6c8987be3",
       "action": "MANUAL",
-      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
     }
   ],
   "profile_review": null,
   "audit": [
     {
       "version": 0,
-      "timestamp": "2026-10-26T14:53:27.485583+00:00",
+      "timestamp": "2026-10-27T16:33:19.074925+00:00",
       "action": "CREATE",
       "patch": null
     },
     {
       "version": 1,
-      "timestamp": "2026-10-26T14:53:27.486582+00:00",
+      "timestamp": "2026-10-27T16:33:19.074925+00:00",
       "action": "REVIEW",
       "patch": {
         "expected_version": 0,
@@ -1432,98 +1855,178 @@
             "candidate_id": "reviewed-ieee-body-columns",
             "action": "APPROVE",
             "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "ieee-v2-body-size",
+            "action": "APPROVE",
+            "reason": "Reviewed body-size supplement: 10 pt Times New Roman. PVSC p.3 IV-A states this explicitly; the bundled Word BodyText style omits size. Other PVSC-specific rules are not adopted."
+          },
+          {
+            "candidate_id": "ieee-v2-body-spacing",
+            "action": "APPROVE",
+            "reason": "Bundled BodyText style: w:line=\"228\", w:lineRule=\"auto\"; 228/240 = 0.95 lines."
+          },
+          {
+            "candidate_id": "ieee-v2-top-margin",
+            "action": "APPROVE",
+            "reason": "The bundled Letter sections store a 54 pt top margin."
+          },
+          {
+            "candidate_id": "ieee-v2-bottom-margin",
+            "action": "APPROVE",
+            "reason": "The bundled Letter sections store a 72 pt bottom margin."
+          },
+          {
+            "candidate_id": "ieee-v2-left-margin",
+            "action": "APPROVE",
+            "reason": "Reviewed source-compatible range 44.5–45.5 pt around 0.625 inch. The unchanged Word template stores 44.65 and 45.35 pt side-margin variants; both are accepted."
+          },
+          {
+            "candidate_id": "ieee-v2-right-margin",
+            "action": "APPROVE",
+            "reason": "Reviewed source-compatible range 44.5–45.5 pt around 0.625 inch. The unchanged Word template stores 44.65 and 45.35 pt side-margin variants; both are accepted."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_abstract_size",
+            "action": "APPROVE",
+            "reason": "Abstract text uses 9 pt in the bundled style."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_title_size",
+            "action": "APPROVE",
+            "reason": "Paper title style uses 24 pt. A cover heading is not silently guessed to be the paper title."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_reference_size",
+            "action": "APPROVE",
+            "reason": "Reference-entry style uses 8 pt. Only the contiguous native References block is checked."
+          },
+          {
+            "candidate_id": "ieee-v2-main-heading-size",
+            "action": "APPROVE",
+            "reason": "Reviewed 10 pt main-heading supplement from IEEE PVSC IV-A. The bundled Heading1 style omits an explicit size; component heads are excluded."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_heading_numbering",
+            "action": "APPROVE",
+            "reason": "Template main text heads use uppercase Roman numerals; component heads such as References remain unnumbered."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_abstract_run_in",
+            "action": "APPROVE",
+            "reason": "The template Abstract label and abstract prose share a paragraph, separated by a dash."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_keywords",
+            "action": "APPROVE",
+            "reason": "This reviewed baseline requires the nonempty Keywords line shown after the abstract; Index Terms is accepted as an equivalent label. No word-count limit is inferred."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_no_page_numbers",
+            "action": "APPROVE",
+            "reason": "The template instructions prohibit adding pagination anywhere in the paper. Active native PAGE fields provide positive evidence of a violation; absence is not a rendered-page verdict."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_body_alignment",
+            "action": "APPROVE",
+            "reason": "The template BodyText style inherits justified paragraph alignment."
+          },
+          {
+            "candidate_id": "ieee-v2-paper_caption_numbering",
+            "action": "APPROVE",
+            "reason": "The template uses consecutive Fig. 1. captions and Roman TABLE I labels, rather than chapter-decimal numbering."
           }
         ],
         "ledger": [
           {
             "evidence_id": "a269a4a60fd5b96df328",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "ba273a2dbd785c6baf5c",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "c38ce7717a187f9325df",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "ceabe3b77c32bc88135a",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "4086f0ca7f2dc6f99e78",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "699a1c94287483cb13ac",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "4d0abe509e8813ba1f4b",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "6302b9fa2af6ce51f132",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "76063c704afad79faa39",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "67d006d4f22e341e1c59",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "e36ebc3843e2c10486cc",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "89a8c23e33a7cead238d",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "780ef74a8eb6cc2fa5ad",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "76ecf70a8e6fad8f9d4a",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "39fe29c5734c63a62153",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "6ca338b1f3d82475d2ac",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "75e5bf38c90ce8a642e5",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           },
           {
             "evidence_id": "2bd664b859c6c8987be3",
             "action": "MANUAL",
-            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+            "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
           }
         ],
         "profile": null
@@ -1531,7 +2034,7 @@
     },
     {
       "version": 2,
-      "timestamp": "2026-10-26T14:53:27.487582+00:00",
+      "timestamp": "2026-10-27T16:33:19.076931+00:00",
       "action": "PUBLISH",
       "patch": null
     }
@@ -1601,6 +2104,268 @@
           "count": 2
         },
         "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-722e0b6680cc3dc5618d",
+        "candidate_ids": [
+          "ieee-v2-body-size"
+        ],
+        "evidence_ids": [
+          "ieee-v2-body-size"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "font_size",
+          "expected_pt": 10.0
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-4a7b1aafca84af4a4baa",
+        "candidate_ids": [
+          "ieee-v2-body-spacing"
+        ],
+        "evidence_ids": [
+          "ieee-v2-body-spacing"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "line_spacing_multiple",
+          "multiplier": 0.95
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-4e86fa772191cd26e7cb",
+        "candidate_ids": [
+          "ieee-v2-top-margin"
+        ],
+        "evidence_ids": [
+          "ieee-v2-top-margin"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-b93ebe4c7c408502fd20",
+        "candidate_ids": [
+          "ieee-v2-bottom-margin"
+        ],
+        "evidence_ids": [
+          "ieee-v2-bottom-margin"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-1b0c6df7252f1794e69f",
+        "candidate_ids": [
+          "ieee-v2-left-margin"
+        ],
+        "evidence_ids": [
+          "ieee-v2-left-margin"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin_range",
+          "side": "left",
+          "minimum_pt": 44.5,
+          "maximum_pt": 45.5
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-055f5dab817b68672dec",
+        "candidate_ids": [
+          "ieee-v2-right-margin"
+        ],
+        "evidence_ids": [
+          "ieee-v2-right-margin"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "margin_range",
+          "side": "right",
+          "minimum_pt": 44.5,
+          "maximum_pt": 45.5
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-c104d025a19a4b7ffd07",
+        "candidate_ids": [
+          "ieee-v2-paper_abstract_size"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_abstract_size"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_abstract_size",
+          "expected_pt": 9.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-5f7775df78513d553e07",
+        "candidate_ids": [
+          "ieee-v2-paper_title_size"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_title_size"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_title_size",
+          "expected_pt": 24.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-562d03ce103ee9122796",
+        "candidate_ids": [
+          "ieee-v2-paper_reference_size"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_reference_size"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_reference_size",
+          "expected_pt": 8.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-43077feacfa0eed640cf",
+        "candidate_ids": [
+          "ieee-v2-main-heading-size"
+        ],
+        "evidence_ids": [
+          "ieee-v2-main-heading-size"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_heading_size",
+          "expected_pt": 10.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-66f925e3134aa3562b69",
+        "candidate_ids": [
+          "ieee-v2-paper_heading_numbering"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_heading_numbering"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_heading_numbering",
+          "expected_pt": null
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-f0d53c072b221a308163",
+        "candidate_ids": [
+          "ieee-v2-paper_abstract_run_in"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_abstract_run_in"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_abstract_run_in",
+          "expected_pt": null
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-36b9335f35f90ef79e49",
+        "candidate_ids": [
+          "ieee-v2-paper_keywords"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_keywords"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_keywords",
+          "expected_pt": null
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-c5bd6a27b4aeb2b4cc65",
+        "candidate_ids": [
+          "ieee-v2-paper_no_page_numbers"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_no_page_numbers"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_no_page_numbers",
+          "expected_pt": null
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-03b5989558bfd3f2687d",
+        "candidate_ids": [
+          "ieee-v2-paper_body_alignment"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_body_alignment"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_body_alignment",
+          "expected_pt": null
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-aeedaab23d2982d138c0",
+        "candidate_ids": [
+          "ieee-v2-paper_caption_numbering"
+        ],
+        "evidence_ids": [
+          "ieee-v2-paper_caption_numbering"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "paper_caption_numbering",
+          "expected_pt": null
+        },
+        "readiness": "PROPERTY_CONTRACT"
       }
     ],
     "profile": null,
@@ -1609,92 +2374,92 @@
       {
         "evidence_id": "a269a4a60fd5b96df328",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "ba273a2dbd785c6baf5c",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "c38ce7717a187f9325df",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "ceabe3b77c32bc88135a",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "4086f0ca7f2dc6f99e78",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "699a1c94287483cb13ac",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "4d0abe509e8813ba1f4b",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "6302b9fa2af6ce51f132",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "76063c704afad79faa39",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "67d006d4f22e341e1c59",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "e36ebc3843e2c10486cc",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "89a8c23e33a7cead238d",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "780ef74a8eb6cc2fa5ad",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "76ecf70a8e6fad8f9d4a",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "39fe29c5734c63a62153",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "6ca338b1f3d82475d2ac",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "75e5bf38c90ce8a642e5",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       },
       {
         "evidence_id": "2bd664b859c6c8987be3",
         "action": "MANUAL",
-        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+        "reason": "Review remaining clauses in this passage manually. Executable paper rules are listed separately; their presence does not establish full coverage of language, author layout, scientific meaning, figure images or rendered geometry."
       }
     ],
     "limitations": [
@@ -1706,5 +2471,5 @@
     ],
     "report_checking_available": true
   },
-  "snapshot_sha256": "50a7b1a79c4fe39233aa34f8a35e22b247c8e04297c01b627913223eb43e9738"
+  "snapshot_sha256": "0829be13267408f718cd4ff8b4ae48244a9aa2ec286346fef487f770f2218583"
 }

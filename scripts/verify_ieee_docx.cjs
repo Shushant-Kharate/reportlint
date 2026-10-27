@@ -20,7 +20,7 @@ fs.mkdirSync(out,{recursive:true});
   await page.locator('flt-semantics-placeholder').waitFor({state:'attached'});
   await page.locator('flt-semantics-placeholder').evaluate(e=>e.click());
   await page.getByText('Open format',{exact:true}).nth(index).click();
-  await page.getByText('Revision 1 PUBLISHED',{exact:true}).click();
+  await page.getByText(`Revision ${catalog[index].latest_revision_number} PUBLISHED`,{exact:true}).click();
   await page.getByText('Check a report',{exact:true}).click();
   const chooser=page.waitForEvent('filechooser');
   await page.getByRole('button',{name:'Choose report',exact:true}).click();
@@ -31,6 +31,8 @@ fs.mkdirSync(out,{recursive:true});
   const result=await checked;
   assert.equal(result.report_sha256,crypto.createHash('sha256').update(fs.readFileSync(report)).digest('hex'));
   assert.equal(result.outcome,'FAIL');
+  assert.equal(result.revision_id,catalog[index].published_revision_id);
+  const failGroups=new Set(result.items.filter(i=>i.status==='FAIL').map(i=>JSON.stringify([i.rule_id,i.status,i.code,i.expected,i.message])));
   const mismatches=result.items.filter(i=>i.code==='DOCX_BODY_COLUMNS_MISMATCH');
   assert(mismatches.length>0&&mismatches.every(i=>i.status==='FAIL'&&i.actual.observed_columns===1&&i.expected.count===2));
   await page.getByText('Here’s what to fix',{exact:true}).waitFor();
@@ -46,7 +48,7 @@ fs.mkdirSync(out,{recursive:true});
   const filename=path.join(out,'result.json');await(await download).saveAs(filename);
   assert.deepEqual(JSON.parse(fs.readFileSync(filename,'utf8')).result,result);
   assert.deepEqual(errors,[]);
-  const receipt={outcome:result.outcome,counts:result.counts,columnFailures:mismatches.length,
+  const receipt={revision:result.revision_id,outcome:result.outcome,counts:result.counts,issueGroups:failGroups.size,columnFailures:mismatches.length,
     sections:mismatches.map(i=>i.section_index+1),exportVerified:true,pageErrors:errors};
   fs.writeFileSync(path.join(out,'receipt.json'),JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt));
  }catch(e){await page.screenshot({path:path.join(out,'failure.png')});console.error(await page.locator('body').innerText());throw e;}

@@ -13,6 +13,7 @@ from app.checking.scoped import KINDS, scoped_checks
 from app.checking.structural import KINDS as STRUCTURAL_KINDS, structural_checks
 from app.checking.word_structure import header_presence
 from app.checking.columns import column_checks
+from app.checking.paper import KINDS as PAPER_KINDS, paper_checks, paper_body_paragraphs
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import DocxPackage, InvalidDocxError
 from app.review.service import ReviewError, snapshot_hash
@@ -55,6 +56,8 @@ def check_package(revision, package, report_hash, role_review=None):
     items = []
     paragraphs, registry, uncertain = inventory(package)
     review_hash = apply_roles(revision, paragraphs, report_hash, role_review)
+    paper_mode = any(r.value.kind == 'paper_abstract_size' for r in revision.publication.rules)
+    body_paragraphs = paper_body_paragraphs(paragraphs) if paper_mode else paragraphs
     if role_review:
         for decision in role_review.decisions:
             if decision.role == "EXCLUDE":
@@ -66,6 +69,9 @@ def check_package(revision, package, report_hash, role_review=None):
     headers = header_presence(package, sections) if conditional_top and not ambiguous else []
     for rule in revision.publication.rules:
         common = dict(rule_id=rule.rule_id, evidence_ids=rule.evidence_ids, expected=rule.value.model_dump())
+        if rule.condition == "ALWAYS" and rule.scope == "document" and rule.value.kind in PAPER_KINDS:
+            items.extend(paper_checks(rule, package, body_paragraphs if rule.value.kind == 'paper_body_alignment' else paragraphs, registry, sections, ambiguous or uncertain))
+            continue
         if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind == "body_columns":
             items.extend(column_checks(rule, package, paragraphs, sections, ambiguous or uncertain))
             continue
@@ -76,10 +82,10 @@ def check_package(revision, package, report_hash, role_review=None):
             items.extend(scoped_checks(rule, package, paragraphs, registry, uncertain))
             continue
         if rule.condition == "ALWAYS" and rule.scope == "body" and rule.value.kind in {"font_family", "font_size", "line_spacing_multiple"}:
-            items.extend(body_checks(rule, package, paragraphs, registry, uncertain))
+            items.extend(body_checks(rule, package, body_paragraphs, registry, uncertain))
             continue
         supported_condition = rule.condition == "HEADER_ABSENT" and rule.scope == "document" and rule.value.kind == "margin" and rule.value.side == "top"
-        if (rule.condition != "ALWAYS" and not supported_condition) or rule.scope != "document" or rule.value.kind not in {"page_size", "margin"}:
+        if (rule.condition != "ALWAYS" and not supported_condition) or rule.scope != "document" or rule.value.kind not in {"page_size", "margin", "margin_range"}:
             items.append(CheckItem(item_id=rule.rule_id, status="NOT_CHECKED", code="UNSUPPORTED_RULE", message="This checker cannot resolve the rule's scope, property, or condition.", **common))
             continue
         if ambiguous:
@@ -109,11 +115,12 @@ def check_package(revision, package, report_hash, role_review=None):
                     items.append(CheckItem(status="NOT_CHECKED", code="UNSUPPORTED_MARGIN_GEOMETRY", message="Mirroring, book-fold settings, or gutter geometry requires further interpretation.", **item))
                     continue
                 actual = {"margin_pt": integer_attribute(node, "w:" + value.side)}
-                expected = {"margin_pt": value.expected_pt}
+                expected = {"margin_pt": value.expected_pt} if value.kind == "margin" else {}
             if any(v is None for v in actual.values()):
                 items.append(CheckItem(status="NOT_CHECKED", code="UNRESOLVED_SECTION_PROPERTY", message="An explicit, unambiguous numeric section setting is unavailable; no default was assumed.", actual=actual, **item))
                 continue
-            matches = all(abs(actual[key] - expected[key]) <= TOLERANCE_PT + 1e-9 for key in expected)
+            matches = (value.minimum_pt <= actual['margin_pt'] <= value.maximum_pt if value.kind == 'margin_range' else
+                       all(abs(actual[key] - expected[key]) <= TOLERANCE_PT + 1e-9 for key in expected))
             items.append(CheckItem(status="PASS" if matches else "FAIL", code="STORED_SETTING_MATCH" if matches else "STORED_SETTING_MISMATCH", message="Compared stored section settings in points (0.1 pt tolerance); this is not a rendered-page measurement.", actual=actual, **item))
     items.extend(chapter_checks(revision, paragraphs, uncertain))
     candidates = {c.candidate_id: c for c in revision.analysis.candidates}
@@ -124,7 +131,7 @@ def check_package(revision, package, report_hash, role_review=None):
     counts = {status: 0 for status in ("PASS", "FAIL", "NOT_CHECKED", "OUT_OF_SCOPE")}
     counts.update(Counter(item.status for item in items))
     outcome = "FAIL" if counts["FAIL"] else "INDETERMINATE" if counts["NOT_CHECKED"] or not counts["PASS"] else "PASS_SUPPORTED_CHECKS"
-    return RevisionCheck(checker_version="0.6.1", template_id=revision.template_id, revision_id=revision.revision_id,
+    return RevisionCheck(checker_version="0.7.0", template_id=revision.template_id, revision_id=revision.revision_id,
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
                          role_review_sha256=review_hash, role_decisions=[d.model_dump() for d in role_review.decisions] if role_review else [],
                          outcome=outcome, counts=counts, items=items, limitations=[
@@ -132,6 +139,7 @@ def check_package(revision, package, report_hash, role_review=None):
                              "No overall compliance score: item counts mix section checks and unresolved requirements and are not a coverage percentage.",
                              "A match does not establish rendered geometry, evaluated page numbers, image-embedded captions, complete contents/list coverage, abstract meaning, unstyled body roles, fuzzy chapter equivalence or complete template coverage. Spacing matches allow 1/240 of a line; larger differences up to 0.01 lines require reviewer tolerance confirmation.",
                              "Report files and check results are not retained. Results identify an immutable template revision and the uploaded report's SHA-256.",
+                             "Reviewed paper rules can check native abstract/title/reference typography, main-heading numbering, keywords, justified body text and positive PAGE-field presence. Unidentified covers, author layout, image captions, citation correctness and rendered pagination require review. See each immutable rule's source and review policy.",
                          ])
 
 

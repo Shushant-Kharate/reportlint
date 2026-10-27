@@ -10,7 +10,7 @@ class AnalysisModel(BaseModel):
 
 class SourceEvidence(AnalysisModel):
     source_id: str
-    part: Literal["word/document.xml"] = "word/document.xml"
+    part: Literal["word/document.xml", "word/styles.xml", "external-guideline"] = "word/document.xml"
     path: str
     excerpt: str
 
@@ -45,6 +45,33 @@ class MarginValue(AnalysisModel):
     kind: Literal["margin"] = "margin"
     side: Literal["top", "bottom", "left", "right"]
     expected_pt: float = Field(ge=0)
+
+
+class PaperFormatValue(AnalysisModel):
+    """Individually reviewable paper requirements; no institution-ID shortcuts."""
+    kind: Literal["paper_abstract_size", "paper_heading_size", "paper_title_size", "paper_reference_size",
+                  "paper_heading_numbering", "paper_abstract_run_in", "paper_no_page_numbers",
+                  "paper_body_alignment", "paper_caption_numbering", "paper_keywords"]
+    expected_pt: PositiveFloat | None = None
+
+    @model_validator(mode="after")
+    def size_contract(self):
+        if self.kind.endswith("_size") != (self.expected_pt is not None):
+            raise ValueError("Only paper size rules require expected_pt")
+        return self
+
+
+class MarginRangeValue(AnalysisModel):
+    kind: Literal["margin_range"] = "margin_range"
+    side: Literal["left", "right"]
+    minimum_pt: PositiveFloat
+    maximum_pt: PositiveFloat
+
+    @model_validator(mode="after")
+    def ordered(self):
+        if self.minimum_pt > self.maximum_pt:
+            raise ValueError("Margin range must be ordered")
+        return self
 
 
 class ChapterSizeValue(AnalysisModel):
@@ -124,7 +151,7 @@ RequirementValue = Annotated[
     FontValue | SizeValue | SpacingValue | PageValue | BodyColumnsValue | MarginValue | ChapterSizeValue | ChapterCaseValue | AbstractWordsValue | AbstractKeywordsValue
     | ChapterBoldValue | SectionSizeValue | PageNumberAlignmentValue | BodyNumberFormatValue
     | FrontNumberFormatValue | IntroductionNumberingValue | ContentsStructureValue
-    | ContentsAlignmentValue | IllustrationListsValue | CaptionsValue,
+    | ContentsAlignmentValue | IllustrationListsValue | CaptionsValue | PaperFormatValue | MarginRangeValue,
     Field(discriminator="kind"),
 ]
 

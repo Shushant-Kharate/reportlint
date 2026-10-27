@@ -37,7 +37,7 @@ void main() {
       expect(copy.title, 'Body column layout');
       expect(copy.requiredValue, '2 columns');
       expect(copy.foundValue, '1 column in this Word section');
-      expect(copy.action, contains('Layout → Columns'));
+      expect(copy.action, contains('Layout, then Columns'));
       expect(locationSummary([item]), 'Word sections 9');
     },
   );

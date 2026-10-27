@@ -18,6 +18,8 @@ from app.review.service import apply_review, publish, now
 
 
 def build(source):
+    if (DIRECTORY/'ieee-conference-letter.v1.json').exists():
+        raise RuntimeError('Revision 1 is archived. Use scripts.build_ieee_v2 for the current reviewed baseline; do not overwrite immutable history.')
     data = source.read_bytes()
     analysis = analyze_bytes(data)
     package = DocxPackage.load(str(source))

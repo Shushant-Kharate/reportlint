@@ -1,6 +1,7 @@
 """Conservative main-story paragraph roles; no visual or lexical heading guesses."""
 from dataclasses import dataclass
 import re
+import unicodedata
 
 from app.ooxml.constants import NS, qn
 from app.ooxml.docx_loader import InvalidDocxError
@@ -138,10 +139,12 @@ def inventory(package):
     return result, registry, uncertain_structure
 
 
-def scalar_run(package, registry, paragraph, run, kind):
+def scalar_run(package, registry, paragraph, run, kind, *, allow_latin_punctuation=False):
     """Supported Latin scalar inheritance; theme/script ambiguity remains unknown."""
     text = "".join(run.xpath("./w:t/text()", namespaces=NS))
-    if not text.isascii():
+    supported_latin = allow_latin_punctuation and kind == 'font_size' and all(
+        c.isascii() or 'LATIN' in unicodedata.name(c, '') or unicodedata.category(c) in {'Pi','Pf','Pd','Po','Ps','Pe','Zs'} for c in text)
+    if not text.isascii() and not supported_latin:
         return None
     rpr = run.find(qn("w:rPr"))
     rstyles = nodes([rpr], "w:rStyle")

@@ -138,15 +138,18 @@ FindingText explainFinding(Json item) {
           '${pointsToMm(expected['width_pt'])} × ${pointsToMm(expected['height_pt'])}';
       found =
           '${pointsToMm(actual['width_pt'])} × ${pointsToMm(actual['height_pt'])}';
-      action = 'In Word, use Layout → Size and choose the required paper size for the affected sections.';
+      action = 'In Word, open Layout, then Size, and choose the required paper size for the affected sections.';
     case 'margin':
+    case 'margin_range':
       final side = '${expected['side'] ?? ''}';
       title =
           '${side.isEmpty ? 'Page' : side[0].toUpperCase() + side.substring(1)} margin';
-      required = pointsToMm(expected['expected_pt']);
+      required = kind == 'margin_range'
+          ? '${pointsToMm(expected['minimum_pt'])}–${pointsToMm(expected['maximum_pt'])}'
+          : pointsToMm(expected['expected_pt']);
       found = pointsToMm(actual['margin_pt']);
       action =
-          'In Word, open Layout → Margins → Custom Margins. Set the $side margin in each affected section.';
+          'In Word, open Layout, then Margins, then Custom Margins. Set the $side margin in each affected section.';
     case 'body_columns':
       title = 'Body column layout';
       required = '${expected['count']} columns';
@@ -156,7 +159,7 @@ FindingText explainFinding(Json item) {
           : code.startsWith('DOCX_')
           ? '$count ${count == 1 ? 'column' : 'columns'} in this Word section'
           : '$count columns in the measured prose';
-      action = 'In Word, select the affected body section and use Layout → Columns. Match the required count. Author blocks and full-width figures or tables may use a different layout.';
+      action = 'In Word, select the affected body section and open Layout, then Columns. Match the required count. Author blocks and full-width figures or tables may use a different layout.';
     case 'font_family':
       title = 'Body text font';
       required = '${expected['font']}';
@@ -165,13 +168,23 @@ FindingText explainFinding(Json item) {
           : 'Font could not be confirmed';
       action = 'Select the affected body text and choose the required font on Word’s Home tab.';
     case 'font_size':
+    case 'paper_abstract_size':
+    case 'paper_title_size':
+    case 'paper_reference_size':
+    case 'paper_heading_size':
     case 'chapter_font_size':
     case 'section_font_size':
       title = kind == 'chapter_font_size'
           ? 'Chapter title size'
           : kind == 'section_font_size'
           ? '${expected['depth'] == 3 ? 'Subsection' : 'Section'} heading size'
-          : 'Body text size';
+          : {
+                  'paper_abstract_size': 'Abstract text size',
+                  'paper_title_size': 'Paper title size',
+                  'paper_reference_size': 'Reference text size',
+                  'paper_heading_size': 'Main heading size',
+                }[kind] ??
+                'Body text size';
       required = '${readableNumber(expected['expected_pt'])} pt';
       final sizes =
           (actual['sizes_pt'] as List?) ??
@@ -180,7 +193,46 @@ FindingText explainFinding(Json item) {
           ? 'Text size could not be confirmed'
           : sizes.map((s) => '${readableNumber(s)} pt').join(', ');
       action =
-          'Select the affected ${kind == 'font_size' ? 'text' : 'headings'} and set the font size to $required on Word’s Home tab.';
+          'Select the affected text and set the font size to $required on Word’s Home tab.';
+    case 'paper_heading_numbering':
+      title = 'Main heading numbering';
+      required = 'Uppercase Roman numerals: I., II., III.';
+      found = actual['text'] == null
+          ? 'Heading numbering could not be confirmed'
+          : '${actual['text']}';
+      action = 'Use Roman-numbered paper sections instead of CHAPTER banners. Keep References and Acknowledgment unnumbered.';
+    case 'paper_abstract_run_in':
+      title = 'Abstract label and paragraph';
+      required = 'Abstract— followed by the abstract in the same paragraph';
+      found = actual['run_in'] == true
+          ? 'Run-in abstract label'
+          : 'Separate abstract heading or a different label';
+      action = 'Put the Abstract label, a dash, and the abstract text in one paragraph using the template’s abstract style.';
+    case 'paper_no_page_numbers':
+      title = 'Remove page numbers';
+      required = 'No added pagination';
+      final fields = actual['page_fields'] as List? ?? [];
+      found = fields.isNotEmpty
+          ? 'Page-number field in the ${actual['story']}'
+          : 'Literal or rendered page numbers remain unchecked';
+      action = 'In Word, remove page numbers from the affected headers and footers. Check first-page and odd/even variants too.';
+    case 'paper_keywords':
+      title = 'Keywords below the abstract';
+      required = 'A nonempty Keywords or Index Terms line';
+      found = actual['keyword_label_found'] == true
+          ? 'Keywords label found'
+          : 'No keywords label in the checked abstract region';
+      action = 'Add a Keywords— or Index Terms— line between the abstract and the first paper section.';
+    case 'paper_body_alignment':
+      title = 'Body paragraph alignment';
+      required = 'Justified';
+      found = alignmentName(actual['alignment']);
+      action = 'Select the affected body paragraphs and choose Justify in Word’s Paragraph controls.';
+    case 'paper_caption_numbering':
+      title = 'Figure and table numbering';
+      required = 'Fig. 1., Fig. 2.; TABLE I, TABLE II';
+      found = '${actual['caption'] ?? 'No native caption confirmed'}';
+      action = 'Replace chapter-based caption numbers with consecutive paper caption labels. Captions inside images still need review.';
     case 'line_spacing_multiple':
       title = 'Line spacing';
       required = '${readableNumber(expected['multiplier'])} line spacing';
@@ -189,7 +241,7 @@ FindingText explainFinding(Json item) {
           : actual['points'] is num
           ? '${readableNumber(actual['points'])} pt fixed spacing'
           : 'Spacing could not be confirmed';
-      action = 'Select the affected paragraphs. Open Paragraph → Line spacing and apply the required spacing.';
+      action = 'Select the affected paragraphs. Open Paragraph, then Line spacing, and apply the required spacing.';
       if (code == 'BODY_SPACING_TOLERANCE_REVIEW') {
         action = 'This is a small difference. Ask the reviewer which rounding tolerance is acceptable before changing it.';
       }

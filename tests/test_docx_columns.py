@@ -64,7 +64,9 @@ def test_changing_only_body_columns_removes_the_failure():
     before=check(doc)
     set_columns(doc.sections[0],2)
     after=check(doc)
-    assert before.counts['FAIL']==1 and after.counts['FAIL']==0
+    assert sum(i.status=='FAIL' for i in column_items(before))==1
+    assert sum(i.status=='FAIL' for i in column_items(after))==0
+    assert before.counts['FAIL'] == after.counts['FAIL'] + 1
     assert column_items(after)[0].status=='PASS'
 
 

@@ -1,5 +1,7 @@
 # IEEE conference baseline and real-paper test
 
+**Latest update:** revision 2 now contains 19 rules. The broader DOCX audit, 16 detected formatting categories, remaining gaps and new results are documented in [IEEE_GAP_AUDIT.md](IEEE_GAP_AUDIT.md). Counts below describe earlier revision-1 stages unless stated otherwise.
+
 ReportLint includes **IEEE Conference — US Letter (reviewed baseline)**. It is a limited, reviewed baseline, not an IEEE certification service or a claim to check every IEEE venue's requirements. Conference, journal, A4 and US Letter formats differ.
 
 ## Sources and provenance

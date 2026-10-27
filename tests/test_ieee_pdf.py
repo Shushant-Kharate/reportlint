@@ -35,7 +35,9 @@ def test_ieee_curated_publication_rejects_caption_size_as_body_rule():
     r = builtin(IEEE)
     assert snapshot_hash(r) == r.snapshot_sha256
     assert sha256((DIRECTORY/'ieee-conference-letter.docx').read_bytes()).hexdigest() == r.analysis.source_sha256
-    assert {x.value.kind for x in r.publication.rules} == {'page_size','font_family','body_columns'}
+    assert r.revision_number == 2
+    assert {'page_size','font_family','body_columns','font_size','margin','paper_abstract_size'} <= {x.value.kind for x in r.publication.rules}
+    assert next(x for x in r.publication.rules if x.value.kind == 'font_size').value.expected_pt == 10
     sampled = next(c for c in r.analysis.candidates if c.value.kind == 'font_size')
     assert sampled.value.expected_pt == 8
     assert next(d for d in r.candidate_decisions if d.candidate_id == sampled.candidate_id).action == 'REJECT'

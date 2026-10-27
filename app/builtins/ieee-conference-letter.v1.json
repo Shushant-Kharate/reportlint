@@ -1,0 +1,1710 @@
+{
+  "schema_version": 2,
+  "template_id": "builtin-ieee-conference-letter",
+  "revision_id": "builtin-ieee-conference-letter-v1",
+  "revision_number": 1,
+  "parent_revision_id": null,
+  "name": "IEEE Conference — US Letter (reviewed baseline)",
+  "status": "PUBLISHED",
+  "version": 2,
+  "analysis": {
+    "schema_version": 2,
+    "extractor_version": "0.3.0",
+    "source_sha256": "4589779a1a74782dc5a7a657a9907f243c9dd54510cb6c154acaf24cc9079852",
+    "candidates": [
+      {
+        "candidate_id": "candidate-1480a7490c27304d438c",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "EXPLICIT_PROSE",
+        "evidence_ids": [
+          "c38ce7717a187f9325df"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Proposed named paper dimensions; verify orientation and any explicit dimensions in the source."
+      },
+      {
+        "candidate_id": "candidate-b7acada65f427fd949f8",
+        "scope": "body",
+        "value": {
+          "kind": "font_family",
+          "font": "Times New Roman"
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Observed agreement 100.0%; not authority for a rule."
+      },
+      {
+        "candidate_id": "candidate-b056c39ace45495cf9b5",
+        "scope": "body",
+        "value": {
+          "kind": "font_size",
+          "expected_pt": 8.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Observed agreement 47.0%; not authority for a rule."
+      },
+      {
+        "candidate_id": "candidate-5fe727095ec2c7d1cf58",
+        "scope": "body",
+        "value": {
+          "kind": "line_spacing_multiple",
+          "multiplier": 0.95
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "review_status": "PROPOSED",
+        "note": "Observed agreement 100.0%; not authority for a rule."
+      },
+      {
+        "candidate_id": "candidate-9d30f8258ef087d97cfb",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-6d6eb602c6b1d0a6c140",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-51a8def3e9170f074679",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-901b47aa16287cac2ed5",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-bbd484265e93c18fea68",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-0"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-66155573394eaaeeeb16",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-1"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-73b55ab85364c0162a9b",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-1"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-4bf6c766d39b8f9f00fa",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-1"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-31bf358c40c78b8a9fea",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-1"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-06dd874a9fa079fcb547",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-1"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-a499cccf6e27100b8837",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-2"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-cd2a6a8f209d879a5e6d",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-2"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-919d188c673d9c7feaf2",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-2"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-149f63138385df17fc82",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-2"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-0b26e065ad03dc1b34e3",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-2"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-6af69625dab5c545eeb4",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-3"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-ebc441bce7b9fce5aab9",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-3"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-6635d9f5ef52269a9b2d",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-3"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-141a3fbb150396d701b9",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-3"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-52cda184c22d06747482",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-3"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-057789b69d0047753723",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-4"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-63bd06b49fe45f756e62",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-4"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-825b52ece48793df034b",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-4"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-c352230ddc4f8828bbc0",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-4"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-f774f251076686c72049",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-4"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-ee2d0751b42cc2a11b3a",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-5"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-ec5c047b9ce67031acc0",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-5"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-38094e0abb7c979709d9",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-5"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-3bbd6df4e74324622f83",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 45.35
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-5"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-ee8aafe9724ec5ded0d7",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 45.35
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-5"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-8c76d4814cd4ec20b468",
+        "scope": "document",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-6"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-68de66cfec7b82cba39c",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "top",
+          "expected_pt": 54.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-6"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-f1b8aefb13f6cdd05573",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "bottom",
+          "expected_pt": 72.0
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-6"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-3284f36b6cda6fbf3381",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "left",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-6"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "candidate-62dc835281c7f14cacd6",
+        "scope": "document",
+        "value": {
+          "kind": "margin",
+          "side": "right",
+          "expected_pt": 44.65
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "observed-section-6"
+        ],
+        "review_status": "PROPOSED",
+        "note": ""
+      },
+      {
+        "candidate_id": "reviewed-ieee-body-columns",
+        "scope": "body",
+        "value": {
+          "kind": "body_columns",
+          "count": 2
+        },
+        "condition": "ALWAYS",
+        "origin": "OBSERVED_APPEARANCE",
+        "evidence_ids": [
+          "reviewed-ieee-body-columns"
+        ],
+        "review_status": "PROPOSED",
+        "note": "PDF checker measures sustained prose layout; this does not constrain author blocks or full-width figures."
+      }
+    ],
+    "conflicts": [],
+    "profiles": [],
+    "evidence": [
+      {
+        "source_id": "a269a4a60fd5b96df328",
+        "part": "word/document.xml",
+        "path": "body/p[1]",
+        "excerpt": "*Note: Sub-titles are not captured in Xplore and should not be used"
+      },
+      {
+        "source_id": "ba273a2dbd785c6baf5c",
+        "part": "word/document.xml",
+        "path": "body/p[22]",
+        "excerpt": "This template, modified in MS Word 2007 and saved as a “Word 97-2003 Document” for the PC, provides authors with most of the formatting specifications needed for preparing electronic versions of their papers. All standard paper components have been specified for three reasons: (1) ease of use when formatting individual papers, (2) automatic compliance to electronic requirements that facilitate the concurrent or later production of electronic products, and (3) conformity of style throughout a conference proceedings. Margins, column widths, line spacing, and type styles are built-in; examples of the type styles are provided throughout this document and are identified in italic type, within parentheses, following the example. Some components, such as multi-leveled equations, graphics, and tables are not prescribed, although the various table text styles are provided. The formatter will need to create these components, incorporating the applicable criteria that follow."
+      },
+      {
+        "source_id": "c38ce7717a187f9325df",
+        "part": "word/document.xml",
+        "path": "body/p[25]",
+        "excerpt": "First, confirm that you have the correct template for your paper size. This template has been tailored for output on the US-letter paper size. If you are using A4-sized paper, please close this file and download the file “MSW_A4_format”."
+      },
+      {
+        "source_id": "ceabe3b77c32bc88135a",
+        "part": "word/document.xml",
+        "path": "body/p[28]",
+        "excerpt": "Identify applicable funding agency here. If none, delete this text box."
+      },
+      {
+        "source_id": "4086f0ca7f2dc6f99e78",
+        "part": "word/document.xml",
+        "path": "body/p[37]",
+        "excerpt": "Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation."
+      },
+      {
+        "source_id": "699a1c94287483cb13ac",
+        "part": "word/document.xml",
+        "path": "body/p[38]",
+        "excerpt": "Do not mix complete spellings and abbreviations of units: “Wb/m2” or “webers per square meter”, not “webers/m2”.  Spell out units when they appear in text: “. . . a few henries”, not “. . . a few H”."
+      },
+      {
+        "source_id": "4d0abe509e8813ba1f4b",
+        "part": "word/document.xml",
+        "path": "body/p[41]",
+        "excerpt": "The equations are an exception to the prescribed specifications of this template. You will need to determine whether or not your equation should be typed using either the Times New Roman or the Symbol font (please no other font). To create multileveled equations, it may be necessary to treat the equation as a graphic and insert it into the text after your paper is styled."
+      },
+      {
+        "source_id": "6302b9fa2af6ce51f132",
+        "part": "word/document.xml",
+        "path": "body/p[42]",
+        "excerpt": "Number equations consecutively. Equation numbers, within parentheses, are to position flush right, as in (1), using a right tab stop. To make your equations more compact, you may use the solidus ( / ), the exp function, or appropriate exponents. Italicize Roman symbols for quantities and variables, but not Greek symbols. Use a long dash rather than a hyphen for a minus sign. Punctuate equations with commas or periods when they are part of a sentence, as in:"
+      },
+      {
+        "source_id": "76063c704afad79faa39",
+        "part": "word/document.xml",
+        "path": "body/p[48]",
+        "excerpt": "In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)"
+      },
+      {
+        "source_id": "67d006d4f22e341e1c59",
+        "part": "word/document.xml",
+        "path": "body/p[51]",
+        "excerpt": "In your paper title, if the words “that uses” can accurately replace the word “using”, capitalize the “u”; if not, keep using lower-cased."
+      },
+      {
+        "source_id": "e36ebc3843e2c10486cc",
+        "part": "word/document.xml",
+        "path": "body/p[54]",
+        "excerpt": "The prefix “non” is not a word; it should be joined to the word it modifies, usually without a hyphen."
+      },
+      {
+        "source_id": "89a8c23e33a7cead238d",
+        "part": "word/document.xml",
+        "path": "body/p[61]",
+        "excerpt": "The template is designed for, but not limited to, six authors. A minimum of one author is required for all conference articles. Author names should be listed starting from left to right and then moving down to the next line. This is the author sequence that will be used in future citations and by indexing services. Names should not be listed in columns nor group by affiliation. Please keep your affiliations as succinct as possible (for example, do not differentiate among departments of the same organization)."
+      },
+      {
+        "source_id": "780ef74a8eb6cc2fa5ad",
+        "part": "word/document.xml",
+        "path": "body/p[62]",
+        "excerpt": "For papers with more than six authors: Add author names horizontally, moving to a third row if needed for more than 8 authors."
+      },
+      {
+        "source_id": "76ecf70a8e6fad8f9d4a",
+        "part": "word/document.xml",
+        "path": "body/p[71]",
+        "excerpt": "Text heads organize the topics on a relational, hierarchical basis. For example, the paper title is the primary text head because all subsequent material relates and elaborates on this one topic. If there are two or more sub-topics, the next level head (uppercase Roman numerals) should be used and, conversely, if there are not at least two sub-topics, then no subheads should be introduced. Styles named “Heading 1”, “Heading 2”, “Heading 3”, and “Heading 4” are prescribed."
+      },
+      {
+        "source_id": "39fe29c5734c63a62153",
+        "part": "word/document.xml",
+        "path": "body/p[73]",
+        "excerpt": "Positioning Figures and Tables: Place figures and tables at the top and bottom of columns. Avoid placing them in the middle of columns. Large figures and tables may span across both columns. Figure captions should be below the figures; table heads should appear above the tables. Insert figures and tables after they are cited in the text. Use the abbreviation “Fig. 1”, even at the beginning of a sentence."
+      },
+      {
+        "source_id": "6ca338b1f3d82475d2ac",
+        "part": "word/document.xml",
+        "path": "body/p[77]",
+        "excerpt": "Figure Labels: Use 8 point Times New Roman for Figure labels. Use words rather than symbols or abbreviations when writing Figure axis labels to avoid confusing the reader. As an example, write the quantity “Magnetization”, or “Magnetization, M”, not just “M”. If including units in the label, present them within parentheses. Do not label axes only with units. In the example, write “Magnetization (A/m)” or “Magnetization {A[m(1)]}”, not just “A/m”. Do not label axes with a ratio of quantities and units. For example, write “Temperature (K)”, not “Temperature/K”."
+      },
+      {
+        "source_id": "75e5bf38c90ce8a642e5",
+        "part": "word/document.xml",
+        "path": "body/p[83]",
+        "excerpt": "Unless there are six authors or more give all authors’ names; do not use “et al.”. Papers that have not been published, even if they have been submitted for publication, should be cited as “unpublished” [4]. Papers that have been accepted for publication should be cited as “in press” [5]. Capitalize only the first word in a paper title, except for proper nouns and element symbols."
+      },
+      {
+        "source_id": "2bd664b859c6c8987be3",
+        "part": "word/document.xml",
+        "path": "body/p[89]",
+        "excerpt": "K. Elissa, “Title of paper if known,” unpublished."
+      },
+      {
+        "source_id": "observed-body",
+        "part": "word/document.xml",
+        "path": "body",
+        "excerpt": "Dominant formatting sampled by the legacy body heuristic; may include sample or guideline text."
+      },
+      {
+        "source_id": "observed-section-0",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[3]/w:pPr/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "observed-section-1",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[4]/w:pPr/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "observed-section-2",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[6]/w:pPr/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "observed-section-3",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[17]/w:pPr/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "observed-section-4",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[19]/w:pPr/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "observed-section-5",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[98]/w:pPr/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "observed-section-6",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:sectPr",
+        "excerpt": "Stored Word section properties; no claim that these match the written requirements."
+      },
+      {
+        "source_id": "reviewed-ieee-body-style",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[23]",
+        "excerpt": "This template, modified in MS Word 2007 and saved as a “Word 97-2003 Document” for the PC, provides authors with most of the formatting specifications needed for preparing electronic versions of their papers. All standard paper components have been specified for three reasons: (1) ease of use when formatting individual papers, (2) automatic compliance to electronic requirements that facilitate the concurrent or later production of electronic products, and (3) conformity of style throughout a conference proceedings. Margins, column widths, line spacing, and type styles are built-in; examples of the type styles are provided throughout this document and are identified in italic type, within parentheses, following the example. Some components, such as multi-leveled equations, graphics, and tables are not prescribed, although the various table text styles are provided. The formatter will need to create these components, incorporating the applicable criteria that follow."
+      },
+      {
+        "source_id": "reviewed-ieee-body-columns",
+        "part": "word/document.xml",
+        "path": "/w:document/w:body/w:p[98]/w:pPr/w:sectPr/w:cols",
+        "excerpt": "The sampled main-text section stores w:cols w:num=\"2\". Author blocks, full-width figures and tables are exceptions; this is a reviewed body-layout baseline."
+      }
+    ],
+    "requirement_ledger": [
+      {
+        "evidence_id": "a269a4a60fd5b96df328",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "ba273a2dbd785c6baf5c",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "c38ce7717a187f9325df",
+        "status": "CANDIDATES_NEED_REVIEW",
+        "candidate_ids": [
+          "candidate-1480a7490c27304d438c"
+        ]
+      },
+      {
+        "evidence_id": "ceabe3b77c32bc88135a",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "4086f0ca7f2dc6f99e78",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "699a1c94287483cb13ac",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "4d0abe509e8813ba1f4b",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "6302b9fa2af6ce51f132",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "76063c704afad79faa39",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "67d006d4f22e341e1c59",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "e36ebc3843e2c10486cc",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "89a8c23e33a7cead238d",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "780ef74a8eb6cc2fa5ad",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "76ecf70a8e6fad8f9d4a",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "39fe29c5734c63a62153",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "6ca338b1f3d82475d2ac",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "75e5bf38c90ce8a642e5",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      },
+      {
+        "evidence_id": "2bd664b859c6c8987be3",
+        "status": "UNCLASSIFIED",
+        "candidate_ids": []
+      }
+    ],
+    "notices": [
+      "Extraction preview only: candidates are not approved. Publish a reviewed revision before checking; consult live capabilities for supported page settings, Body Text and outline-chapter checks.",
+      "English patterns cover a limited property set. The requirement ledger is an extraction aid, not proof of complete template coverage.",
+      "Candidate-bearing paragraphs can contain additional unsupported requirements. Review the full source excerpt.",
+      "Table topics are suggestions, not mandatory sections or aliases. Select and review report/synopsis profiles separately.",
+      "Curated IEEE conference US Letter baseline. Not an IEEE-endorsed validator, venue-specific rulebook, or PDF eXpress certification. The source itself has section-specific margin variants; they remain manual."
+    ],
+    "publication_ready": false
+  },
+  "candidate_decisions": [
+    {
+      "candidate_id": "candidate-1480a7490c27304d438c",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-b7acada65f427fd949f8",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-b056c39ace45495cf9b5",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-5fe727095ec2c7d1cf58",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-9d30f8258ef087d97cfb",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-6d6eb602c6b1d0a6c140",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-51a8def3e9170f074679",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-901b47aa16287cac2ed5",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-bbd484265e93c18fea68",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-66155573394eaaeeeb16",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-73b55ab85364c0162a9b",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-4bf6c766d39b8f9f00fa",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-31bf358c40c78b8a9fea",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-06dd874a9fa079fcb547",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-a499cccf6e27100b8837",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-cd2a6a8f209d879a5e6d",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-919d188c673d9c7feaf2",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-149f63138385df17fc82",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-0b26e065ad03dc1b34e3",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-6af69625dab5c545eeb4",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-ebc441bce7b9fce5aab9",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-6635d9f5ef52269a9b2d",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-141a3fbb150396d701b9",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-52cda184c22d06747482",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-057789b69d0047753723",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-63bd06b49fe45f756e62",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-825b52ece48793df034b",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-c352230ddc4f8828bbc0",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-f774f251076686c72049",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-ee2d0751b42cc2a11b3a",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-ec5c047b9ce67031acc0",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-38094e0abb7c979709d9",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-3bbd6df4e74324622f83",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-ee8aafe9724ec5ded0d7",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-8c76d4814cd4ec20b468",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    },
+    {
+      "candidate_id": "candidate-68de66cfec7b82cba39c",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-f1b8aefb13f6cdd05573",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-3284f36b6cda6fbf3381",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "candidate-62dc835281c7f14cacd6",
+      "action": "REJECT",
+      "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+    },
+    {
+      "candidate_id": "reviewed-ieee-body-columns",
+      "action": "APPROVE",
+      "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+    }
+  ],
+  "ledger_decisions": [
+    {
+      "evidence_id": "a269a4a60fd5b96df328",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "ba273a2dbd785c6baf5c",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "c38ce7717a187f9325df",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "ceabe3b77c32bc88135a",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "4086f0ca7f2dc6f99e78",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "699a1c94287483cb13ac",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "4d0abe509e8813ba1f4b",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "6302b9fa2af6ce51f132",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "76063c704afad79faa39",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "67d006d4f22e341e1c59",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "e36ebc3843e2c10486cc",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "89a8c23e33a7cead238d",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "780ef74a8eb6cc2fa5ad",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "76ecf70a8e6fad8f9d4a",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "39fe29c5734c63a62153",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "6ca338b1f3d82475d2ac",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "75e5bf38c90ce8a642e5",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    },
+    {
+      "evidence_id": "2bd664b859c6c8987be3",
+      "action": "MANUAL",
+      "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+    }
+  ],
+  "profile_review": null,
+  "audit": [
+    {
+      "version": 0,
+      "timestamp": "2026-10-26T14:53:27.485583+00:00",
+      "action": "CREATE",
+      "patch": null
+    },
+    {
+      "version": 1,
+      "timestamp": "2026-10-26T14:53:27.486582+00:00",
+      "action": "REVIEW",
+      "patch": {
+        "expected_version": 0,
+        "candidates": [
+          {
+            "candidate_id": "candidate-1480a7490c27304d438c",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-b7acada65f427fd949f8",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-b056c39ace45495cf9b5",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-5fe727095ec2c7d1cf58",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-9d30f8258ef087d97cfb",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-6d6eb602c6b1d0a6c140",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-51a8def3e9170f074679",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-901b47aa16287cac2ed5",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-bbd484265e93c18fea68",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-66155573394eaaeeeb16",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-73b55ab85364c0162a9b",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-4bf6c766d39b8f9f00fa",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-31bf358c40c78b8a9fea",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-06dd874a9fa079fcb547",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-a499cccf6e27100b8837",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-cd2a6a8f209d879a5e6d",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-919d188c673d9c7feaf2",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-149f63138385df17fc82",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-0b26e065ad03dc1b34e3",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-6af69625dab5c545eeb4",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-ebc441bce7b9fce5aab9",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-6635d9f5ef52269a9b2d",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-141a3fbb150396d701b9",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-52cda184c22d06747482",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-057789b69d0047753723",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-63bd06b49fe45f756e62",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-825b52ece48793df034b",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-c352230ddc4f8828bbc0",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-f774f251076686c72049",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-ee2d0751b42cc2a11b3a",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-ec5c047b9ce67031acc0",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-38094e0abb7c979709d9",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-3bbd6df4e74324622f83",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-ee8aafe9724ec5ded0d7",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-8c76d4814cd4ec20b468",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          },
+          {
+            "candidate_id": "candidate-68de66cfec7b82cba39c",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-f1b8aefb13f6cdd05573",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-3284f36b6cda6fbf3381",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "candidate-62dc835281c7f14cacd6",
+            "action": "REJECT",
+            "reason": "Do not promote the legacy 8 pt figure-label/spacing sample or section-specific margins to a global body requirement. Check source instructions manually."
+          },
+          {
+            "candidate_id": "reviewed-ieee-body-columns",
+            "action": "APPROVE",
+            "reason": "Reviewed against the IEEE Letter template and its main-text style; enforce only in the supported scope."
+          }
+        ],
+        "ledger": [
+          {
+            "evidence_id": "a269a4a60fd5b96df328",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "ba273a2dbd785c6baf5c",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "c38ce7717a187f9325df",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "ceabe3b77c32bc88135a",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "4086f0ca7f2dc6f99e78",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "699a1c94287483cb13ac",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "4d0abe509e8813ba1f4b",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "6302b9fa2af6ce51f132",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "76063c704afad79faa39",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "67d006d4f22e341e1c59",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "e36ebc3843e2c10486cc",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "89a8c23e33a7cead238d",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "780ef74a8eb6cc2fa5ad",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "76ecf70a8e6fad8f9d4a",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "39fe29c5734c63a62153",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "6ca338b1f3d82475d2ac",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "75e5bf38c90ce8a642e5",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          },
+          {
+            "evidence_id": "2bd664b859c6c8987be3",
+            "action": "MANUAL",
+            "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+          }
+        ],
+        "profile": null
+      }
+    },
+    {
+      "version": 2,
+      "timestamp": "2026-10-26T14:53:27.487582+00:00",
+      "action": "PUBLISH",
+      "patch": null
+    }
+  ],
+  "publication": {
+    "compiler_version": "0.5.0",
+    "rules": [
+      {
+        "rule_id": "rule-80cf766106c19af379b9",
+        "candidate_ids": [
+          "candidate-1480a7490c27304d438c",
+          "candidate-9d30f8258ef087d97cfb",
+          "candidate-66155573394eaaeeeb16",
+          "candidate-a499cccf6e27100b8837",
+          "candidate-6af69625dab5c545eeb4",
+          "candidate-057789b69d0047753723",
+          "candidate-ee2d0751b42cc2a11b3a",
+          "candidate-8c76d4814cd4ec20b468"
+        ],
+        "evidence_ids": [
+          "c38ce7717a187f9325df",
+          "observed-section-0",
+          "observed-section-1",
+          "observed-section-2",
+          "observed-section-3",
+          "observed-section-4",
+          "observed-section-5",
+          "observed-section-6"
+        ],
+        "scope": "document",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "page_size",
+          "width_pt": 612.0,
+          "height_pt": 792.0
+        },
+        "readiness": "PROPERTY_CONTRACT"
+      },
+      {
+        "rule_id": "rule-544a3e50ed79130eed3b",
+        "candidate_ids": [
+          "candidate-b7acada65f427fd949f8"
+        ],
+        "evidence_ids": [
+          "observed-body"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "font_family",
+          "font": "Times New Roman"
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      },
+      {
+        "rule_id": "rule-5d59c8e5a39948973d6a",
+        "candidate_ids": [
+          "reviewed-ieee-body-columns"
+        ],
+        "evidence_ids": [
+          "reviewed-ieee-body-columns"
+        ],
+        "scope": "body",
+        "condition": "ALWAYS",
+        "value": {
+          "kind": "body_columns",
+          "count": 2
+        },
+        "readiness": "PENDING_BODY_SCOPE"
+      }
+    ],
+    "profile": null,
+    "deferred_candidate_ids": [],
+    "requirement_dispositions": [
+      {
+        "evidence_id": "a269a4a60fd5b96df328",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "ba273a2dbd785c6baf5c",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "c38ce7717a187f9325df",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "ceabe3b77c32bc88135a",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "4086f0ca7f2dc6f99e78",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "699a1c94287483cb13ac",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "4d0abe509e8813ba1f4b",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "6302b9fa2af6ce51f132",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "76063c704afad79faa39",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "67d006d4f22e341e1c59",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "e36ebc3843e2c10486cc",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "89a8c23e33a7cead238d",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "780ef74a8eb6cc2fa5ad",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "76ecf70a8e6fad8f9d4a",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "39fe29c5734c63a62153",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "6ca338b1f3d82475d2ac",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "75e5bf38c90ce8a642e5",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      },
+      {
+        "evidence_id": "2bd664b859c6c8987be3",
+        "action": "MANUAL",
+        "reason": "Review this IEEE instruction manually. Page size and the sampled body style/layout cover only part of the template; author layout, margins, captions, references and language instructions are not fully checked."
+      }
+    ],
+    "limitations": [
+      "This is a reviewed specification snapshot, not a compliance result. V2 supports page settings, scoped Body Text, normalized chapter headings, and reviewed chapter/abstract properties; consult live capabilities.",
+      "PROPERTY_CONTRACT indicates compiled values only, not a completed validator or verified physical geometry.",
+      "No-header top margins override the approved general top margin only when inherited active header content can be resolved. Other conditional scopes remain unsupported.",
+      "Extracted requirement coverage is incomplete. Acknowledging partial evidence does not approve every instruction in that source paragraph.",
+      "Chapter matching normalizes case, whitespace, trailing punctuation, numbered chapter prefixes and acknowledgement spelling variants. Semantic equivalence, generated numbering and chapter subtopics remain unsupported."
+    ],
+    "report_checking_available": true
+  },
+  "snapshot_sha256": "50a7b1a79c4fe39233aa34f8a35e22b247c8e04297c01b627913223eb43e9738"
+}
