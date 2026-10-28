@@ -19,7 +19,7 @@ fs.mkdirSync(out,{recursive:true});
  async function upload(file){
   const ready=page.waitForResponse(r=>r.url().endsWith('/api/v2/templates/prepare')&&r.request().method()==='POST');
   const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Add format document',exact:true}).click();
-  await(await chooser).setFiles(file);const response=await ready;assert(response.ok(),await response.text());
+  await(await chooser).setFiles(file);const response=await ready;if(!response.ok())throw Error(await response.text());
   const data=await response.json();await page.getByText('Your format is ready',{exact:true}).waitFor();
   assert.equal(await page.getByRole('textbox',{name:'Reason',exact:true}).count(),0);
   assert.equal(await page.getByText('Save and publish',{exact:true}).count(),0);
@@ -36,9 +36,10 @@ fs.mkdirSync(out,{recursive:true});
   await page.getByRole('button',{name:'Check a report',exact:true}).click();
   const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Choose report',exact:true}).click();
   await(await chooser).setFiles(file);await page.waitForTimeout(350);
-  const checked=page.waitForResponse(r=>r.url().endsWith('/check')&&r.request().method()==='POST');
-  await page.getByRole('button',{name:'Check report',exact:true}).click();const response=await checked;
-  assert(response.ok(),await response.text());return response.json();
+  const checked=page.waitForResponse(r=>r.url().endsWith('/check')&&r.request().method()==='POST').then(async response=>{
+    if(!response.ok())throw Error(await response.text());return response.json();
+  });
+  await page.getByRole('button',{name:'Check report',exact:true}).click();return checked;
  }
  try{
   await home();const known=await upload(path.join(__dirname,'..','app','builtins','ieee-conference-letter.docx'));

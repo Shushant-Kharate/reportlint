@@ -237,6 +237,16 @@ def test_paper_question_supplies_context_for_short_answer(client):
     assert rules(response.json(),'page_size')[0]['value']['width_pt']==pytest.approx(210*72/25.4)
 
 
+@pytest.mark.parametrize('line,expected',[('Body text must use line spacing of 12 pt.',None),
+    ('Body text must use 12 pt with line spacing of 2 pt.',12),
+    ('Body text must use line spacing of 14 pt and font size 12 pt.',12)])
+def test_fixed_point_spacing_is_not_font_size_or_a_line_multiplier(client,line,expected):
+    result=upload(client,[line])
+    assert [r['value']['expected_pt'] for r in rules(result,'font_size')]==([] if expected is None else [expected])
+    assert not rules(result,'line_spacing_multiple')
+    assert result['questions']
+
+
 @pytest.mark.parametrize('text,kind',[('Body text should be double-spaced.','line_spacing_multiple'),
     ('No page numbers.','paper_no_page_numbers'),('Main headings must use uppercase Roman numerals.','paper_heading_numbering'),
     ('Abstract text must use 9 pt.','paper_abstract_size'),('Paper title must use 24 pt.','paper_title_size')])

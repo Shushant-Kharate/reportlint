@@ -38,6 +38,7 @@ class Parsed:
     ambiguity: str | None = None
     remaining: str = ''
     ignore_instruction: bool = False
+    point_sizes_not_fonts: set[float] = field(default_factory=set)
 
 
 def interpret(text):
@@ -54,6 +55,10 @@ def interpret(text):
         result.ambiguity = 'This instruction contains an alternative, condition, range or tolerance that needs clarification.'
         return result
     remaining = list(text)
+    fixed_spacing=list(re.finditer(rf'\b(?:line spacing|paragraph spacing|space before(?: paragraphs)?|space after(?: paragraphs)?|indent(?:ation)?)\s*(?:(?:shall|must|should)\s+be|of|is|to|:)?\s*({NUMBER})\s*(?:pt|pts|points?)\b',text,re.I))
+    result.point_sizes_not_fonts={float(m[1]) for m in fixed_spacing}
+    def fixed_property(match):
+        return any(match.start()<s.end() and match.end()>s.start() for s in fixed_spacing)
     def consume(match):
         for i in range(match.start(), match.end()): remaining[i] = ' '
     def add(scope, value, match):
@@ -105,11 +110,13 @@ def interpret(text):
             canonical=next(n for n in FONTS.split('|') if n.casefold()==m[1].casefold())
             add('body',FontValue(font=canonical),m)
         for m in re.finditer(rf'\b({NUMBER})\s*[- ]?\s*(?:pt|pts|points?)\b',text,re.I):
+            if fixed_property(m):continue
             if any(start <= m.start() < end for start,end in margin_spans):continue
             if 1 <= float(m[1]) <= 96:add('body',SizeValue(expected_pt=float(m[1])),m)
         for m in re.finditer(rf'\b(?:font\s*)?size\s*(?:(?:shall|must|should)\s+be|of|is|to|:)?\s*({NUMBER})\b',text,re.I):
             if 1 <= float(m[1]) <= 96:add('body',SizeValue(expected_pt=float(m[1])),m)
         for m in re.finditer(rf'\b({NUMBER})\s*(?:x\s*)?line spacing\b|\bline spacing\s*(?:(?:shall|must|should)\s+be|:|of|is|to)?\s*({NUMBER})\b|\b(single|double)[- ](?:spaced|spacing)\b',text,re.I):
+            if fixed_property(m):continue
             multiplier=float(m[1] or m[2]) if m[1] or m[2] else 1. if m[3].lower()=='single' else 2.
             if .5 <= multiplier <= 4:add('body',SpacingValue(multiplier=multiplier),m)
         for m in re.finditer(r'\b(one|two|three|[123])[- ]columns?\b',text,re.I):
@@ -118,6 +125,7 @@ def interpret(text):
         for m in re.finditer(r'\bjustified\b|\bjustify\b',text,re.I):add('document',PaperFormatValue(kind='paper_body_alignment'),m)
     elif role in {'abstract','reference','title','heading'}:
         for m in re.finditer(rf'\b({NUMBER})\s*[- ]?\s*(?:pt|pts|points?)\b',text,re.I):
+            if fixed_property(m):continue
             if 1 <= float(m[1]) <= 96:
                 kind={'abstract':'paper_abstract_size','reference':'paper_reference_size','title':'paper_title_size','heading':'paper_heading_size'}[role]
                 add('document',PaperFormatValue(kind=kind,expected_pt=float(m[1])),m)

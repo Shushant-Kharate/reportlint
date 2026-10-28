@@ -66,8 +66,12 @@ def prepare_draft(revision, expected_version):
     instruction_ids={d.evidence_id for d in revision.analysis.requirement_ledger} | {sid for c in revision.analysis.candidates if c.origin=='EXPLICIT_PROSE' for sid in c.evidence_ids}
     sources={sid:interpret(s.excerpt) for sid,s in evidence.items() if sid in instruction_ids and s.part!='word/styles.xml' and not sid.startswith('automatic-')}
     groups=defaultdict(list)
+    def misclassified_size(candidate):
+        if candidate.value.kind!='font_size':return False
+        return any(sources.get(sid) and candidate.value.expected_pt in sources[sid].point_sizes_not_fonts and
+            not any(v.kind=='font_size' and v.expected_pt==candidate.value.expected_pt for _,v in sources[sid].values) for sid in candidate.evidence_ids)
     for c in revision.analysis.candidates:
-        if c.origin=='EXPLICIT_PROSE' and c.condition=='ALWAYS' and not any(sources.get(sid) and sources[sid].ambiguity for sid in c.evidence_ids):
+        if c.origin=='EXPLICIT_PROSE' and not misclassified_size(c) and c.condition=='ALWAYS' and not any(sources.get(sid) and sources[sid].ambiguity for sid in c.evidence_ids):
             groups[property_key(c)].append(c)
     explicit_keys={property_key(c) for c in revision.analysis.candidates if c.origin=='EXPLICIT_PROSE'}
     from app.analysis.template_baseline import BASELINE
@@ -83,8 +87,9 @@ def prepare_draft(revision, expected_version):
     for c in revision.analysis.candidates:
         explicit=c.origin=='EXPLICIT_PROSE' or c.candidate_id in baselines
         ambiguous=c.candidate_id in conflicting or c.condition!='ALWAYS' or any(sources.get(sid) and sources[sid].ambiguity for sid in c.evidence_ids)
-        action='REJECT' if not explicit else 'DEFER' if ambiguous else 'APPROVE'
-        reason=('Automatically applied a consistent named-role/section example baseline; explicit prose takes priority.' if c.candidate_id in baselines and action=='APPROVE' else
+        action='REJECT' if not explicit or misclassified_size(c) else 'DEFER' if ambiguous else 'APPROVE'
+        reason=('Fixed-point paragraph/line spacing is not a font-size instruction. This proposal was rejected and the unsupported spacing remains visible.' if misclassified_size(c) else
+                'Automatically applied a consistent named-role/section example baseline; explicit prose takes priority.' if c.candidate_id in baselines and action=='APPROVE' else
                 'Automatically applied the explicit, unconflicted instruction; source evidence is retained.' if action=='APPROVE' else
                 'Needs explanation: conflicting values, conditional applicability or ambiguous wording.' if action=='DEFER' else
                 'Sample appearance is not treated as a written requirement; dominant caption/guidance formatting may be misleading.')
