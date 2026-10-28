@@ -8,8 +8,34 @@ fs.mkdirSync(out,{recursive:true});
 (async()=>{
  const browser=await chromium.launch();const page=await browser.newPage({viewport:{width:1280,height:960}});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ // Chromium can evict XHR response bodies when Flutter changes screens. Buffer
+ // real POST responses before forwarding them unchanged; no API is mocked.
+ const captured=new Map();
+ await page.route('**/api/v2/**',async route=>{
+  if(route.request().method()!=='POST'){await route.continue();return;}
+  const response=await route.fetch();const body=await response.body();
+  const key=route.request().url();const queue=captured.get(key)||[];
+  queue.push(body);captured.set(key,queue);
+  await route.fulfill({response,body});
+ });
+ async function read(response){
+  const queue=captured.get(response.url());
+  if(queue?.length)return JSON.parse(queue.shift().toString('utf8'));
+  return response.json();
+ }
  const receipt={};
  async function home(){
+  // Exercise the app's Back navigation instead of repeatedly destroying the
+  // Flutter renderer and its in-flight network resources with full reloads.
+  if(page.url().startsWith(base)){
+   for(let i=0;i<6;i++){
+    const add=page.getByRole('button',{name:'Add format document',exact:true});
+    if(await add.count()){await page.waitForLoadState('networkidle');return;}
+    const back=page.getByRole('button',{name:'Back',exact:true});
+    if(!await back.count())break;
+    await back.click();await page.waitForTimeout(300);
+   }
+  }
   const loaded=page.waitForResponse(r=>r.url()===base+'/api/v2/templates'&&r.request().method()==='GET');
   await page.goto(base+'/app/');await loaded;
   const semantics=page.locator('flt-semantics-placeholder');
@@ -20,7 +46,7 @@ fs.mkdirSync(out,{recursive:true});
   const ready=page.waitForResponse(r=>r.url().endsWith('/api/v2/templates/prepare')&&r.request().method()==='POST');
   const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Add format document',exact:true}).click();
   await(await chooser).setFiles(file);const response=await ready;if(!response.ok())throw Error(await response.text());
-  const data=await response.json();await page.getByText('Your format is ready',{exact:true}).waitFor();
+  const data=await read(response);await page.getByText('Your format is ready',{exact:true}).waitFor();
   assert.equal(await page.getByRole('textbox',{name:'Reason',exact:true}).count(),0);
   assert.equal(await page.getByText('Save and publish',{exact:true}).count(),0);
   return data;
@@ -37,7 +63,7 @@ fs.mkdirSync(out,{recursive:true});
   const chooser=page.waitForEvent('filechooser');await page.getByRole('button',{name:'Choose report',exact:true}).click();
   await(await chooser).setFiles(file);await page.waitForTimeout(350);
   const checked=page.waitForResponse(r=>r.url().endsWith('/check')&&r.request().method()==='POST').then(async response=>{
-    if(!response.ok())throw Error(await response.text());return response.json();
+    const data=await read(response);if(!response.ok())throw Error(JSON.stringify(data));return data;
   });
   await page.getByRole('button',{name:'Check report',exact:true}).click();return checked;
  }
@@ -60,7 +86,7 @@ fs.mkdirSync(out,{recursive:true});
    await input.click();await page.keyboard.press('ControlOrMeta+A');await input.pressSequentially(text,{delay:4});await page.keyboard.press('Tab');
    const response=page.waitForResponse(r=>r.url().endsWith('/clarify')&&r.request().method()==='POST');
    const apply=page.getByRole('button',{name:'Apply explanation',exact:true}).first();await reveal(apply);await apply.click();
-   const r=await response;return {status:r.status(),data:await r.json()};
+   const r=await response;return {status:r.status(),data:await read(r)};
   }
   const rejected=await explain('Make it look professional.');assert.equal(rejected.status,422);
   assert.equal(await input.inputValue(),'Make it look professional.');
