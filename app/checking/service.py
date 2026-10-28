@@ -56,7 +56,7 @@ def check_package(revision, package, report_hash, role_review=None):
     items = []
     paragraphs, registry, uncertain = inventory(package)
     review_hash = apply_roles(revision, paragraphs, report_hash, role_review)
-    paper_mode = any(r.value.kind == 'paper_abstract_size' for r in revision.publication.rules)
+    paper_mode = any(r.value.kind == 'paper_abstract_size' for r in revision.publication.rules) or any(n.startswith('AUTOMATIC_PREPARATION_V1:') for n in revision.analysis.notices)
     body_paragraphs = paper_body_paragraphs(paragraphs) if paper_mode else paragraphs
     if role_review:
         for decision in role_review.decisions:
@@ -127,11 +127,13 @@ def check_package(revision, package, report_hash, role_review=None):
     for candidate_id in revision.publication.deferred_candidate_ids:
         items.append(CheckItem(item_id="deferred:" + candidate_id, evidence_ids=candidates[candidate_id].evidence_ids, status="NOT_CHECKED", code="DEFERRED_CANDIDATE", message="The reviewer deferred this candidate; it was not executed."))
     for disposition in revision.publication.requirement_dispositions:
+        if disposition.action == 'COVERED':
+            continue  # The source instruction is represented by executable rules.
         items.append(CheckItem(item_id="ledger:" + disposition.evidence_id, evidence_ids=[disposition.evidence_id], status="OUT_OF_SCOPE" if disposition.action == "OUT_OF_SCOPE" else "NOT_CHECKED", code="REQUIREMENT_" + disposition.action, message=disposition.reason))
     counts = {status: 0 for status in ("PASS", "FAIL", "NOT_CHECKED", "OUT_OF_SCOPE")}
     counts.update(Counter(item.status for item in items))
     outcome = "FAIL" if counts["FAIL"] else "INDETERMINATE" if counts["NOT_CHECKED"] or not counts["PASS"] else "PASS_SUPPORTED_CHECKS"
-    return RevisionCheck(checker_version="0.7.0", template_id=revision.template_id, revision_id=revision.revision_id,
+    return RevisionCheck(checker_version="0.8.0", template_id=revision.template_id, revision_id=revision.revision_id,
                          snapshot_sha256=revision.snapshot_sha256, report_sha256=report_hash,
                          role_review_sha256=review_hash, role_decisions=[d.model_dump() for d in role_review.decisions] if role_review else [],
                          outcome=outcome, counts=counts, items=items, limitations=[

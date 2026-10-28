@@ -98,6 +98,23 @@ def publication_blockers(revision):
         blockers.append({"code": "PROFILE_REVIEW_REQUIRED"})
     approved = [c for c in revision.analysis.candidates
                 if c.candidate_id in decisions and decisions[c.candidate_id].action == "APPROVE"]
+    # COVERED is a verifiable assertion, not a way to hide unsupported prose.
+    from app.analysis.plain_language import interpret
+    evidence = {e.source_id:e for e in revision.analysis.evidence}
+    approved_ids = {c.candidate_id for c in approved}
+    selected = next((p for p in revision.analysis.profiles if revision.profile_review and p.profile_id == revision.profile_review.profile_id), None)
+    chapter_sources = {sid for c in selected.chapters for sid in c.evidence_ids} if selected else set()
+    def covered(sid, seen=None):
+        seen = set() if seen is None else seen
+        if sid in seen or len(seen)>10 or sid not in evidence:return False
+        seen = seen | {sid}
+        source = evidence[sid]
+        referenced = [c.candidate_id for c in revision.analysis.candidates if sid in c.evidence_ids]
+        if interpret(source.excerpt).complete and ((referenced and set(referenced)<=approved_ids) or sid in chapter_sources):return True
+        return any(e.part=='user-clarification' and e.path=='clarifications/'+sid and covered(e.source_id,seen) for e in revision.analysis.evidence)
+    for decision in revision.ledger_decisions:
+        if decision.action=='COVERED' and not covered(decision.evidence_id):
+            blockers.append({'code':'UNPROVEN_COVERAGE','id':decision.evidence_id})
     # Check actual approved assertions as well as the extracted conflict list.
     for index, left in enumerate(approved):
         for right in approved[index + 1:]:
@@ -135,7 +152,7 @@ def compile_publication(revision):
             readiness=readiness,
         ))
     return Publication(
-        compiler_version="0.5.0", report_checking_available=True,
+        compiler_version="0.6.0" if any(n.startswith('AUTOMATIC_PREPARATION_V1:') for n in revision.analysis.notices) or any(d.action=='COVERED' for d in revision.ledger_decisions) else "0.5.0", report_checking_available=True,
         rules=rules, profile=revision.profile_review,
         deferred_candidate_ids=[d.candidate_id for d in revision.candidate_decisions if d.action == "DEFER"],
         requirement_dispositions=revision.ledger_decisions,

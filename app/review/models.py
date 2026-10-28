@@ -13,7 +13,7 @@ class CandidateDecision(AnalysisModel):
 
 class LedgerDecision(AnalysisModel):
     evidence_id: str
-    action: Literal["ACKNOWLEDGED_PARTIAL", "DEFERRED", "MANUAL", "OUT_OF_SCOPE"]
+    action: Literal["ACKNOWLEDGED_PARTIAL", "DEFERRED", "MANUAL", "OUT_OF_SCOPE", "COVERED"]
     reason: str = Field(min_length=5, max_length=2000)
 
 
@@ -58,7 +58,7 @@ class CompiledRule(AnalysisModel):
 
 
 class Publication(AnalysisModel):
-    compiler_version: Literal["0.1.0", "0.2.0", "0.3.0", "0.4.0", "0.5.0"] = "0.1.0"
+    compiler_version: Literal["0.1.0", "0.2.0", "0.3.0", "0.4.0", "0.5.0", "0.6.0"] = "0.1.0"
     rules: list[CompiledRule]
     profile: ProfileReview | None = None
     deferred_candidate_ids: list[str]

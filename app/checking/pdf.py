@@ -97,6 +97,8 @@ def check_pdf(revision, data):
                 items.append(CheckItem(item_id=f"pdf:no-prose:{index+1}",page_number=index+1,status="NOT_CHECKED",
                     code="PDF_TEXT_OR_PROSE_UNAVAILABLE",message="No reliable long-prose sample was found. This may be a scanned or mostly illustrated page; OCR is not run."))
         for disposition in revision.publication.requirement_dispositions:
+            if disposition.action == 'COVERED':
+                continue
             items.append(CheckItem(item_id="pdf:ledger:"+disposition.evidence_id,evidence_ids=[disposition.evidence_id],
                 status="OUT_OF_SCOPE" if disposition.action == "OUT_OF_SCOPE" else "NOT_CHECKED",
                 code="REQUIREMENT_"+disposition.action,message=disposition.reason))

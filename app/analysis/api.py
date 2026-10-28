@@ -15,6 +15,9 @@ def capabilities():
     return {
         "schema_version": 2,
         "template_analysis": "EXPERIMENTAL_PREVIEW",
+        "automatic_preparation": {"endpoint": "/api/v2/templates/prepare", "known_source_reuse": True,
+            "plain_language_clarifications": True, "learned_language_model": False,
+            "unknown_requirements": "VISIBLE_QUESTIONS_AND_NOT_CHECKED_RESULTS"},
         "accepted_inputs": ["docx"],
         "accepted_report_inputs": ["docx", "pdf"],
         "docx_body_columns": "STORED_SECTION_COUNTS_SCOPED_TO_SUBSTANTIVE_BODY_PROSE",

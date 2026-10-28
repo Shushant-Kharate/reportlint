@@ -587,6 +587,7 @@ class _ReviewScreenState extends State<ReviewScreen> with AsyncPage {
                       d['action'],
                       const {
                         '': 'Choose',
+                        'COVERED': 'Represented by executable rules',
                         'ACKNOWLEDGED_PARTIAL':
                             'Partly checked by approved rules',
                         'DEFERRED': 'Defer',

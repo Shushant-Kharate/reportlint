@@ -10,7 +10,7 @@ class AnalysisModel(BaseModel):
 
 class SourceEvidence(AnalysisModel):
     source_id: str
-    part: Literal["word/document.xml", "word/styles.xml", "external-guideline"] = "word/document.xml"
+    part: Literal["word/document.xml", "word/styles.xml", "external-guideline", "user-clarification"] = "word/document.xml"
     path: str
     excerpt: str
 

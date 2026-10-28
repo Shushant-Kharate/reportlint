@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api.dart';
 import 'widgets.dart';
-import 'review.dart';
 import 'checking.dart';
 import 'simple.dart';
+import 'automatic.dart';
 
 void main() => runApp(const ReportLintApp());
 
@@ -192,10 +192,21 @@ class _HomeScreenState extends State<HomeScreen> with AsyncPage {
       ),
     );
     if (mounted) {
+      final prepared = object(
+        await widget.api.request(
+          r['status'] == 'PUBLISHED' ? 'GET' : 'POST',
+          '${widget.api.revisionPath(r)}/${r['status'] == 'PUBLISHED' ? 'preparation' : 'automate'}',
+          data: r['status'] == 'PUBLISHED'
+              ? null
+              : {'expected_version': r['version']},
+        ),
+      );
+      if (!mounted) return;
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ReviewScreen(api: widget.api, revision: r),
+          builder: (_) =>
+              AutomaticFormatScreen(api: widget.api, preparation: prepared),
         ),
       );
     }
@@ -205,37 +216,14 @@ class _HomeScreenState extends State<HomeScreen> with AsyncPage {
   Future<void> upload() async {
     final file = await pickDoc();
     if (file == null || !mounted) return;
-    final name = TextEditingController(
-      text: file.name.replaceAll(RegExp(r'\.docx$', caseSensitive: false), ''),
+    final text = file.name.replaceAll(
+      RegExp(r'\.docx$', caseSensitive: false),
+      '',
     );
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (c) => AlertDialog(
-        title: const Text('Name this format'),
-        content: TextField(
-          controller: name,
-          maxLength: 120,
-          decoration: const InputDecoration(labelText: 'Format name'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(c, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(c, true),
-            child: const Text('Upload and review'),
-          ),
-        ],
-      ),
-    );
-    final text = name.text;
-    name.dispose();
-    if (confirmed != true) return;
     final r = object(
       await widget.api.request(
         'POST',
-        '/api/v2/templates',
+        '/api/v2/templates/prepare',
         file: file,
         fields: {'name': text},
       ),
@@ -244,7 +232,8 @@ class _HomeScreenState extends State<HomeScreen> with AsyncPage {
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ReviewScreen(api: widget.api, revision: r),
+          builder: (_) =>
+              AutomaticFormatScreen(api: widget.api, preparation: r),
         ),
       );
     }
@@ -311,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with AsyncPage {
           ),
           const SizedBox(height: 12),
           const Text(
-            'Review the format once. Check your report against the published requirements.',
+            'Upload a format and let the app prepare its checking rules. Explain only unclear instructions, then check your report.',
           ),
           ...status,
           const SizedBox(height: 20),

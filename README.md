@@ -92,16 +92,15 @@ On macOS/Linux use `REPORTLINT_CORS_ORIGINS=http://localhost:5173 .venv/bin/pyth
 
 ## Main workflow: complex formats
 
-1. **Formats → Add format document**: select the teacher's DOCX and name it.
-2. Review written and observed proposals, source evidence and conflicts. Explicitly approve, reject or defer each candidate, with a reason.
-3. Choose the report/synopsis chapter profile, requiredness and any aliases. Under **Other instructions**, record how every source span will be handled. Unsupported rules must remain manual/deferred or explicitly out of scope.
-4. **Save draft** for later, or **Save and publish**. Publication blockers stay visible. Published revisions are immutable; use **Create new draft** to change them.
+1. **Formats → Add format document**: select the teacher's DOCX. The filename supplies its name; there is no approval form in this path.
+2. The app prepares supported rules automatically. An identical known format reuses its published rules; a saved private version retains your previous clarifications. Clear written requirements take priority over conflicting sample appearance. Consistent named body styles and section settings can supply explicitly labelled example baselines.
+3. Select **Check a report** immediately when supported rules are ready. Conflicting instructions appear as individual questions. Other unsupported requirements remain visible under **Other requirements not checked automatically**.
+4. For a question, explain what the instruction means in ordinary English, for example `Body text must use Arial at 12 pt with 1.5 line spacing.` A short answer can use the selected instruction's role. Explain every requirement for that instruction because a complete explanation replaces its earlier interpretation. Unsupported explanations retain your text and show an error; they do not become invented rules.
+5. Upload a report DOCX or PDF and inspect issues, matches and unchecked findings. The hosted request limit is 4 MB; local uploads allow 20 MB. PDF checks cover a narrower measured property set.
+6. Optionally **Review paragraph roles** to confirm body/chapter/excluded roles. Changing the report or revision clears those report-specific decisions.
+7. Export the result and specification as JSON. Explanations create immutable new versions; earlier results retain their original specification.
 
-5. **Check report**: choose a published revision and a report DOCX (up to 20 MB).
-6. Optionally **Review paragraph roles**: search paragraph text and explicitly confirm body/chapter/excluded roles. Changing the report or revision clears these decisions. Suggestions are never applied automatically.
-7. Review issues, passes and unchecked findings, including expected/actual values and source evidence. Export the result and reviewed specification as JSON.
-
-Selected review/handling decisions need a reason of at least five characters. Saving shows feedback next to the buttons and an immediate notification. If publication is blocked, the draft is saved and the remaining decisions are listed; it is not silently published.
+**Advanced rule review** retains the original approve/reject/defer workflow for users who need it. Its selected decisions require a reason, but ordinary automatic setup does not. See [automatic preparation and supported language](docs/AUTOMATIC_PREPARATION.md). The English interpreter is deterministic and local: it does not run a trained language model or OCR, and it cannot understand every arbitrary requirement.
 
 Item counts are **not a compliance percentage**. The v2 engine supports stored page settings, conditional no-header top margins, scoped body formatting, chapter recognition and typography, decimal section sizes, abstract length/keywords, inherited footer PAGE settings, native contents entry formatting, separate illustration-list headings and native caption/title associations. Results group repeated findings while retaining every location. Full contents completeness, semantic abstract coverage, image-embedded captions and rendered geometry remain incomplete. See the [latest real-document comparison and limitations](docs/REAL_DOCUMENT_RETEST.md) and [previous improvements](docs/REAL_DOCUMENT_IMPROVEMENTS.md).
 
@@ -111,7 +110,7 @@ Results use plain-language **Required**, **Found**, and **How to fix it** explan
 
 Word field instructions, XML paths, original checker messages and other raw values are available under **Technical details**. **Download results** preserves the original result and reviewed specification as JSON. Display wording does not change the checker verdict or uncertainty.
 
-Format review separates written rules, sample-appearance suggestions, required chapters and other instructions. Open a rule to review it; save/publish controls stay visible while scrolling. No decisions are approved automatically.
+Automatic setup keeps applied rules, clarification questions and unsupported manual requirements distinct. Advanced review additionally exposes the original proposals and their recorded decisions. A source instruction can be marked covered only when its executable representation or explicit replacement can be verified.
 
 ## Three-file demonstration
 
